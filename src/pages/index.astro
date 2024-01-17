@@ -1,0 +1,37 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Main from '../landingpage/Main.astro';
+import Card from '../components/Card.astro';
+---
+
+<Layout title='salvatorelaspata.net'>
+    <Main />
+    <section
+        class='h-screen flex justify-center items-center flex-col text-white bg-gray-600'
+    >
+        <h1 class='text-4xl mb-10'>About</h1>
+        <p class=''>I'm a software engineer based in IT.</p>
+    </section>
+    <section
+        class='h-full flex justify-center items-center flex-col text-white bg-gray-500'
+    >
+        <p class='text-4xl mb-10 mt-10'>Skills</p>
+        <ul class='grid sm:grid-cols-3 grid-cols-1'>
+            {
+                ['JavaScript', 'TypeScript', 'React', 'Node.js', 'GraphQL'].map(
+                    (skill) => <Card title={skill} body={skill} href={skill} />,
+                )
+            }
+        </ul>
+    </section>
+    <section
+        class='h-screen flex justify-center items-center flex-col text-white bg-gray-400'
+    >
+        <p class='text-4xl mb-10'>Side Project</p>
+    </section>
+    <section
+        class='h-screen flex justify-center items-center flex-col text-white bg-gray-300'
+    >
+        <p class='text-4xl mb-10'>Experience</p>
+    </section>
+</Layout>

@@ -1,0 +1,31 @@
+---
+import SocialLinks from '../components/SocialLinks.astro';
+---
+
+<main
+    class='h-screen flex justify-center items-center flex-col text-white bg-gray-700'
+>
+    <p class='text-xl mb-10'>Hi 👋</p>
+    <h1 class='text-4xl font-bold p-3'>
+        <span class='text-xl'>I'm</span>&nbsp;Salvatore La Spata
+    </h1>
+    <div class='absolute top-2 left-2'>
+        <img
+            class='rounded-full opacity-50'
+            width='100'
+            height='auto'
+            src='sticker.webp'
+            alt="Salvatore's sticker"
+        />
+    </div>
+    <h2 class='text-2xl underline p-3'>Full-Stack Software Engineer</h2>
+    <h3 class='text-2xl p-3'>
+        SAP BTP Practice Leader <span class='text-lg text-blue-500'>
+            <a href='https://gotonext.it/'>@ GotoNext S.r.l.</a>
+        </span>
+    </h3>
+    <div class='w-full text-center mt-10'>
+        <h3 class='text-xl mb-5 text-blue-500'>Contact me</h3>
+        <SocialLinks />
+    </div>
+</main>

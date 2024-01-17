@@ -1,0 +1,22 @@
+---
+interface Props {
+    title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang='en'>
+    <head>
+        <meta charset='UTF-8' />
+        <meta name='description' content='Salvatore La Spata website' />
+        <meta name='viewport' content='width=device-width' />
+        <link rel='icon' type='image/png' href='/developer.png' />
+        <meta name='generator' content={Astro.generator} />
+        <title>{title}</title>
+    </head>
+    <body class='w-full font-mono m-0'>
+        <slot />
+    </body>
+</html>
