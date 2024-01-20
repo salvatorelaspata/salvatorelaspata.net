@@ -39,14 +39,32 @@ const { title, subtitle, description, tecnologie, img, github, npm, demo } =
             <p class='text-gray-700 text-base'>{description}</p>
         </div>
         <div class='flex items-center'>
-            <div class='text-sm'>
+            <div class='text-sm w-full'>
                 <p class='text-gray-900 leading-none'>
                     Tecnologie: {tecnologie}
                 </p>
-                <p class='text-gray-600'>
-                    <a href={github || '#'}>github</a>
-                    <a href={npm || '#'}>npm</a>
-                    <a href={demo || '#'}>demo</a>
+                <p class='text-end text-blue-600'>
+                    {
+                        npm && (
+                            <a class='underline mx-1' href={npm || '#'}>
+                                npm
+                            </a>
+                        )
+                    }
+                    {
+                        demo && (
+                            <a class='underline mx-1' href={demo || '#'}>
+                                demo
+                            </a>
+                        )
+                    }
+                    {
+                        github && (
+                            <a class='underline mx-1' href={github || '#'}>
+                                github
+                            </a>
+                        )
+                    }
                 </p>
             </div>
         </div>
