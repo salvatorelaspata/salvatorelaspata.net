@@ -1,12 +1,35 @@
 ---
-import HeaderSection from '../components/HeaderSection.astro';
+import SectionLayout from '../layouts/SectionLayout.astro';
+interface Props {
+    bgColor: string;
+    textColor: string;
+}
+
+const { bgColor, textColor } = Astro.props;
+const year = new Date().getFullYear() - 2016;
 ---
 
-<section
-    class='h-screen flex justify-center items-center flex-col text-white bg-gray-600'
->
-    <!-- <h1 class='text-4xl mb-10'>About</h1> -->
-    <HeaderSection title='About' />
-    <p>I'm a software engineer from Sicily (IT) and based in Rome (IT).</p>
-    <p>I'm current working at GotoNext</p>
-</section>
+<SectionLayout bgColor={bgColor} textColor={textColor} title='About'>
+    <div class='mx-5 flex flex-col justify-center text-center'>
+        <p>
+            Sono uno sviluppatore Full Stack proveniente dalla Sicilia ma ormai
+            trasferito a Roma da circa {year} anni.
+        </p>
+        <!-- <p>Ricopro il ruolo di SAP BTP Practice Leader (SME) in GotoNext SRL</p> -->
+        <p>
+            Ho iniziato la mia carriera come sviluppatore Java, ma negli ultimi
+            anni mi sono focalizzato su tecnologie SAP per lavoro mentre mi
+            diletto in progetti personali con tecnologie come React, NodeJS e
+            TypeScript.
+        </p>
+        <p>
+            Ad oggi ricopro il ruolo di SAP BTP Practice Leader (SME) in
+            GotoNext SRL. Sono Team leader di un team di circa 16 persone e mi
+            occupo di progettazione e sviluppo di architetture SAP BTP e
+            infrastrutture on premise.
+        </p>
+        <div class='flex justify-center'>
+            <img src='sicily.svg' alt='Sicilia' class='w-1/6 my-10' />
+        </div>
+    </div>
+</SectionLayout>

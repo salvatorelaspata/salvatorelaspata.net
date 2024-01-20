@@ -1,9 +1,11 @@
 ---
-
+import SectionLayout from '../layouts/SectionLayout.astro';
+import HeaderSection from '../components/HeaderSection.astro';
+interface Props {
+    bgColor: string;
+    textColor: string;
+}
+const { bgColor, textColor } = Astro.props;
 ---
 
-<section
-    class='h-screen flex justify-center items-center flex-col text-white bg-gray-400'
->
-    <p class='text-4xl mb-10'>Side Project</p>
-</section>
+<SectionLayout bgColor={bgColor} textColor={textColor} title='Side Project' />

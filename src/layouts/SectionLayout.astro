@@ -1,0 +1,30 @@
+---
+import HeaderSection from '../components/HeaderSection.astro';
+
+interface Props {
+    bgColor: string;
+    textColor: string;
+    title?: string;
+    main?: boolean;
+}
+const { bgColor, textColor, title, main = false } = Astro.props;
+---
+
+{
+    main ? (
+        <main
+            class={`h-screen flex justify-center items-center flex-col ${bgColor} ${textColor}`}
+        >
+            <slot />
+        </main>
+    ) : (
+        <section
+            class={`flex justify-center items-center flex-col ${bgColor} ${textColor}`}
+        >
+            <HeaderSection title={title} />
+            <div class='max-w-6xl mx-auto px-5'>
+                <slot />
+            </div>
+        </section>
+    )
+}

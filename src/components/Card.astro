@@ -2,31 +2,29 @@
 interface Props {
     title: string;
     body: string;
-    colorIcon: string;
+    bgColorIcon: string;
+    textColorIcon: string;
 }
 
-const { title, body, colorIcon } = Astro.props;
-const colors = [`bg-${colorIcon}-100`, `text-${colorIcon}-500`];
-
-const _body = body.substring(0, 100) + '...';
+const { title, body, bgColorIcon, textColorIcon } = Astro.props;
 ---
 
-<div class='p-10 md:w-1/3 md:mb-0 mb-6 flex flex-col w-full'>
-    <div class='gray-light'>
-        <div class='rounded bg-gray-800 p-4'>
-            <div
-                class={`w-10 h-10 inline-flex items-center justify-center rounded-full ${colors[0]} ${colors[1]} mb-5 flex-shrink-0 p-2`}
-            >
-                <slot name='svg-icon' />
-            </div>
-            <div class='flex-grow'>
-                <h2 class='text-xl title-font font-medium mb-3 h-12'>
-                    {title}
-                </h2>
-                <p class='leading-relaxed text-sm text-justify'>
-                    {_body}
-                </p>
-            </div>
+<div class='h-full rounded bg-gray-800 p-4'>
+    <div class='flex justify-start items-center'>
+        <div
+            class={`w-10 h-10 inline-flex items-center justify-center rounded-full ${bgColorIcon} ${textColorIcon} mb-5 flex-shrink-0 p-2`}
+        >
+            <slot name='svg-icon' />
         </div>
+        <h2
+            class={`text-xl h-full title-font font-medium ${textColorIcon} ml-5 mb-5 h-12`}
+        >
+            {title}
+        </h2>
+    </div>
+    <div class='flex-grow'>
+        <p class={`leading-relaxed text-sm text-justify ${textColorIcon}`}>
+            {body}
+        </p>
     </div>
 </div>

@@ -1,13 +1,19 @@
 ---
+import SectionLayout from '../layouts/SectionLayout.astro';
 import SocialLinks from '../components/SocialLinks.astro';
+interface Props {
+    bgColor: string;
+    textColor: string;
+}
+const { bgColor, textColor } = Astro.props;
 ---
 
-<main
-    class='h-screen flex justify-center items-center flex-col text-white bg-gray-700'
->
-    <p class='text-xl mb-10'>Hi 👋</p>
+<SectionLayout bgColor={bgColor} textColor={textColor} main={true}>
+    <p class='text-xl mb-10'>Ciao 👋</p>
     <h1 class='text-4xl font-bold p-3'>
-        <span class='text-xl'>I'm</span>&nbsp;Salvatore La Spata
+        <span class='text-xl'>Sono</span>&nbsp;Salvatore <span
+            class='text-nowrap'>La Spata</span
+        >
     </h1>
     <div class='absolute top-2 left-2'>
         <img
@@ -25,7 +31,7 @@ import SocialLinks from '../components/SocialLinks.astro';
         </span>
     </h3>
     <div class='w-full text-center mt-10'>
-        <h3 class='text-xl mb-5 text-blue-500'>Contact me</h3>
+        <h3 class='text-xl mb-5 text-blue-500'>Contattami</h3>
         <SocialLinks />
     </div>
-</main>
+</SectionLayout>
