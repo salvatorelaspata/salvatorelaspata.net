@@ -1,13 +1,14 @@
 ---
-import HeaderSection from '../components/HeaderSection.astro';
+import HeaderSection from './HeaderSection.astro';
 
 interface Props {
     bgColor: string;
     textColor: string;
     title?: string;
+    description?: string;
     main?: boolean;
 }
-const { bgColor, textColor, title, main = false } = Astro.props;
+const { bgColor, textColor, title, description, main = false } = Astro.props;
 ---
 
 {
@@ -19,9 +20,9 @@ const { bgColor, textColor, title, main = false } = Astro.props;
         </main>
     ) : (
         <section
-            class={`flex justify-center items-center flex-col ${bgColor} ${textColor}`}
+            class={`flex justify-center items-center flex-col ${bgColor} ${textColor} pb-5`}
         >
-            <HeaderSection title={title} />
+            <HeaderSection title={title} description={description} />
             <div class='max-w-6xl mx-auto px-5'>
                 <slot />
             </div>

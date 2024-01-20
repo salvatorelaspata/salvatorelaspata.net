@@ -1,6 +1,6 @@
 ---
 import SectionLayout from '../layouts/SectionLayout.astro';
-import HeaderSection from '../components/HeaderSection.astro';
+import CardImage from '../components/CardImage.astro';
 interface Props {
     bgColor: string;
     textColor: string;
@@ -8,4 +8,125 @@ interface Props {
 const { bgColor, textColor } = Astro.props;
 ---
 
-<SectionLayout bgColor={bgColor} textColor={textColor} title='Side Project' />
+<SectionLayout bgColor={bgColor} textColor={textColor} title='Side Project'>
+    <div class='grid gap-5'>
+        <CardImage
+            title='sql-odata'
+            subtitle='Prototype'
+            img='logo-npm.svg'
+            description='Idea di realizzare un plugin fastify o una possibile integrazione Platformatic che permette di esporre con il protocollo oData v2, utilizzato come standard dalle applicazioni SAP Fiori, le entità di un database relazionale'
+            tecnologie='Node js, Fastify, Platformatic'
+        />
+
+        <CardImage
+            title='viewer-3d-lit'
+            subtitle='npm package'
+            img='logo-npm.svg'
+            description='Un viewer per oggetti 3d.'
+            tecnologie='Lit Element, TS, Three js.'
+        />
+
+        <CardImage
+            title='odata-to-sql'
+            subtitle='npm package'
+            img='logo-npm.svg'
+            description='Un semplicissimo oData v2 url parser.'
+            tecnologie='Javascript'
+        />
+
+        <CardImage
+            title='Config Realiy'
+            subtitle='Project'
+            img='logo-code.svg'
+            description="L'idea iniziale era di creare un configuratore di teste di moro (essendo di Caltagirone, città della ceramica) in 2D sovrapponendo le foto con i vari componenti.. poi ho conosciuto il magico mondo di Three js… "
+            tecnologie='React JS, Three JS'
+        />
+
+        <CardImage
+            title='Config Realiy Process '
+            subtitle='Project'
+            img='logo-code.svg'
+            description='From images to 3d models.'
+            tecnologie='Node JS, Supabase, Apple Reality Kit'
+        />
+
+        <CardImage
+            title='Config Realiy Dashboard Web '
+            subtitle='Project'
+            img='logo-code.svg'
+            description='From images to 3d models.'
+            tecnologie='Next JS, Tailwind CSS, Supabase'
+        />
+
+        <CardImage
+            title='Minesweeper'
+            subtitle='Project'
+            img='logo-code.svg'
+            description='Non sopportavo le pubblicità del mio giochino preferito..'
+            tecnologie='Vite, React, Socke Supply (wip)'
+        />
+
+        <CardImage
+            title='Reinventing Minecraft Soil Generator'
+            subtitle='Project'
+            img='logo-code.svg'
+            description='Ispirato da un video youtube di Henrik Kniberg ho dovuto provare con mano la generazione del terreno di minecraft.'
+            tecnologie='Vanilla JS, React, ThreeJS'
+        />
+
+        <CardImage
+            title='Agenzia Viaggi'
+            subtitle='Project'
+            img='logo-code.svg'
+            description='Reingegnerizzazione del processo di gestione preventivi con una semplice anagrafica cliente. Da excel a web app.'
+            tecnologie='Next js, TS, Supabase'
+        />
+
+        <CardImage
+            title='Distinta ante'
+            subtitle='Project'
+            img='logo-code.svg'
+            description='Ad un amico serviva un calcolatore di lunghezze per la costruzione di Ante. Ho approfittato per approfondire concetti come currying function.'
+            tecnologie='React js, material-ui, FaunaDB'
+        />
+
+        <CardImage
+            title='Google Mediapipe'
+            subtitle='Project'
+            img='logo-code.svg'
+            description='Smanetting.'
+            tecnologie='Javascript'
+        />
+
+        <CardImage
+            title='Node js Mastering'
+            subtitle='Learning'
+            img='logo-learn.svg'
+            description='Dal talk al codice...'
+            tecnologie='Javascript'
+        />
+
+        <CardImage
+            title='Lang Chain & Stregatto'
+            subtitle='Learning'
+            img='logo-learn.svg'
+            description='Tramite una Open API key ho studiato un pò questa tecnologia producendo documentazione ed esempi. Lo stregatto è un progetto opensource che mi è piaciuto seguire grazie alle conoscenze/competenze di Piero Savastano'
+            tecnologie='Javascript & Python'
+        />
+        <CardImage
+            title='Hello Rust'
+            subtitle='Learning'
+            img='logo-learn.svg'
+            description='Ho voglia di approfondire un linguaggio di basso livello..'
+            tecnologie='Rust'
+        />
+
+        <CardImage
+            title='Edx Node js'
+            subtitle='Learning'
+            img='logo-learn.svg'
+            description='Un corso seguito per approfondire concetti node js.'
+            tecnologie='Javascript'
+        />
+    </div>
+</SectionLayout>

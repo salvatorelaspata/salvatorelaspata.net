@@ -1,45 +1,35 @@
 ---
-
+type item = {
+    url: string;
+    title: string;
+    img: string;
+};
+interface Props {
+    socials: {
+        github: item;
+        gmail: item;
+        linkedin: item;
+    };
+}
+const { socials } = Astro.props;
 ---
 
-<div class='flex justify-around w-full'>
-    <a
-        href='https://github.com/salvatorelaspata'
-        title='Github - Salvatore La Spata'
-        target='_blank'
-        class='flex flex-col items-center'
-    >
-        <img
-            class='size-10 mt-2'
-            src='social-github--white.svg'
-            alt='github social link'
-        />
-        <p class='text-blue-500 underline'>Github</p>
-    </a>
-    <a
-        href='mailto:salvatore.la.spata@gmail.com?subject=Hello%20Salvatore!'
-        title='Github - Salvatore La Spata'
-        target='_blank'
-        class='flex flex-col items-center'
-    >
-        <img
-            class='size-10 mt-2'
-            src='social-gmail.svg'
-            alt='gmail social link'
-        />
-        <p class='text-blue-500 underline'>Mail</p>
-    </a>
-    <a
-        href='https://www.linkedin.com/in/salvatore-la-spata/'
-        title='Linkedin - Salvatore La Spata'
-        target='_blank'
-        class='flex flex-col items-center'
-    >
-        <img
-            class='size-10 mt-2'
-            src='social-linkedin.svg'
-            alt='github social link'
-        />
-        <p class='text-blue-500 underline'>Linkedin</p>
-    </a>
+<div class='flex justify-between w-1/2'>
+    {
+        Object.entries(socials).map(([key, { url, img, title }]) => (
+            <a
+                href={url}
+                title={`${key} - Salvatore La Spata`}
+                target='_blank'
+                class='flex flex-col items-center w-20'
+            >
+                <img
+                    class='size-10 mt-2'
+                    src={img}
+                    alt={`${key} social link`}
+                />
+                <p class='text-blue-500 underline'>{title}</p>
+            </a>
+        ))
+    }
 </div>
