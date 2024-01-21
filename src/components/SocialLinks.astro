@@ -14,7 +14,7 @@ interface Props {
 const { socials } = Astro.props;
 ---
 
-<div class='flex justify-between w-1/2'>
+<div class='flex justify-around w-full lg:w-1/2'>
     {
         Object.entries(socials).map(([key, { url, img, title }]) => (
             <a

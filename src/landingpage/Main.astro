@@ -10,11 +10,10 @@ const { bgColor, textColor } = Astro.props;
 
 <SectionLayout bgColor={bgColor} textColor={textColor} main={true}>
     <p class='text-xl mb-10'>Ciao 👋</p>
-    <h1 class='text-4xl font-bold p-3'>
-        <span class='text-xl'>Sono</span>&nbsp;Salvatore <span
-            class='text-nowrap'>La Spata</span
-        >
+    <h1 class='text-4xl font-bold px-3'>
+        <span class='text-xl font-light'>Sono</span>&nbsp;Salvatore
     </h1>
+    <h1 class='text-4xl font-bold px-3 text-nowrap'>La Spata</h1>
     <div class='absolute top-2 left-2'>
         <img
             class='rounded-full opacity-50'
@@ -24,14 +23,16 @@ const { bgColor, textColor } = Astro.props;
             alt="Salvatore's sticker"
         />
     </div>
-    <h2 class='text-2xl underline p-3'>Full-Stack Software Engineer</h2>
-    <h3 class='text-2xl p-3'>
+    <h2 class='text-center text-2xl underline p-3'>
+        Full-Stack Software Engineer
+    </h2>
+    <h3 class='text-center text-2xl p-3'>
         SAP BTP Practice Leader <span class='text-lg text-blue-500'>
             <a href='https://gotonext.it/'>@ GotoNext S.r.l.</a>
         </span>
     </h3>
 
-    <h3 class='my-10 text-xl text-blue-500'>Contattami</h3>
+    <h3 class='mt-6 mb-4 text-xl text-blue-500 underline'>Contatti</h3>
     <SocialLinks
         socials={{
             github: {
