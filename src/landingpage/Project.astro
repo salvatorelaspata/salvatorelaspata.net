@@ -11,6 +11,26 @@ const { bgColor, textColor } = Astro.props;
 <SectionLayout id="project" bgColor={bgColor} textColor={textColor} title='Side Project'>
     <div class='grid gap-5'>
         <CardImage 
+            title="Cubo Pazzesco"
+            subtitle='Prototype'
+            img="logo-code.svg"
+            description='Un cubo pazzesco in 3D'
+            tecnologie='Javascript, ThreeJS'
+            github='https://github.com/salvatorelaspata/cubo-pazzesco'
+            demo='https://salvatorelaspata.github.io/cubo-pazzesco/'/>
+
+        
+        <CardImage
+            title='viewer-3d-lit-loader'
+            subtitle='npm package'
+            img='logo-npm.svg'
+            description='Un loader per il viewer 3d.'
+            tecnologie='Lit Element, TS, Three js.'
+            npm='https://www.npmjs.com/package/viewer-3d-lit-loader'
+            github='https://github.com/salvatorelaspata/viewer-3d-loader'
+        />
+
+        <CardImage 
             title="Advanced JavaScript"
             subtitle='slides'
             img="logo-slides.svg"
@@ -58,7 +78,7 @@ const { bgColor, textColor } = Astro.props;
             description='Un viewer per oggetti 3d.'
             tecnologie='Lit Element, TS, Three js.'
             npm='https://www.npmjs.com/package/viewer-3d-lit'
-            github='https://github.com/salvatorelaspata/sql-odata'
+            github='https://github.com/salvatorelaspata/viewer-3d-lit'
         />
 
         <CardImage
@@ -68,7 +88,7 @@ const { bgColor, textColor } = Astro.props;
             description='Un semplicissimo oData v2 url parser.'
             tecnologie='Javascript'
             npm='https://www.npmjs.com/package/odatav2-to-sql'
-            github='https://github.com/salvatorelaspata/sql-odata'
+            github='https://github.com/salvatorelaspata/odatav2-to-sql '
         />
 
         <CardImage
