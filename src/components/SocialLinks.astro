@@ -13,23 +13,25 @@ interface Props {
 }
 const { socials } = Astro.props;
 ---
-<h3 class='el7 mt-6 mb-4 text-xl text-blue-500 underline'>Contatti</h3>
-<div class='el7 flex justify-around w-full lg:w-1/2'>
+<!-- <h3 class='el7 mt-6 mb-4 text-xl z-10'>Contatti</h3> -->
+<!-- lg:w-1/2 -->
+<div class='el7 absolute bottom-4 right-2 z-10'>
+    <div class="flex flex-row">
     {
         Object.entries(socials).map(([key, { url, img, title }]) => (
             <a
                 href={url}
                 title={`${key} - Salvatore La Spata`}
                 target='_blank'
-                class='flex flex-col items-center w-20'
+                class='flex flex-col items-center w-16'
             >
                 <img
                     class='size-10 mt-2'
                     src={img}
                     alt={`${key} social link`}
                 />
-                <p class='text-blue-500 underline'>{title}</p>
             </a>
         ))
     }
+    </div>
 </div>

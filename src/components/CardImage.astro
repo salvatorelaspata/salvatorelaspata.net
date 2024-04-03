@@ -13,19 +13,19 @@ interface Props {
 const { title, subtitle, description, tecnologie, img, github, npm, demo, slides } =
     Astro.props;
 ---
-<div class='bg-gray-700 max-w-md w-full lg:max-w-full lg:flex shadow-md'>
+<div class='dark:bg-gray-700 bg-gray-400 max-w-md w-full lg:max-w-full lg:flex shadow-md'>
     <div
         class='h-48 flex place-content-center align-top lg:h-48 lg:w-auto flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden'
     >
         <img src={img} {title} alt={title} class='h-48 w-48 object-cover' />
     </div>
     <div
-        class='w-full border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal'
+        class='w-full border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-gray-900 text-white dark:bg-gray-200 dark:text-black rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal'
     >
         <div class='mb-8'>
-            <p class='text-sm text-gray-600 flex items-center'>
+            <p class='text-sm dark:text-gray-600 text-white flex items-center'>
                 <svg
-                    class='fill-current text-gray-500 w-3 h-3 mr-2'
+                    class='fill-current dark:text-gray-500 w-3 h-3 mr-2'
                     xmlns='http://www.w3.org/2000/svg'
                     viewBox='0 0 20 20'
                 >
@@ -35,12 +35,12 @@ const { title, subtitle, description, tecnologie, img, github, npm, demo, slides
                 </svg>
                 {subtitle}
             </p>
-            <div class='text-gray-900 font-bold text-xl mb-2'>{title}</div>
-            <p class='text-gray-700 text-base'>{description}</p>
+            <div class='dark:text-gray-900 text-white font-bold text-xl mb-2'>{title}</div>
+            <p class='dark:text-gray-700 text-white text-base'>{description}</p>
         </div>
         <div class='flex items-center'>
             <div class='text-sm w-full'>
-                <p class='text-gray-900 leading-none'>
+                <p class='dark:text-gray-900 text-white leading-none'>
                     Tecnologie: {tecnologie}
                 </p>
                 <p class='text-end text-blue-600'>
