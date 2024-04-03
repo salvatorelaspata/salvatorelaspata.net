@@ -1,21 +1,42 @@
 ---
+
 import SectionLayout from '../layouts/SectionLayout.astro';
 import SocialLinks from '../components/SocialLinks.astro';
+
 interface Props {
     bgColor: string;
     textColor: string;
 }
 const { bgColor, textColor } = Astro.props;
 ---
+<script>
+    // import gsap from 'gsap';
+    // document.addEventListener('DOMContentLoaded', () => {
+    //     gsap.from('.el1', { opacity: 0, duration: 1, delay: 0.5 });
+    //     gsap.to('.el1',{
+    //         duration: 1,
+    //         rotate: 360,
+    //         repeat: 1,
+    //         ease: 'linear',
+    //     })
+    //     gsap.from('.el2', { opacity: 0, x: -100, duration: 1, delay: 1 });
+    //     gsap.from('.el3', { opacity: 0, x: 100, duration: 1, delay: 1 });
+    //     gsap.from('.el4', { opacity: 0, duration: 1, delay: 1.5 });
 
-<SectionLayout bgColor={bgColor} textColor={textColor} main={true}>
-    <p class='text-xl mb-10'>Ciao 👋</p>
-    <h1 class='text-4xl font-bold px-3'>
+    //     gsap.from('.el5', { opacity: 0, duration: 1, delay: 2 });
+    //     gsap.from('.el6', { opacity: 0, duration: 1, delay: 2.5 });
+    //     gsap.from('.el7', { opacity: 0, duration: 1, delay: 3 });
+    // });
+</script>
+<SectionLayout id="main" bgColor={bgColor} textColor={textColor} main={true}>
+    <p class='el1 text-xl mb-10'>Ciao 👋</p>
+    <h1 class='el2 text-4xl font-bold px-3'>
         <span class='text-xl font-light'>Sono</span>&nbsp;Salvatore
     </h1>
-    <h1 class='text-4xl font-bold px-3 text-nowrap'>La Spata</h1>
-    <div class='absolute top-2 left-2'>
+    <h1 class='el3 text-4xl font-bold px-3 text-nowrap'>La Spata</h1>
+    <div class='el4 absolute top-2 left-2'>
         <img
+            id="sticker"
             class='rounded-full opacity-50'
             width='30%'
             height='auto'
@@ -23,16 +44,14 @@ const { bgColor, textColor } = Astro.props;
             alt="Salvatore's sticker"
         />
     </div>
-    <h2 class='text-center text-2xl underline p-3'>
+    <h2 class='el5 text-center text-2xl underline p-3'>
         Full-Stack Software Engineer
     </h2>
-    <h3 class='text-center text-2xl p-3'>
+    <h3 class='el6 text-center text-2xl p-3'>
         SAP BTP Practice Leader <span class='text-lg text-blue-500'>
             <a href='https://www.gotonext.it/'>@ GotoNext S.r.l.</a>
         </span>
     </h3>
-
-    <h3 class='mt-6 mb-4 text-xl text-blue-500 underline'>Contatti</h3>
     <SocialLinks
         socials={{
             github: {

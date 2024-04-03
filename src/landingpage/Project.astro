@@ -8,8 +8,40 @@ interface Props {
 const { bgColor, textColor } = Astro.props;
 ---
 
-<SectionLayout bgColor={bgColor} textColor={textColor} title='Side Project'>
+<SectionLayout id="project" bgColor={bgColor} textColor={textColor} title='Side Project'>
     <div class='grid gap-5'>
+        <CardImage 
+            title="Advanced JavaScript"
+            subtitle='slides'
+            img="logo-slides.svg"
+            description='Un corso di approfondimento su Javascript'
+            tecnologie='Javascript'
+            slides='https://cloudflare-google-api.salvatore-la-spata.workers.dev/advanced-javascript' />
+
+        <CardImage 
+            title="HTTP like RESTfull vs OData"
+            subtitle='slides'
+            img="logo-slides.svg"
+            description="SAP ed i suoi standard.. Restfull vs OData, un confronto tra due protocolli di comunicazione."
+            tecnologie='Javascript'
+            slides='https://cloudflare-google-api.salvatore-la-spata.workers.dev/http-like-restfull-vs-odata' />
+
+        <CardImage 
+            title="Git sotto al cofano"
+            subtitle='slides'
+            img="logo-slides.svg"
+            description='Un corso di approfondimento su Javascript'
+            tecnologie='Javascript'
+            slides='https://cloudflare-google-api.salvatore-la-spata.workers.dev/git-sotto-al-cofano' />
+
+        <CardImage 
+            title="UI5 Web Component"
+            subtitle='slides'
+            img="logo-slides.svg"
+            description='Un corso di approfondimento su Javascript'
+            tecnologie='Javascript'
+            slides='https://cloudflare-google-api.salvatore-la-spata.workers.dev/ui5-web-component' />
+
         <CardImage
             title='sql-odata'
             subtitle='Prototype'

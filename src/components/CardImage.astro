@@ -8,16 +8,16 @@ interface Props {
     github?: string;
     npm?: string;
     demo?: string;
+    slides?: string;
 }
-const { title, subtitle, description, tecnologie, img, github, npm, demo } =
+const { title, subtitle, description, tecnologie, img, github, npm, demo, slides } =
     Astro.props;
 ---
-
 <div class='bg-gray-700 max-w-md w-full lg:max-w-full lg:flex shadow-md'>
     <div
-        class='h-48 lg:h-48 lg:w-auto flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden p-5'
+        class='h-48 flex place-content-center align-top lg:h-48 lg:w-auto flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden'
     >
-        <img src={img} {title} class='w-full h-full object-cover' />
+        <img src={img} {title} alt={title} class='h-48 w-48 object-cover' />
     </div>
     <div
         class='w-full border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal'
@@ -45,22 +45,29 @@ const { title, subtitle, description, tecnologie, img, github, npm, demo } =
                 </p>
                 <p class='text-end text-blue-600'>
                     {
+                        slides && (
+                            <a class='underline mx-1' target="_blank" href={slides || '#'}>
+                                slides
+                            </a>
+                        )
+                    }
+                    {
                         npm && (
-                            <a class='underline mx-1' href={npm || '#'}>
+                            <a class='underline mx-1' target="_blank" href={npm || '#'}>
                                 npm
                             </a>
                         )
                     }
                     {
                         demo && (
-                            <a class='underline mx-1' href={demo || '#'}>
+                            <a class='underline mx-1' target="_blank" href={demo || '#'}>
                                 demo
                             </a>
                         )
                     }
                     {
                         github && (
-                            <a class='underline mx-1' href={github || '#'}>
+                            <a class='underline mx-1' target="_blank" href={github || '#'}>
                                 github
                             </a>
                         )

@@ -9,7 +9,22 @@ interface Props {
 const { bgColor, textColor } = Astro.props;
 ---
 
-<SectionLayout bgColor={bgColor} textColor={textColor} title='Tecnologie'>
+<script>
+    // import gsap from 'gsap';
+    // gsap.from('.cardSimple', {
+    //     scrollTrigger: {
+    //         trigger: '.cardSimple',
+    //         start: 'top 80%',
+    //     },
+    //     opacity: 0,
+    //     y: 50,
+    //     delay: 0.01, 
+    //     duration: 0.5,
+    //     stagger: 0.1,
+    // });
+</script>
+
+<SectionLayout id="technologies" bgColor={bgColor} textColor={textColor} title='Tecnologie'>
     <Panel title='Linguaggi di Programmazione'>
         <CardSimple
             title='HTML 5'

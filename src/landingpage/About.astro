@@ -9,8 +9,9 @@ const { bgColor, textColor } = Astro.props;
 const year = new Date().getFullYear() - 2016;
 ---
 
-<SectionLayout bgColor={bgColor} textColor={textColor} title='Chi Sono'>
-    <div class='mx-5 flex flex-col justify-center text-center'>
+
+<SectionLayout id="about" bgColor={bgColor} textColor={textColor} title='Chi Sono'>
+    <div class='fade-in mx-5 flex flex-col justify-center text-center'>
         <p>
             Sono uno sviluppatore Full Stack proveniente dalla Sicilia ma ormai
             trasferito a Roma da circa {year} anni.
