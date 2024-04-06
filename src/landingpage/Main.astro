@@ -10,11 +10,11 @@ interface Props {
 const { bgColor, textColor } = Astro.props;
 ---
 <SectionLayout id="main" bgColor={bgColor} textColor={textColor} main={true}>
-    <p class='text-2xl z-10'>Ciao 👋 Sono</p>
-    <h1 class='trigger text-4xl font-bold px-3  z-10'>
+    <p class='t-main text-2xl z-10'>Ciao 👋 Sono</p>
+    <h1 class='t-main t-main text-4xl font-bold px-3 z-10'>
         Salvatore
     </h1>
-    <h1 class='text-4xl font-bold px-3 text-nowrap z-10'>La Spata</h1>
+    <h1 class='t-main text-4xl font-bold px-3 text-nowrap z-10'>La Spata</h1>
     <div class='sticker absolute bottom-2 right-14 z-10'>
         <img class='rounded-full opacity-40 z-0 w-auto h-32'
             height='auto'
@@ -22,11 +22,11 @@ const { bgColor, textColor } = Astro.props;
             alt="Salvatore's sticker"
         />
     </div>
-    <h2 class='el5 text-center text-2xl underline p-3 z-10'>
+    <h2 class='t-main el5 text-center text-2xl underline p-3 z-10'>
         Full-Stack Software Engineer
     </h2>
-    <h3 class='el6 text-center text-2xl p-3  z-10'>
-        SAP BTP Practice Leader <span class='text-lg text-blue-500'>
+    <h3 class='t-main el6 text-center text-2xl p-3  z-10'>
+        SAP BTP Practice Leader <span class='text-lg text-white'>
           @GotoNext S.r.l.
         </span>
     </h3>

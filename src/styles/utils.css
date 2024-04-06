@@ -1,0 +1,59 @@
+/* The integration's default injected base.css file */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Create the variables for the colors */
+:root {
+    --color-t: rgb(161, 218, 17);
+    --color-t-dark: rgb(51, 255, 0);
+
+    --color-bg: rgba(68, 30, 118, 0.4);
+    --color-bg-dark: rgba(195, 13, 13, 0.4);
+    /* Dark mode peer-cheer */
+    --color-bg-peer: rgb(51, 255, 0);;
+    --color-bg-peer-dark: rgb(161, 218, 17);
+
+    --color-border-dark: rgba(0, 246, 94, 0.4);
+    --color-border: rgba(198, 215, 0, 0.4);
+
+    --color-ring: var(--color-t);
+    --color-ring-dark: var(--color-t-dark);
+
+    /* --color-sicily: rgba(218, 39, 46, 1);
+    --color-bg-sicily: rgba(245, 202, 0, 0.4); */
+}
+
+
+@layer components {
+    .t-header {
+        @apply z-10 p-2 fixed top-0 left-0 w-full text-light bg-light dark:text-dark dark:bg-dark border-light dark:border-light border border-dashed;
+    }
+    .t-head {
+        @apply z-0 p-5 text-peer bg-dark dark:text-light dark:bg-light border-light dark:border-light border border-dashed;
+    }
+    .t-subhead {
+        @apply p-2 text-light bg-light dark:text-dark dark:bg-dark border-light dark:border-dark border border-dashed;
+    }
+    .t-main {
+        @apply p-1 text-light bg-light dark:text-dark dark:bg-dark border-light dark:border-dark border border-dashed;
+    }
+    .t-about {
+        @apply text-light bg-light dark:text-dark dark:bg-dark border-light dark:border-light border border-dashed;
+    }
+    .t-panel {
+        @apply p-1 my-3 text-dark bg-dark dark:text-light dark:bg-light border-light dark:border-light border border-dashed;
+    }
+    .t-card-head {
+        @apply text-light bg-light dark:text-dark dark:bg-dark border-light dark:border-light border border-dashed;
+    }
+    .t-card-content {
+        @apply text-dark bg-dark dark:text-light dark:bg-light border-light dark:border-dark border border-dashed;
+    }
+    .t-timeline-head {
+        @apply p-1 text-light bg-light dark:text-dark dark:bg-dark border-light dark:border-light border border-dashed;
+    }
+    .t-timeline-content {
+        @apply p-1 text-dark bg-dark dark:text-light dark:bg-light border-light dark:border-dark border border-dashed;
+    }
+  }

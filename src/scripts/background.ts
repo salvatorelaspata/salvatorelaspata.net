@@ -22,12 +22,10 @@ canva.style.right = '0'
 // canva.style.zIndex = '10'
 canva.style.backgroundColor = 'black'
 
-const renderer = new THREE.WebGLRenderer({canvas: canva})
+const renderer = new THREE.WebGLRenderer({ canvas: canva })
 renderer.setSize(window.innerWidth, window.innerHeight)
 
-
 document.body.appendChild(renderer.domElement)
-
 
 const geometry = new THREE.BoxGeometry()
 const material = new THREE.MeshBasicMaterial({
@@ -72,24 +70,30 @@ animationScripts.push({
     start: 0,
     end: 101,
     func: () => {
-        let g = material.color.g
-        g -= 0.05
-        if (g <= 0) {
-            g = 1.0
-        }
-        material.color.g = g
+        // const scale = Math.sin(Date.now() * 0.001)
+        // cube.scale.x = scale * 4
+        // cube.scale.y = scale * 4
+        // cube.scale.z = scale * 4
     },
 })
 
 //add an animation that moves the cube through first 40 percent of scroll
 animationScripts.push({
     start: 0,
+    end: 20,
+    func: () => {
+        // camera.lookAt(cube.position)
+        camera.position.set(0, 1, 2)
+        cube.position.z = lerp(-10, 0, scalePercent(0, 20))
+    },
+})
+
+animationScripts.push({
+    start: 20,
     end: 40,
     func: () => {
-        camera.lookAt(cube.position)
-        camera.position.set(0, 1, 2)
-        cube.position.z = lerp(-10, 0, scalePercent(0, 40))
-        //console.log(cube.position.z)
+        // camera.lookAt(cube.position)
+        cube.position.z = lerp(0, -10, scalePercent(20, 40))
     },
 })
 
@@ -101,7 +105,6 @@ animationScripts.push({
         camera.lookAt(cube.position)
         camera.position.set(0, 1, 2)
         cube.rotation.z = lerp(0, Math.PI, scalePercent(40, 60))
-        //console.log(cube.rotation.z)
     },
 })
 
@@ -113,7 +116,6 @@ animationScripts.push({
         camera.position.x = lerp(0, 5, scalePercent(60, 80))
         camera.position.y = lerp(1, 5, scalePercent(60, 80))
         camera.lookAt(cube.position)
-        //console.log(camera.position.x + " " + camera.position.y)
     },
 })
 
@@ -164,4 +166,5 @@ function render() {
 }
 
 window.scrollTo({ top: 0, behavior: 'smooth' })
+
 animate()

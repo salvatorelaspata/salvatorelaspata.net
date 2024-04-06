@@ -18,7 +18,7 @@ const { socials } = Astro.props;
 <div class='el7 absolute bottom-4 right-2 z-10'>
     <div class="flex flex-row">
     {
-        Object.entries(socials).map(([key, { url, img, title }]) => (
+        Object.entries(socials).map(([key, { url, img }]) => (
             <a
                 href={url}
                 title={`${key} - Salvatore La Spata`}

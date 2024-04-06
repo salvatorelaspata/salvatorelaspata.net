@@ -1,0 +1,52 @@
+---
+import ToggleTheme from "./ToggleTheme.astro";
+
+---
+
+<header id="header" class="t-header">
+    <div>
+        <nav class="z-50">
+            <ul class="flex justify-between flex-wrap items-center">
+                <li><a class="ref" href="#about">Chi Sono</a></li>
+                <li><a class="ref" href="#skills">Skills</a></li>
+                <li><a class="ref" href="#technologies">Tecnologie</a></li>
+                <li><a class="ref" href="#project">Side Project</a></li>
+                <li><a class="ref" href="#experiences">Esperienze</a></li>
+            </ul>
+            <ul class="flex justify-between flex-wrap items-center">
+                <li><a class="underline" href="https://blog.salvatorelaspata.net" target="_blank">Blog (WIP) {`>`}</a></li>
+                <li><ToggleTheme/></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+<script>
+	const btn = document.getElementById('header');
+	window.addEventListener('scroll', () => {
+		if(!btn) return;
+		if (window.scrollY < 100) {
+			btn.style.display = 'block';
+		} else {
+			btn.style.display = 'none';
+		}
+	});
+	const a = document?.querySelectorAll('a.ref')
+    for (let i = 0; i < a.length; i++) {
+        a[i].addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log(a[i].getAttribute('href'));
+            const href = a[i].getAttribute('href');
+            if(href){
+                const offsetTop: number | undefined = document.getElementById(href.replace('#', ''))?.offsetTop;
+                console.log(offsetTop);
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth',
+                });
+            }
+        });
+    }
+</script>
