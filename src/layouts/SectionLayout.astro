@@ -24,7 +24,7 @@ const { id, bgColor, textColor, title, description, main = false } = Astro.props
             class={`flex justify-center items-center flex-col ${bgColor} ${textColor} pb-5`}
         >
             <HeaderSection title={title} description={description} />
-            <div class='max-w-6xl mx-auto px-5'>
+            <div class='max-w-6xl mx-auto px-5 z-10'>
                 <slot />
             </div>
         </section>

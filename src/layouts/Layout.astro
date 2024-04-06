@@ -39,15 +39,14 @@ const { title } = Astro.props;
     </head>
     <body class='w-full font-mono m-0'>
         <ToggleTheme/>
-        <slot />
+        <slot/>
         <BackToTop />
         <script>
-            import gsap from 'gsap';
-            import { ScrollTrigger } from 'gsap/ScrollTrigger';
+            import {gsap} from 'gsap';
+            import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+
+            gsap.registerPlugin(ScrollTrigger)//, );
             document.addEventListener('DOMContentLoaded', () => {
-                gsap.registerPlugin(ScrollTrigger);
-                
-                // image animation
                 gsap.from('.sticker', {
                     scrollTrigger: {
                         trigger: '.sticker',
@@ -62,8 +61,6 @@ const { title } = Astro.props;
                 const button = document.querySelector(
                     '.theme-switch input[type="checkbox"]'
                 ) as HTMLInputElement;
-
-                // const isNotDark = (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
 
                 const switchTheme = () => {
                     if (document.body.classList.contains('dark')) {
@@ -86,10 +83,6 @@ const { title } = Astro.props;
                 });
             });
         </script>
-        <!-- <script>
-            import gsap from "gsap";
-            import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-            gsap.registerPlugin(ScrollTrigger);
-        </script> -->
+        <script type='module' src='/src/scripts/background.ts'></script>
     </body>
 </html>
