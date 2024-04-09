@@ -4,6 +4,7 @@ import BackToTop from '../components/ui/BackToTop.astro';
 import Header from '../components/ui/Header.astro';
 import Footer from '../components/ui/Footer.astro';
 import Background from '../scripts/Background.astro';
+import Animation from '../scripts/Animation.astro';
 interface Props {
     title: string;
 }
@@ -24,13 +25,15 @@ const { title } = Astro.props;
         <meta http-equiv='X-UA-Compatible' content='IE=edge' />
         <meta name='author' content='Salvatore La Spata' />
         <meta name='keywords' content='Salvatore La Spata, Salvatore, La Spata, Salvatore La Spata website' />
-        <meta name='robots' content='index, follow' />
+        <meta name="robots" content="noindex"/>
         <meta name='description' content='Salvatore La Spata website' />
         <meta name='viewport' content='width=device-width' />
         <link rel='icon' type='image/png' href='/sticker.webp' />
         <link rel='sitemap' href='/sitemap-index.xml' />
         <meta name='generator' content={Astro.generator} />
+        
         <title>{title}</title>
+        
         <style is:global>
 			/* Improve Page speed */
 			/* https://css-tricks.com/almanac/properties/c/content-visibility/ */
@@ -40,53 +43,13 @@ const { title } = Astro.props;
 		</style>
     </head>
     <body class='w-full font-mono m-0'>
-        <Header />
+        <!-- <Header /> -->
         <slot/>
-        <Footer />
+        <!-- <Footer /> -->
+        <!--  -->
         <BackToTop />
+        <!-- SCRIPT -->
         <Background />
-        <script>
-            import {gsap} from 'gsap';
-            import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-
-            gsap.registerPlugin(ScrollTrigger)//, );
-            document.addEventListener('DOMContentLoaded', () => {
-                gsap.from('.sticker', {
-                    scrollTrigger: {
-                        trigger: '.sticker',
-                        start: 'bottom center',
-                        end: 'bottom center',
-                        toggleActions: 'play none none none',
-                    },
-                    opacity: 0,
-                    duration: 1,
-                });
-                // theme switcher
-                const button = document.querySelector(
-                    '.theme-switch input[type="checkbox"]'
-                ) as HTMLInputElement;
-
-                const switchTheme = () => {
-                    if (document.body.classList.contains('dark')) {
-                        console.log('light theme')
-                        document.body.classList.remove('dark');
-                        localStorage.removeItem('theme');
-                        button.checked = false;
-                    } else {
-                        console.log('dark theme')
-                        document.body.classList.add('dark');
-                        localStorage.setItem('theme', 'dark');
-                        button.checked = true;
-                    }
-                };
-
-                // switchTheme();
-                
-                button.addEventListener('click', () => {
-                    switchTheme();
-                });
-            });
-        </script>
-        
+        <!-- <Animation />  -->
     </body>
 </html>

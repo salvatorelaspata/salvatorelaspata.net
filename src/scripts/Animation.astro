@@ -1,0 +1,42 @@
+---
+
+---
+
+<script>
+    import {gsap} from 'gsap';
+    import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+
+    gsap.registerPlugin(ScrollTrigger)//, );
+    document.addEventListener('DOMContentLoaded', () => {
+        // sticky faccione .-.
+        gsap.from('.sticker', {
+            scrollTrigger: {
+                trigger: '.sticker',
+                start: 'bottom center',
+                end: 'bottom center',
+                toggleActions: 'play none none none',
+            },
+            opacity: 0,
+            duration: 1,
+        });
+
+        // theme switcher
+        const switchButton = document.querySelector(
+            '.theme-switch input[type="checkbox"]'
+        ) as HTMLInputElement;
+
+        const switchTheme = () => {
+            if (document.body.classList.contains('dark')) {
+                document.body.classList.remove('dark');
+                localStorage.removeItem('theme');
+                switchButton.checked = false;
+            } else {
+                document.body.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                switchButton.checked = true;
+            }
+        };
+        
+        switchButton.addEventListener('click', () => { switchTheme(); });
+    });
+</script>
