@@ -4,36 +4,15 @@
 <script>
     import * as THREE from 'three';
     import gsap from 'gsap';
-    import {alphabet} from './Font';
+    import { composeGroup } from './Font';
 
     // import { OrbitControls } from 'three/examples/jsm/Addons.js';
-    function createBoxWithRoundedEdges( width: number, height: number, depth: number, radius0: number, smoothness: number ) {
-        let shape = new THREE.Shape();
-        let eps = 0.00001;
-        let radius = radius0 - eps;
-        shape.absarc( eps, eps, eps, -Math.PI / 2, -Math.PI, true );
-        shape.absarc( eps, height -  radius * 2, eps, Math.PI, Math.PI / 2, true );
-        shape.absarc( width - radius * 2, height -  radius * 2, eps, Math.PI / 2, 0, true );
-        shape.absarc( width - radius * 2, eps, eps, 0, -Math.PI / 2, true );
-        let geometry = new THREE.ExtrudeGeometry( shape, {
-            // amount: depth - radius0 * 2,
-            bevelEnabled: true,
-            bevelSegments: smoothness * 2,
-            steps: 1,
-            bevelSize: radius,
-            bevelThickness: radius0,
-            curveSegments: smoothness
-        });
-        
-        geometry.center();
-        
-        return geometry;
-    }
-    const colors: string[] = ['#5B91A6', '#F2E8D5', '#D9BFA0', '#A6896F', '#D97B59']
-
+    
+    const paletteColor: string[] = ['#5B91A6', '#F2E8D5', '#D9BFA0', '#A6896F', '#D97B59']
+    const paletteForOFor: string[] = ["#042940", '#005C53', '#9FC131', '#DBF227', '#D6D58E', '#ffffff']
     // SCENE
     const scene = new THREE.Scene()
-    scene.background = new THREE.Color(colors[0])
+    scene.background = new THREE.Color(paletteColor[0])
 
     // CAMERA
     const camera = new THREE.PerspectiveCamera( 
@@ -46,15 +25,7 @@
     camera.position.z = 0
     camera.position.y = 20
     camera.position.x = 0
-
     camera.lookAt(0, 0, 0)
-    
-    // animate camera position with gsap after 1 second
-    gsap.to(camera.position, {
-        y: 0,
-        duration: 0.3,
-        delay: 2.5
-    })
 
     // LIGHT
     // const l1 = new THREE.DirectionalLight(0xffffff, 1.2)
@@ -71,80 +42,30 @@
     scene.add(l4)
 
     // 404
-    const forofor = [
-        [" "," "," ","X"," "," "," ","X","X","X"," "," "," "," "," ","X"," "],
-        [" "," ","X","X"," "," ","X"," "," "," ","X"," "," "," ","X","X"," "],
-        [" ","X"," ","X"," "," ","X"," "," "," ","X"," "," ","X"," ","X"," "],
-        ["X","X","X","X","X"," ","X"," "," "," ","X"," ","X","X","X","X","X"],
-        [" "," "," ","X"," "," ","X"," "," "," ","X"," "," "," "," ","X"," "],
-        [" "," "," ","X"," "," "," ","X","X","X"," "," "," "," "," ","X"," "],
-    ]
-    const padding = 1.03
-    const group = new THREE.Group()
-    forofor.forEach((row, i) => {
-        row.forEach((col, j) => {
-            if (col === 'X') {
-                const cubeGeometry = createBoxWithRoundedEdges(1, 1, 1, 0.1, 10)
-                const cubeMaterial = new THREE.MeshStandardMaterial({
-                    color: colors[i >= colors.length ? 0 : i],
-                })
-                
-                const cube = new THREE.Mesh(cubeGeometry, cubeMaterial)
-                cube.position.x = j * padding - 8
-                cube.position.z = i * padding - 2
-                cube.position.y = Math.floor(Math.random() * 100)
-                // gsap.to(cube, {
-                //     rotationY: Math.PI * 2,
-                //     y: 0,
-                //     duration: 1,
-                // })
-
-                group.add(cube)
-            }
-        })
-    })
-    scene.add(group)
-
-    // create salvatore string[][]
-    const composeSalvatore = (text: string) => {
-        let salvatore: string[][] = []
-        for (let i = 0; i < alphabet[text[0] as keyof typeof alphabet].length; i++) {
-            salvatore.push([])
-            for (let j = 0; j < text.length; j++) {
-                salvatore[i].push(...alphabet[text[j] as keyof typeof alphabet][i])
-            }
-        }
-        return salvatore
+    const gforofor = composeGroup(404, paletteForOFor, 100, 1_000)
+    const urlParams = new URLSearchParams(window.location.search)
+    let group: THREE.Group = gforofor;
+    if(urlParams.has('nome')){
+        let nome = urlParams.get('nome')
+        if(nome) group = composeGroup(nome, paletteColor, 100, 1_000)
     }
+    scene.add(group)
+    // const gsalvatore = composeGroup('salvatore', paletteColor, 100, 1_000)
+    // scene.add(gforofor)
+    // scene.add(gsalvatore)
 
-    const salvatore = composeSalvatore('salvatore')
-    const salvatoreGroup = new THREE.Group()
-    salvatore.forEach((row, i) => {
-        row.forEach((col, j) => {
-            console.log(col)
-            if (col === 'X') {
-                const cubeGeometry = createBoxWithRoundedEdges(1, 1, 1, 0.1, 10)
-                const cubeMaterial = new THREE.MeshStandardMaterial({
-                    color: colors[i >= colors.length ? 0 : i],
-                })
-                
-                const cube = new THREE.Mesh(cubeGeometry, cubeMaterial)
-                cube.position.x = j * 1.1 - 14
-                cube.position.z = i * 1.1 - 2
-                cube.position.y = Math.floor(Math.random() * -100)
-                salvatoreGroup.add(cube)
-
-                // gsap.to(cube.position, {
-                //     y: -10,
-                //     duration: 0.3,
-                //     delay: Math.random() * 2,
-                // })
-            }
+    const initAnimation = ()=>{
+        group.children.forEach((cube, i) => {
+            gsap.to(cube.position, {
+                y: 0,
+                duration: 0.5,
+                delay: 2.5 * i * 0.01,
+                onComplete: () => {
+                    camera.lookAt(gforofor.position)
+                }
+            })
         })
-    })
-    salvatoreGroup.position.y = -5
-    scene.add(salvatoreGroup)
-
+    }
 
     // RENDERER
     const canva = document.createElement('canvas')
@@ -177,49 +98,17 @@
 
     const animationScripts: { start: number; end: number; func: () => void }[] = []
 
-    animationScripts.push({
-        start: 0,
-        end: 20,
-        func: () => {
-            group.children.forEach((cube, i) => {
-                gsap.to(cube.position, {
-                    y: 0,
-                    duration: 1.5,
-                })
-            })
+    const domSections = document.querySelectorAll('section')
 
-            salvatoreGroup.children.forEach((cube, i) => {
-                gsap.to(cube.position, {
-                    y: -13,
-                    duration: 0.5,
-                    delay: 2.5,
-                    onComplete: () => {
-                        camera.lookAt(salvatoreGroup.position)
-                    }
-                })
-            })
-            
-            camera.position.z = lerp(camera.position.z, 10, scalePercent(0, 100))
-        },
-    })
-
-    animationScripts.push({
-        start: 20,
-        end: 101,
-        func: () => {
-
-            // zoom in the camera
-            // camera.position.y = lerp(camera.position.y, 10, scalePercent(0, 100))
-            group.children.forEach((cube, i) => {
-            //     cube.position.y = Math.sin((scrollPercent / 100) * Math.PI * 2 + i) * 0.5
-            // modify the cube y position with gsap
-                gsap.to(cube.position, {
-                    y: Math.sin((scrollPercent / 100) * Math.PI * 2 + i) * 0.5,
-                    duration: 0.3,
-                })
-            })
-
-        },
+    domSections.forEach((section, i) => {
+        animationScripts.push({
+            start: i * 25,
+            end: (i + 1) * 25,
+            func: () => {
+                scene.background = new THREE.Color(paletteColor[i])
+                camera.position.y = lerp(20, 0, scalePercent(i * 25, (i + 1) * 25))
+            },
+        })
     })
 
     function playScrollAnimations() {
@@ -257,6 +146,8 @@
     }
 
     window.scrollTo({ top: 0, behavior: 'smooth' })
-
+    
+    initAnimation()
+    
     animate()
 </script>
