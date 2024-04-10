@@ -6,13 +6,20 @@
     import gsap from 'gsap';
     import { composeGroup } from './Font';
 
-    // import { OrbitControls } from 'three/examples/jsm/Addons.js';
-    
+    import { OrbitControls } from 'three/examples/jsm/Addons.js';
+
+    const urlParams = new URLSearchParams(window.location.search)
+    const text = urlParams.get('text')
+
     const paletteColor: string[] = ['#5B91A6', '#F2E8D5', '#D9BFA0', '#A6896F', '#D97B59']
     const paletteForOFor: string[] = ["#042940", '#005C53', '#9FC131', '#DBF227', '#D6D58E', '#ffffff']
+
+    let color = paletteForOFor
+    if(text) color = paletteColor
+    
     // SCENE
     const scene = new THREE.Scene()
-    scene.background = new THREE.Color(paletteColor[0])
+    scene.background = new THREE.Color(color[0])
 
     // CAMERA
     const camera = new THREE.PerspectiveCamera( 
@@ -42,13 +49,11 @@
     scene.add(l4)
 
     // 404
-    const gforofor = composeGroup(404, paletteForOFor, 100, 1_000)
-    const urlParams = new URLSearchParams(window.location.search)
-    let group: THREE.Group = gforofor;
-    if(urlParams.has('nome')){
-        let nome = urlParams.get('nome')
-        if(nome) group = composeGroup(nome, paletteColor, 100, 1_000)
-    }
+    let group: THREE.Group = new THREE.Group();
+
+    if(text) group = composeGroup(text, paletteColor, 100, 1_000)
+    else group = composeGroup("404", paletteForOFor, 100, 1_000)
+    
     scene.add(group)
     // const gsalvatore = composeGroup('salvatore', paletteColor, 100, 1_000)
     // scene.add(gforofor)
@@ -59,9 +64,9 @@
             gsap.to(cube.position, {
                 y: 0,
                 duration: 0.5,
-                delay: 2.5 * i * 0.01,
+                delay: 1 * Math.random(),
                 onComplete: () => {
-                    camera.lookAt(gforofor.position)
+                    camera.lookAt(group.position)
                 }
             })
         })
@@ -99,14 +104,13 @@
     const animationScripts: { start: number; end: number; func: () => void }[] = []
 
     const domSections = document.querySelectorAll('section')
-
     domSections.forEach((section, i) => {
         animationScripts.push({
             start: i * 25,
             end: (i + 1) * 25,
             func: () => {
-                scene.background = new THREE.Color(paletteColor[i])
-                camera.position.y = lerp(20, 0, scalePercent(i * 25, (i + 1) * 25))
+                scene.background = new THREE.Color(color[i])
+                camera.position.y = lerp(15, 0, scalePercent(i * 25, (i + 1) * 25))
             },
         })
     })
@@ -134,11 +138,17 @@
         //     'Scroll Progress : ' + scrollPercent.toFixed(2)
     }
 
+    const controls = new OrbitControls(camera, renderer.domElement)
+    controls.enableDamping = false
+    controls.enableZoom = false
+    controls.enablePan = false
+    controls.enableRotate = false
 
     function animate() {
         requestAnimationFrame(animate)
         playScrollAnimations()
         render()
+        controls.update()
     }
 
     function render() {

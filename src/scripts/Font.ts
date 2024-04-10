@@ -57,11 +57,11 @@ const h = [
     ["X", " ", "X"]
 ]
 const i = [
-    ["X", "X", "X"],
     [" ", "X", " "],
     [" ", "X", " "],
     [" ", "X", " "],
-    ["X", "X", "X"]
+    [" ", "X", " "],
+    [" ", "X", " "]
 ]
 const j = [
     ["X", "X", "X"],
@@ -270,7 +270,7 @@ const nine = [
     [" ", "X", "X", "X", " "]
 ]
 
-const numbers = [ zero, one, two, three, four, five, six, seven, eight, nine ]
+const numbers = [zero, one, two, three, four, five, six, seven, eight, nine]
 
 const alphabet = {
     "a": a,
@@ -304,37 +304,37 @@ const alphabet = {
 
 export const composeText = (text: string) => {
     let _text: string[][] = []
-    for (let i = 0; i < alphabet[text[0] as keyof typeof alphabet].length; i++) {
+    const h = 5;
+    // loop for each row
+    for (let i = 0; i < h; i++) {
         _text.push([])
+        // loop for each letter
         for (let j = 0; j < text.length; j++) {
-            _text[i].push(...alphabet[text[j] as keyof typeof alphabet][i])
+            // check if the letter is in the alphabet or is the number
+            const l = text[j]
+            if (alphabet[text[j] as keyof typeof alphabet]) {
+                const letter = l as keyof typeof alphabet
+                const letter_array = alphabet[letter][i]
+                _text[i].push(...letter_array)
+            } else if (numbers[parseInt(l)]) {
+                const letter: number = parseInt(l)
+                const letter_array = numbers[letter][i]
+                _text[i].push(...letter_array)
+            }
         }
     }
     return _text
 }
 
-const padding = 1.03
-
-const composeNumber = (number: number) => {
-    let _number: string[][] = []
-    number.toString().split("").forEach((n) => {
-        for (let i = 0; i < numbers[parseInt(n)].length; i++) {
-            _number.push([])
-            _number[i].push(...numbers[parseInt(n)][i])
-        }
-    })
-    return _number
-}
-
-function createBoxWithRoundedEdges( width: number, height: number, depth: number, radius0: number, smoothness: number ) {
+function createBoxWithRoundedEdges(width: number, height: number, depth: number, radius0: number, smoothness: number) {
     let shape = new THREE.Shape();
     let eps = 0.00001;
     let radius = radius0 - eps;
-    shape.absarc( eps, eps, eps, -Math.PI / 2, -Math.PI, true );
-    shape.absarc( eps, height -  radius * 2, eps, Math.PI, Math.PI / 2, true );
-    shape.absarc( width - radius * 2, height -  radius * 2, eps, Math.PI / 2, 0, true );
-    shape.absarc( width - radius * 2, eps, eps, 0, -Math.PI / 2, true );
-    let geometry = new THREE.ExtrudeGeometry( shape, {
+    shape.absarc(eps, eps, eps, -Math.PI / 2, -Math.PI, true);
+    shape.absarc(eps, height - radius * 2, eps, Math.PI, Math.PI / 2, true);
+    shape.absarc(width - radius * 2, height - radius * 2, eps, Math.PI / 2, 0, true);
+    shape.absarc(width - radius * 2, eps, eps, 0, -Math.PI / 2, true);
+    let geometry = new THREE.ExtrudeGeometry(shape, {
         // amount: depth - radius0 * 2,
         bevelEnabled: true,
         bevelSegments: smoothness * 2,
@@ -343,9 +343,9 @@ function createBoxWithRoundedEdges( width: number, height: number, depth: number
         bevelThickness: radius0,
         curveSegments: smoothness
     });
-    
+
     geometry.center();
-    
+
     return geometry;
 }
 
@@ -353,24 +353,22 @@ function getRandomArbitrary(min: number, max: number) {
     return Math.random() * (max - min) + min;
 }
 
-export const composeGroup = (text: string | number, colors: string[], minY: number, maxY: number, linearColor: boolean = true, singleColor: boolean = false) => {
-    const h:number = 5;
-    let w:number;
+export const composeGroup = (text: string, colors: string[], minY: number, maxY: number, linearColor: boolean = true, singleColor: boolean = false) => {
+    const h: number = 5;
     const group = new THREE.Group()
-    let _text: string[][] = []
-    if(typeof text === "string") {
-        _text = composeText(text)
-        w = text.length
-    } else if(typeof text === "number") {
-        _text = composeNumber(text)
-        w = text.toString().length
-    }
-
+    const _text: string[][] = composeText(text)
     const _singleColor = colors[Math.round(getRandomArbitrary(0, colors.length - 1))]
+    
     const padding = 1.1
-    const paddingLetter = 1.4
+    
+    console.log(_text)
+    
     _text.forEach((row, i) => {
+        // space between letters
+        let cumulator = 0;
         row.forEach((col, j) => {
+            if (text !== '404' && j % 3 === 0) {cumulator += 0.5}
+            else if(text && j % 5 === 0) {cumulator += 0.5}
             if (col === 'X') {
                 const cubeGeometry = createBoxWithRoundedEdges(1, 1, 1, 0.1, 10)
                 const randomColor = colors[Math.round(getRandomArbitrary(0, colors.length - 1))]
@@ -380,9 +378,10 @@ export const composeGroup = (text: string | number, colors: string[], minY: numb
                 })
 
                 const cube = new THREE.Mesh(cubeGeometry, cubeMaterial)
-                const x = j * padding  - _text[0].length / 2
-                cube.position.x = x
-                cube.position.z = i * padding - h/2
+
+                let x = j * padding - _text[0].length / 2 * 1.2
+                cube.position.x = x + cumulator
+                cube.position.z = i * padding - h / 2
                 cube.position.y = getRandomArbitrary(minY, maxY)
                 group.add(cube)
             }
