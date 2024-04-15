@@ -1,0 +1,159 @@
+---
+
+---
+<script>
+    import * as THREE from 'three';
+    import gsap from 'gsap';
+    import { composeGroup } from './Font';
+
+    import { OrbitControls } from 'three/examples/jsm/Addons.js';
+
+    const urlParams = new URLSearchParams(window.location.search)
+    const text = urlParams.get('text')
+
+    const paletteColor: string[] = ['#5B91A6', '#F2E8D5', '#D9BFA0', '#A6896F', '#D97B59']
+    const paletteForOFor: string[] = ["#042940", '#005C53', '#9FC131', '#DBF227', '#D6D58E', '#ffffff']
+
+    let color = paletteForOFor
+    if(text) color = paletteColor
+    
+    // SCENE
+    const scene = new THREE.Scene()
+    scene.background = new THREE.Color(color[0])
+
+    // CAMERA
+    const camera = new THREE.PerspectiveCamera( 
+        75,
+        window.innerWidth / window.innerHeight, 
+        0.01,
+        1000
+    )
+    
+    camera.position.z = 0
+    camera.position.y = 20
+    camera.position.x = 0
+
+    // LIGHT
+    const l1 = new THREE.DirectionalLight(0xffffff, 1.2)
+    l1.position.set(10, 10, 10)
+    scene.add(l1)
+    const l2 = new THREE.DirectionalLight(0xffffff, 1.2)
+    l2.position.set(10, 10, -10)
+    scene.add(l2)
+    const l3 = new THREE.DirectionalLight(0xffffff, 1.2)
+    l3.position.set(-10, 10, 10)
+    scene.add(l3)
+
+    let group: THREE.Group = new THREE.Group();
+
+    if(text) group = composeGroup(text, paletteColor)
+    else group = composeGroup("404", paletteForOFor)
+    // position the group in the center of the screen
+    scene.add(group)
+
+    // const sphere = new THREE.Mesh(
+    //     new THREE.SphereGeometry(0.5),
+    //     new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true})
+    // )
+    // sphere.position.set(0, 0, 0)
+    // scene.add(sphere)
+
+    const initAnimation = ()=>{
+        group.children.forEach((cube, i) => {
+            gsap.to(cube.position, {
+                y: 0,
+                duration: 0.5,
+                delay: 1 * Math.random()
+            })
+        })
+    }
+
+    // RENDERER
+    const canva = document.createElement('canvas')
+    canva.id = 'scrollProgress'
+    canva.style.position = 'fixed'
+    canva.style.top = '0'
+    canva.style.right = '0'
+    const renderer = new THREE.WebGLRenderer({ canvas: canva })
+    renderer.setSize(window.innerWidth, window.innerHeight)
+    document.body.appendChild(renderer.domElement)
+
+    // RESIZE
+    window.addEventListener('resize', onWindowResize, false)
+    function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight
+        camera.updateProjectionMatrix()
+        renderer.setSize(window.innerWidth, window.innerHeight)
+        render()
+    }
+
+    // Liner Interpolation
+    function lerp(x: number, y: number, a: number): number {
+        return (1 - a) * x + a * y
+    }
+
+    // Used to fit the lerps to start and end at specific scrolling percentages
+    function scalePercent(start: number, end: number) {
+        return (scrollPercent - start) / (end - start)
+    }
+
+    const animationScripts: { start: number; end: number; func: () => void }[] = []
+
+    const domSections = document.querySelectorAll('section')
+    domSections.forEach((section, i) => {
+        animationScripts.push({
+            start: i * 25,
+            end: (i + 1) * 25,
+            func: () => {
+                scene.background = new THREE.Color(color[i])
+                camera.position.y = lerp(20, 0, scalePercent(i * 25, (i + 1) * 25))
+            },
+        })
+    })
+
+    function playScrollAnimations() {
+        animationScripts.forEach((a) => {
+            if (scrollPercent >= a.start && scrollPercent < a.end) {
+                a.func()
+            }
+        })
+    }
+
+    let scrollPercent = 0
+
+    document.body.onscroll = () => {
+        //calculate the current scroll progress as a percentage
+        scrollPercent =
+            ((document.documentElement.scrollTop || document.body.scrollTop) /
+                ((document.documentElement.scrollHeight ||
+                    document.body.scrollHeight) -
+                    document.documentElement.clientHeight)) *
+            100;
+        console.log(scrollPercent)
+        // ;(document.getElementById('scrollProgress') as HTMLDivElement).innerText =
+        //     'Scroll Progress : ' + scrollPercent.toFixed(2)
+    }
+
+    const controls = new OrbitControls(camera, renderer.domElement)
+    controls.enableDamping = false
+    controls.enableZoom = false
+    controls.enablePan = false
+    controls.enableRotate = false
+
+    function animate() {
+        requestAnimationFrame(animate)
+        playScrollAnimations()
+        render()
+        controls.update()
+    }
+
+    function render() {
+        renderer.render(scene, camera)
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    
+    initAnimation()
+    
+    animate()
+</script>

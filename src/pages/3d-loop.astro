@@ -1,0 +1,21 @@
+---
+import BackToTop from '../components/ui/BackToTop.astro';
+import Layout from '../layouts/Layout.astro';
+import BackgroundLoop from '../scripts/BackgroundLoop.astro';
+import '../styles/utils.css';
+---
+<BackgroundLoop />
+<Layout title='salvatorelaspata.net'>
+    <section class="h-screen" />
+    <section class="h-screen" />
+    <section class="h-screen" />
+    <section class="h-screen" />
+    <section class="h-screen" />
+    <section class="h-screen" />
+    <form>
+        <label for="search"></label>
+        <input type="text" id="search" name="text" placeholder="Set a placeholder..." 
+                class="fixed bottom-0 right-0 z-20"/>
+    </form>
+</Layout>
+<BackToTop />

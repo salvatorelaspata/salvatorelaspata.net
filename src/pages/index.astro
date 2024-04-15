@@ -8,49 +8,22 @@ import Experiences from '../landingpage/Experiences.astro';
 import Technologies from '../landingpage/Technologies.astro';
 
 import '../styles/utils.css';
+
+import Header from '../components/ui/Header.astro';
+import Footer from '../components/ui/Footer.astro';
+import BackgroundMain from '../scripts/BackgroundMain.astro';
+import BackToTop from '../components/ui/BackToTop.astro';
 ---
 
-
-<script>
-    // import gsap from 'gsap'
-    // import { ScrollTrigger } from 'gsap/ScrollTrigger'
-    // gsap.registerPlugin(ScrollTrigger);
-    // console.log('gsap')
-
-    // console.log('DOMContentLoaded')
-
-    // const about = document.querySelector('#about')
-    // const skills = document.querySelector('#skills')
-    // const technologies = document.querySelector('#technologies')
-    // const project = document.querySelector('#project')
-    // const experiences = document.querySelector('#experiences')
-    // console.log(about && about.getBoundingClientRect().top)
-    // gsap.from(about, {
-    //     scrollTrigger: {
-    //         trigger: '#about',
-    //         start: "top 80%",
-    //         end: "bottom 20%",
-    //         once: false,
-    //     },
-    //     duration: 1, 
-    //     ease: "circ.out",
-    //     y: 20,
-    // })
-</script>
-
 <Layout title='salvatorelaspata.net'>
-    <!-- 
+    <Header />
     <Main bgColor='bg-gray-300 dark:bg-gray-800' textColor='text-gray-800 dark:text-white' />
     <About bgColor='bg-gray-400 dark:bg-gray-700' textColor='text-white dark:text-white' />
     <Skills bgColor='bg-gray-500 dark:bg-gray-600' textColor='text-white dark:text-white' />
     <Technologies bgColor='bg-gray-600 dark:bg-gray-500' textColor='text-white dark:text-white' />
     <Project bgColor='bg-gray-700 dark:bg-gray-400' textColor='text-white dark:text-white' />
     <Experiences bgColor='bg-gray-800 dark:bg-gray-300' textColor='text-white dark:text-white' /> 
-    -->
-    <section class="h-screen" />
-    <section class="h-screen" />
-    <section class="h-screen" />
-    <section class="h-screen" />
-    <section class="h-screen" />
-    <section class="h-screen" />
+    <Footer />
+    <BackgroundMain />
 </Layout>
+<BackToTop />

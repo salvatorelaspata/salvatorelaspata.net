@@ -1,10 +1,6 @@
 ---
 import { AstroSeo } from '@astrolib/seo';
-import BackToTop from '../components/ui/BackToTop.astro';
-import Header from '../components/ui/Header.astro';
-import Footer from '../components/ui/Footer.astro';
-import Background from '../scripts/Background.astro';
-import Animation from '../scripts/Animation.astro';
+
 interface Props {
     title: string;
 }
@@ -43,13 +39,6 @@ const { title } = Astro.props;
 		</style>
     </head>
     <body class='w-full font-mono m-0'>
-        <!-- <Header /> -->
         <slot/>
-        <!-- <Footer /> -->
-        <!--  -->
-        <BackToTop />
-        <!-- SCRIPT -->
-        <Background />
-        <!-- <Animation />  -->
     </body>
 </html>

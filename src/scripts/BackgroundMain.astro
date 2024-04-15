@@ -19,7 +19,7 @@
     
     // SCENE
     const scene = new THREE.Scene()
-    scene.background = new THREE.Color(color[0])
+    // scene.background = new THREE.Color(color[0])
 
     // CAMERA
     const camera = new THREE.PerspectiveCamera( 
@@ -32,42 +32,38 @@
     camera.position.z = 0
     camera.position.y = 20
     camera.position.x = 0
-    camera.lookAt(0, 0, 0)
 
     // LIGHT
-    // const l1 = new THREE.DirectionalLight(0xffffff, 1.2)
-    // l1.position.set(-10, 10, -10)
-    // scene.add(l1)
+    const l1 = new THREE.DirectionalLight(0xffffff, 1.2)
+    l1.position.set(10, 10, 10)
+    scene.add(l1)
     const l2 = new THREE.DirectionalLight(0xffffff, 1.2)
-    l2.position.set(10, 10, 10)
+    l2.position.set(10, 10, -10)
     scene.add(l2)
     const l3 = new THREE.DirectionalLight(0xffffff, 1.2)
-    l3.position.set(10, 10, -10)
+    l3.position.set(-10, 10, 10)
     scene.add(l3)
-    const l4 = new THREE.DirectionalLight(0xffffff, 1.2)
-    l4.position.set(-10, 10, 10)
-    scene.add(l4)
 
-    // 404
     let group: THREE.Group = new THREE.Group();
 
-    if(text) group = composeGroup(text, paletteColor, 100, 1_000)
-    else group = composeGroup("404", paletteForOFor, 100, 1_000)
-    
+    if(text) group = composeGroup(text, paletteColor)
+    else group = composeGroup("404", paletteForOFor)
+    // position the group in the center of the screen
     scene.add(group)
-    // const gsalvatore = composeGroup('salvatore', paletteColor, 100, 1_000)
-    // scene.add(gforofor)
-    // scene.add(gsalvatore)
+
+    // const sphere = new THREE.Mesh(
+    //     new THREE.SphereGeometry(0.5),
+    //     new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true})
+    // )
+    // sphere.position.set(0, 0, 0)
+    // scene.add(sphere)
 
     const initAnimation = ()=>{
         group.children.forEach((cube, i) => {
             gsap.to(cube.position, {
                 y: 0,
                 duration: 0.5,
-                delay: 1 * Math.random(),
-                onComplete: () => {
-                    camera.lookAt(group.position)
-                }
+                delay: 1 * Math.random()
             })
         })
     }
@@ -104,13 +100,14 @@
     const animationScripts: { start: number; end: number; func: () => void }[] = []
 
     const domSections = document.querySelectorAll('section')
+
     domSections.forEach((section, i) => {
         animationScripts.push({
             start: i * 25,
             end: (i + 1) * 25,
             func: () => {
-                scene.background = new THREE.Color(color[i])
-                camera.position.y = lerp(15, 0, scalePercent(i * 25, (i + 1) * 25))
+                // scene.background = new THREE.Color(color[i])
+                camera.position.y = lerp(20, 0, scalePercent(i * 25, (i + 1) * 25))
             },
         })
     })

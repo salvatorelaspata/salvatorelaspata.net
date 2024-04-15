@@ -191,83 +191,84 @@ const space = [
 ]
 
 const zero = [
-    [" ", "X", "X", "X", " "],
-    ["X", " ", " ", " ", "X"],
-    ["X", " ", " ", " ", "X"],
-    ["X", " ", " ", " ", "X"],
-    [" ", "X", "X", "X", " "]
+    ["X", "X", "X",],
+    ["X", " ", "X",],
+    ["X", " ", "X",],
+    ["X", " ", "X",],
+    ["X", "X", "X",]
 ]
 
 const one = [
-    [" ", " ", "X", " ", " "],
-    [" ", "X", "X", " ", " "],
-    ["X", " ", "X", " ", " "],
-    [" ", " ", "X", " ", " "],
-    ["X", "X", "X", "X", "X"]
+    [" ", "X", " "],
+    ["X", "X", " "],
+    [" ", "X", " "],
+    [" ", "X", " "],
+    ["X", "X", "X"]
+
 ]
 
 const two = [
-    [" ", "X", "X", "X", " "],
-    ["X", " ", " ", " ", "X"],
-    [" ", " ", "X", " ", " "],
-    [" ", "X", " ", " ", " "],
-    ["X", "X", "X", "X", "X"]
+    ["X", "X", "X"],
+    [" ", " ", "X"],
+    ["X", "X", "X"],
+    ["X", " ", " "],
+    ["X", "X", "X"]
 ]
 
 const three = [
-    [" ", "X", "X", "X", " "],
-    ["X", " ", " ", " ", "X"],
-    [" ", " ", "X", " ", " "],
-    ["X", " ", " ", " ", "X"],
-    [" ", "X", "X", "X", " "]
+    ["X", "X", "X"],
+    [" ", " ", "X"],
+    ["X", "X", "X"],
+    [" ", " ", "X"],
+    ["X", "X", "X"]
 ]
 
 const four = [
-    ["X", " ", " ", " ", "X"],
-    ["X", " ", " ", " ", "X"],
-    ["X", "X", "X", "X", "X"],
-    [" ", " ", " ", " ", "X"],
-    [" ", " ", " ", " ", "X"]
+    ["X", " ", "X"],
+    ["X", " ", "X"],
+    ["X", "X", "X"],
+    [" ", " ", "X"],
+    [" ", " ", "X"]
 ]
 
 const five = [
-    ["X", "X", "X", "X", "X"],
-    ["X", " ", " ", " ", " "],
-    ["X", "X", "X", "X", " "],
-    [" ", " ", " ", " ", "X"],
-    ["X", "X", "X", "X", " "]
+    ["X", "X", "X"],
+    ["X", " ", " "],
+    ["X", "X", "X"],
+    [" ", " ", "X"],
+    ["X", "X", "X"]
 ]
 
 const six = [
-    [" ", "X", "X", "X", " "],
-    ["X", " ", " ", " ", " "],
-    ["X", "X", "X", "X", " "],
-    ["X", " ", " ", " ", "X"],
-    [" ", "X", "X", "X", " "]
+    ["X", "X", "X"],
+    ["X", " ", " "],
+    ["X", "X", "X"],
+    ["X", " ", "X"],
+    ["X", "X", "X"]
 ]
 
 const seven = [
-    ["X", "X", "X", "X", "X"],
-    [" ", " ", " ", " ", "X"],
-    [" ", " ", " ", " ", "X"],
-    [" ", " ", " ", " ", "X"],
-    [" ", " ", " ", " ", "X"]
+    ["X", "X", "X"],
+    [" ", " ", "X"],
+    [" ", " ", "X"],
+    [" ", " ", "X"],
+    [" ", " ", "X"]
 ]
 
 const eight = [
-    [" ", "X", "X", "X", " "],
-    ["X", " ", " ", " ", "X"],
-    [" ", "X", "X", "X", " "],
-    ["X", " ", " ", " ", "X"],
-    [" ", "X", "X", "X", " "]
+    ["X", "X", "X"],
+    ["X", " ", "X"],
+    ["X", "X", "X"],
+    ["X", " ", "X"],
+    ["X", "X", "X"]
 ]
 
 const nine = [
-    [" ", "X", "X", "X", " "],
-    ["X", " ", " ", " ", "X"],
-    [" ", "X", "X", "X", "X"],
-    [" ", " ", " ", " ", "X"],
-    [" ", "X", "X", "X", " "]
+    ["X", "X", "X"],
+    ["X", " ", "X"],
+    ["X", "X", "X"],
+    [" ", " ", "X"],
+    ["X", "X", "X"]
 ]
 
 const numbers = [zero, one, two, three, four, five, six, seven, eight, nine]
@@ -303,6 +304,7 @@ const alphabet = {
 }
 
 export const composeText = (text: string) => {
+    text = text.replace(/\s/g, "");
     let _text: string[][] = []
     const h = 5;
     // loop for each row
@@ -353,22 +355,24 @@ function getRandomArbitrary(min: number, max: number) {
     return Math.random() * (max - min) + min;
 }
 
-export const composeGroup = (text: string, colors: string[], minY: number, maxY: number, linearColor: boolean = true, singleColor: boolean = false) => {
+export const composeGroup = (text: string, colors: string[], minY: number = 100, maxY: number = 1_000, linearColor: boolean = true, singleColor: boolean = false) => {
     const h: number = 5;
     const group = new THREE.Group()
     const _text: string[][] = composeText(text)
     const _singleColor = colors[Math.round(getRandomArbitrary(0, colors.length - 1))]
     
-    const padding = 1.1
+    // const paddingBetweenCube = 1.1
     
-    console.log(_text)
-    
+    const spaceIndex = text.indexOf(' ')
+
     _text.forEach((row, i) => {
-        // space between letters
         let cumulator = 0;
         row.forEach((col, j) => {
-            if (text !== '404' && j % 3 === 0) {cumulator += 0.5}
-            else if(text && j % 5 === 0) {cumulator += 0.5}
+            // space between letters
+            if (j % 3 === 0) { cumulator += 0.5 }
+            // space
+            if (j === spaceIndex * 3) { cumulator += 1.5 }
+
             if (col === 'X') {
                 const cubeGeometry = createBoxWithRoundedEdges(1, 1, 1, 0.1, 10)
                 const randomColor = colors[Math.round(getRandomArbitrary(0, colors.length - 1))]
@@ -378,10 +382,17 @@ export const composeGroup = (text: string, colors: string[], minY: number, maxY:
                 })
 
                 const cube = new THREE.Mesh(cubeGeometry, cubeMaterial)
-
-                let x = j * padding - _text[0].length / 2 * 1.2
-                cube.position.x = x + cumulator
-                cube.position.z = i * padding - h / 2
+                // TODO: center the text
+                let centered = 0
+                if(text.length <= 3) { centered = - 0.5 }
+                else if (text.length <= 5) { centered = - 1 } 
+                else if (text.length <= 7) { centered = - 1.5 } 
+                else if (text.length <= 9) { centered = - 2 } 
+                else if (text.length <= 11) { centered = - 2.5 } 
+                else { centered = - 3 }
+                
+                cube.position.x = j + cumulator - _text[0].length / 2 + centered
+                cube.position.z = i - h / 2 + 0.5
                 cube.position.y = getRandomArbitrary(minY, maxY)
                 group.add(cube)
             }
