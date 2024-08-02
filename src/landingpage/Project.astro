@@ -1,215 +1,226 @@
 ---
-import SectionLayout from '../layouts/SectionLayout.astro';
-import CardImage from '../components/CardImage.astro';
+import SectionLayout from "../layouts/SectionLayout.astro";
+import CardImage from "../components/CardImage.astro";
+
 interface Props {
-    bgColor: string;
-    textColor: string;
+  bgColor: string;
+  textColor: string;
 }
 const { bgColor, textColor } = Astro.props;
 ---
 
-<SectionLayout id="project" bgColor={bgColor} textColor={textColor} title='Side Project'>
-    <div class='grid gap-5'>
-        <CardImage
-            title="Config Reality"
-            subtitle='Telegram Bot'
-            img="logo-telegram.svg"
-            description='Un bot per la configurazione di oggetti 3D'
-            tecnologie='Node JS, Telegram API'
-            github='https://github.com/ConfigReality/3d-telegram-bot'
-            demo="https://t.me/configRealityBot" />
+<SectionLayout
+  id="project"
+  bgColor={bgColor}
+  textColor={textColor}
+  title="Side Project"
+>
+  <div class="grid gap-5">
+    <CardImage
+      title="Config Reality"
+      subtitle="Telegram Bot"
+      img="logo-telegram.svg"
+      description="Un bot per la configurazione di oggetti 3D"
+      tecnologie="Node JS, Telegram API"
+      github="https://github.com/ConfigReality/3d-telegram-bot"
+      demo="https://t.me/configRealityBot"
+    />
 
-        <CardImage 
-            title="Cubo Pazzesco"
-            subtitle='Prototype'
-            img="logo-code.svg"
-            description='Un cubo pazzesco in 3D'
-            tecnologie='Javascript, ThreeJS'
-            github='https://github.com/salvatorelaspata/cubo-pazzesco'
-            demo='https://salvatorelaspata.github.io/cubo-pazzesco/'/>
+    <CardImage
+      title="Cubo Pazzesco"
+      subtitle="Prototype"
+      img="logo-code.svg"
+      description="Un cubo pazzesco in 3D"
+      tecnologie="Javascript, ThreeJS"
+      github="https://github.com/salvatorelaspata/cubo-pazzesco"
+      demo="https://salvatorelaspata.github.io/cubo-pazzesco/"
+    />
 
-        
-        <CardImage
-            title='viewer-3d-lit-loader'
-            subtitle='npm package'
-            img='logo-npm.svg'
-            description='Un loader per il viewer 3d.'
-            tecnologie='Lit Element, TS, Three js.'
-            npm='https://www.npmjs.com/package/viewer-3d-lit-loader'
-            github='https://github.com/salvatorelaspata/viewer-3d-loader'
-        />
+    <CardImage
+      title="viewer-3d-lit-loader"
+      subtitle="npm package"
+      img="logo-npm.svg"
+      description="Un loader per il viewer 3d."
+      tecnologie="Lit Element, TS, Three js."
+      npm="https://www.npmjs.com/package/viewer-3d-lit-loader"
+      github="https://github.com/salvatorelaspata/viewer-3d-loader"
+    />
 
-        <CardImage 
-            title="Advanced JavaScript"
-            subtitle='slides'
-            img="logo-slides.svg"
-            description='Un corso di approfondimento su Javascript'
-            tecnologie='Javascript'
-            slides='https://cloudflare-google-api.salvatore-la-spata.workers.dev/advanced-javascript' />
+    <CardImage
+      title="Advanced JavaScript"
+      subtitle="slides"
+      img="logo-slides.svg"
+      description="Un corso di approfondimento su Javascript"
+      tecnologie="Javascript"
+      slides="https://cloudflare-google-api.salvatore-la-spata.workers.dev/advanced-javascript"
+    />
 
-        <CardImage 
-            title="HTTP like RESTfull vs OData"
-            subtitle='slides'
-            img="logo-slides.svg"
-            description="SAP ed i suoi standard.. Restfull vs OData, un confronto tra due protocolli di comunicazione."
-            tecnologie='Javascript'
-            slides='https://cloudflare-google-api.salvatore-la-spata.workers.dev/http-like-restfull-vs-odata' />
+    <CardImage
+      title="HTTP like RESTfull vs OData"
+      subtitle="slides"
+      img="logo-slides.svg"
+      description="SAP ed i suoi standard.. Restfull vs OData, un confronto tra due protocolli di comunicazione."
+      tecnologie="Javascript"
+      slides="https://cloudflare-google-api.salvatore-la-spata.workers.dev/http-like-restfull-vs-odata"
+    />
 
-        <CardImage 
-            title="Git sotto al cofano"
-            subtitle='slides'
-            img="logo-slides.svg"
-            description='Un corso di approfondimento su Javascript'
-            tecnologie='Javascript'
-            slides='https://cloudflare-google-api.salvatore-la-spata.workers.dev/git-sotto-al-cofano' />
+    <CardImage
+      title="Git sotto al cofano"
+      subtitle="slides"
+      img="logo-slides.svg"
+      description="Un corso di approfondimento su Javascript"
+      tecnologie="Javascript"
+      slides="https://cloudflare-google-api.salvatore-la-spata.workers.dev/git-sotto-al-cofano"
+    />
 
-        <CardImage 
-            title="UI5 Web Component"
-            subtitle='slides'
-            img="logo-slides.svg"
-            description='Un corso di approfondimento su Javascript'
-            tecnologie='Javascript'
-            slides='https://cloudflare-google-api.salvatore-la-spata.workers.dev/ui5-web-component' />
+    <CardImage
+      title="UI5 Web Component"
+      subtitle="slides"
+      img="logo-slides.svg"
+      description="Un corso di approfondimento su Javascript"
+      tecnologie="Javascript"
+      slides="https://cloudflare-google-api.salvatore-la-spata.workers.dev/ui5-web-component"
+    />
 
-        <CardImage
-            title='sql-odata'
-            subtitle='Prototype'
-            img='logo-odata.svg'
-            description='Idea di realizzare un plugin fastify o una possibile integrazione Platformatic che permette di esporre con il protocollo oData v2, utilizzato come standard dalle applicazioni SAP Fiori, le entità di un database relazionale'
-            tecnologie='Node js, Fastify, Platformatic'
-            github='https://github.com/salvatorelaspata/sql-odata'
-        />
+    <CardImage
+      title="sql-odata"
+      subtitle="Prototype"
+      img="logo-odata.svg"
+      description="Idea di realizzare un plugin fastify o una possibile integrazione Platformatic che permette di esporre con il protocollo oData v2, utilizzato come standard dalle applicazioni SAP Fiori, le entità di un database relazionale"
+      tecnologie="Node js, Fastify, Platformatic"
+      github="https://github.com/salvatorelaspata/sql-odata"
+    />
 
-        <CardImage
-            title='viewer-3d-lit'
-            subtitle='npm package'
-            img='logo-npm.svg'
-            description='Un viewer per oggetti 3d.'
-            tecnologie='Lit Element, TS, Three js.'
-            npm='https://www.npmjs.com/package/viewer-3d-lit'
-            github='https://github.com/salvatorelaspata/viewer-3d-lit'
-        />
+    <CardImage
+      title="viewer-3d-lit"
+      subtitle="npm package"
+      img="logo-npm.svg"
+      description="Un viewer per oggetti 3d."
+      tecnologie="Lit Element, TS, Three js."
+      npm="https://www.npmjs.com/package/viewer-3d-lit"
+      github="https://github.com/salvatorelaspata/viewer-3d-lit"
+    />
 
-        <CardImage
-            title='odata-to-sql'
-            subtitle='npm package'
-            img='logo-npm.svg'
-            description='Un semplicissimo oData v2 url parser.'
-            tecnologie='Javascript'
-            npm='https://www.npmjs.com/package/odatav2-to-sql'
-            github='https://github.com/salvatorelaspata/odatav2-to-sql '
-        />
+    <CardImage
+      title="odata-to-sql"
+      subtitle="npm package"
+      img="logo-npm.svg"
+      description="Un semplicissimo oData v2 url parser."
+      tecnologie="Javascript"
+      npm="https://www.npmjs.com/package/odatav2-to-sql"
+      github="https://github.com/salvatorelaspata/odatav2-to-sql "
+    />
 
-        <CardImage
-            title='Config Realiy'
-            subtitle='Project'
-            img='logo-code.svg'
-            description="L'idea iniziale era di creare un configuratore di teste di moro (essendo di Caltagirone, città della ceramica) in 2D sovrapponendo le foto con i vari componenti.. poi ho conosciuto il magico mondo di Three js… "
-            tecnologie='React JS, Three JS'
-            demo='https://loquacious-palmier-d09bd4.netlify.app/'
-            github='https://github.com/salvatorelaspata/config-3d'
-        />
+    <CardImage
+      title="Config Realiy"
+      subtitle="Project"
+      img="logo-code.svg"
+      description="L'idea iniziale era di creare un configuratore di teste di moro (essendo di Caltagirone, città della ceramica) in 2D sovrapponendo le foto con i vari componenti.. poi ho conosciuto il magico mondo di Three js… "
+      tecnologie="React JS, Three JS"
+      demo="https://loquacious-palmier-d09bd4.netlify.app/"
+      github="https://github.com/salvatorelaspata/config-3d"
+    />
 
-        <CardImage
-            title='Config Realiy Process '
-            subtitle='Project'
-            img='logo-code.svg'
-            description='From images to 3d models.'
-            tecnologie='Node JS, Supabase, Apple Reality Kit'
-            github='https://github.com/ConfigReality/process'
-        />
+    <CardImage
+      title="Config Realiy Process "
+      subtitle="Project"
+      img="logo-code.svg"
+      description="From images to 3d models."
+      tecnologie="Node JS, Supabase, Apple Reality Kit"
+      github="https://github.com/ConfigReality/process"
+    />
 
-        <CardImage
-            title='Config Realiy Dashboard Web '
-            subtitle='Project'
-            img='logo-code.svg'
-            description='From images to 3d models.'
-            tecnologie='Next JS, Tailwind CSS, Supabase'
-            github='https://github.com/ConfigReality/dashboard-web'
-        />
+    <CardImage
+      title="Config Realiy Dashboard Web "
+      subtitle="Project"
+      img="logo-code.svg"
+      description="From images to 3d models."
+      tecnologie="Next JS, Tailwind CSS, Supabase"
+      github="https://github.com/ConfigReality/dashboard-web"
+    />
 
-        <CardImage
-            title='Minesweeper'
-            subtitle='Project'
-            img='logo-code.svg'
-            description='Non sopportavo le pubblicità del mio giochino preferito..'
-            tecnologie='Vite, React, Socke Supply (wip)'
-            demo='https://comforting-sunflower-ea6732.netlify.app/'
-            github='https://github.com/salvatorelaspata/tree-project'
-        />
+    <CardImage
+      title="Minesweeper"
+      subtitle="Project"
+      img="logo-code.svg"
+      description="Non sopportavo le pubblicità del mio giochino preferito.."
+      tecnologie="Vite, React, Socke Supply (wip)"
+      demo="https://comforting-sunflower-ea6732.netlify.app/"
+      github="https://github.com/salvatorelaspata/tree-project"
+    />
 
-        <CardImage
-            title='Reinventing Minecraft Soil Generator'
-            subtitle='Project'
-            img='logo-code.svg'
-            description='Ispirato da un video youtube di Henrik Kniberg ho dovuto provare con mano la generazione del terreno di minecraft.'
-            tecnologie='Vanilla JS, React, ThreeJS'
-            demo='https://sweet-mermaid-c9a9f0.netlify.app/'
-            github='https://github.com/salvatorelaspata/tree-project'
-        />
+    <CardImage
+      title="Reinventing Minecraft Soil Generator"
+      subtitle="Project"
+      img="logo-code.svg"
+      description="Ispirato da un video youtube di Henrik Kniberg ho dovuto provare con mano la generazione del terreno di minecraft."
+      tecnologie="Vanilla JS, React, ThreeJS"
+      demo="https://sweet-mermaid-c9a9f0.netlify.app/"
+      github="https://github.com/salvatorelaspata/tree-project"
+    />
 
-        <CardImage
-            title='Agenzia Viaggi'
-            subtitle='Project'
-            img='logo-code.svg'
-            description='Reingegnerizzazione del processo di gestione preventivi con una semplice anagrafica cliente. Da excel a web app.'
-            tecnologie='Next js, TS, Supabase'
-            github='https://github.com/salvatorelaspata/agenzia-viaggi--contratti'
-        />
+    <CardImage
+      title="Agenzia Viaggi"
+      subtitle="Project"
+      img="logo-code.svg"
+      description="Reingegnerizzazione del processo di gestione preventivi con una semplice anagrafica cliente. Da excel a web app."
+      tecnologie="Next js, TS, Supabase"
+      github="https://github.com/salvatorelaspata/agenzia-viaggi--contratti"
+    />
 
-        <CardImage
-            title='Distinta ante'
-            subtitle='Project'
-            img='logo-code.svg'
-            description='Ad un amico serviva un calcolatore di lunghezze per la costruzione di Ante. Ho approfittato per approfondire concetti come currying function.'
-            tecnologie='React js, material-ui, FaunaDB'
-            demo='https://silly-banach-e807b9.netlify.app/'
-            github='https://github.com/salvatorelaspata/distinta-ante'
-        />
+    <CardImage
+      title="Distinta ante"
+      subtitle="Project"
+      img="logo-code.svg"
+      description="Ad un amico serviva un calcolatore di lunghezze per la costruzione di Ante. Ho approfittato per approfondire concetti come currying function."
+      tecnologie="React js, material-ui, FaunaDB"
+      demo="https://silly-banach-e807b9.netlify.app/"
+      github="https://github.com/salvatorelaspata/distinta-ante"
+    />
 
-        <CardImage
-            title='Google Mediapipe'
-            subtitle='Project'
-            img='logo-code.svg'
-            description='Smanetting.'
-            tecnologie='Javascript'
-            demo='https://gracious-austin-c300be.netlify.app/'
-            github='https://github.com/salvatorelaspata/mediapipe'
-        />
+    <CardImage
+      title="Google Mediapipe"
+      subtitle="Project"
+      img="logo-code.svg"
+      description="Smanetting."
+      tecnologie="Javascript"
+      demo="https://gracious-austin-c300be.netlify.app/"
+      github="https://github.com/salvatorelaspata/mediapipe"
+    />
 
-        <CardImage
-            title='Node js Mastering'
-            subtitle='Learning'
-            img='logo-learn.svg'
-            description='Dal talk al codice...'
-            tecnologie='Javascript'
-            github='https://github.com/salvatorelaspata/nodejs-mastering'
-        />
+    <CardImage
+      title="Node js Mastering"
+      subtitle="Learning"
+      img="logo-learn.svg"
+      description="Dal talk al codice..."
+      tecnologie="Javascript"
+      github="https://github.com/salvatorelaspata/nodejs-mastering"
+    />
 
-        <CardImage
-            title='Lang Chain & Stregatto'
-            subtitle='Learning'
-            img='logo-learn.svg'
-            description='Tramite una Open API key ho studiato un pò questa tecnologia producendo documentazione ed esempi. Lo stregatto è un progetto opensource che mi è piaciuto seguire grazie alle conoscenze/competenze di Piero Savastano'
-            tecnologie='Javascript & Python'
-            github='https://github.com/salvatorelaspata/langchain-learn'
-        />
-        <CardImage
-            title='Hello Rust'
-            subtitle='Learning'
-            img='logo-learn.svg'
-            description='Ho voglia di approfondire un linguaggio di basso livello..'
-            tecnologie='Rust'
-            github='https://github.com/salvatorelaspata/hello-rust'
-        />
+    <CardImage
+      title="Lang Chain & Stregatto"
+      subtitle="Learning"
+      img="logo-learn.svg"
+      description="Tramite una Open API key ho studiato un pò questa tecnologia producendo documentazione ed esempi. Lo stregatto è un progetto opensource che mi è piaciuto seguire grazie alle conoscenze/competenze di Piero Savastano"
+      tecnologie="Javascript & Python"
+      github="https://github.com/salvatorelaspata/langchain-learn"
+    />
+    <CardImage
+      title="Hello Rust"
+      subtitle="Learning"
+      img="logo-learn.svg"
+      description="Ho voglia di approfondire un linguaggio di basso livello.."
+      tecnologie="Rust"
+      github="https://github.com/salvatorelaspata/hello-rust"
+    />
 
-        <CardImage
-            title='Edx Node js'
-            subtitle='Learning'
-            img='logo-learn.svg'
-            description='Un corso seguito per approfondire concetti node js.'
-            tecnologie='Javascript'
-            github='https://github.com/salvatorelaspata/edx-nodejs'
-        />
-    </div>
+    <CardImage
+      title="Edx Node js"
+      subtitle="Learning"
+      img="logo-learn.svg"
+      description="Un corso seguito per approfondire concetti node js."
+      tecnologie="Javascript"
+      github="https://github.com/salvatorelaspata/edx-nodejs"
+    />
+  </div>
 </SectionLayout>

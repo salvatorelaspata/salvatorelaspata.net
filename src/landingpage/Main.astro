@@ -1,52 +1,103 @@
 ---
-
-import SectionLayout from '../layouts/SectionLayout.astro';
-import SocialLinks from '../components/SocialLinks.astro';
+import SectionLayout from "../layouts/SectionLayout.astro";
+import SocialLinks from "../components/SocialLinks.astro";
 
 interface Props {
-    bgColor: string;
-    textColor: string;
+  bgColor: string;
+  textColor: string;
 }
 const { bgColor, textColor } = Astro.props;
 ---
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { randomAnimation } from "../utils/animation.astro";
+  gsap.registerPlugin(ScrollTrigger);
+
+  // animate text on load
+  const gHello = document.querySelector(".g-hello");
+  const gIm = document.querySelector(".g-im");
+  const gNome = document.querySelector(".g-nome");
+  const gCognome = document.querySelector(".g-cognome");
+  const gRole = document.querySelector(".g-role");
+  const gCompany = document.querySelector(".g-company");
+  const gSocial = document.querySelector(".g-social");
+  const sticker = document.querySelector(".sticker");
+
+  const iHello = document.querySelector(".i-hello");
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: "#main",
+      start: "top center",
+      end: "bottom center",
+      toggleActions: "play none none none",
+    },
+  });
+  const random = randomAnimation(tl);
+
+  gHello && random(gHello);
+  iHello && random(iHello);
+  gIm && random(gIm);
+  gNome && random(gNome);
+  gCognome && random(gCognome);
+  gRole && random(gRole);
+  gCompany && random(gCompany);
+  gSocial && random(gSocial);
+
+  gsap.from(sticker, {
+    scrollTrigger: {
+      trigger: ".sticker",
+      start: "bottom center",
+      end: "bottom center",
+      toggleActions: "play none none none",
+    },
+    opacity: 0,
+    duration: 1,
+  });
+</script>
+
 <SectionLayout id="main" bgColor={bgColor} textColor={textColor} main={true}>
-    <p class='text-2xl z-10'>Ciao 👋 Sono</p>
-    <h1 class='trigger text-4xl font-bold px-3  z-10'>
-        Salvatore
-    </h1>
-    <h1 class='text-4xl font-bold px-3 text-nowrap z-10'>La Spata</h1>
-    <div class='sticker absolute bottom-2 right-14'>
-        <img class='rounded-full opacity-40 z-0 w-auto h-32'
-            height='auto'
-            src='sticker.webp'
-            alt="Salvatore's sticker"
-        />
-    </div>
-    <h2 class='el5 text-center text-2xl underline p-3 z-10'>
-        Full-Stack Software Engineer
-    </h2>
-    <h3 class='el6 text-center text-2xl p-3  z-10'>
-        SAP BTP Practice Leader <span class='text-lg text-blue-500'>
-          @GotoNext S.r.l.
-        </span>
-    </h3>
-    <SocialLinks
-        socials={{
-            github: {
-                img: 'social-github--white.svg',
-                url: 'https://github.com/salvatorelaspata',
-                title: 'Github',
-            },
-            gmail: {
-                img: 'social-gmail.svg',
-                url: 'mailto:salvatore.la.spata@gmail.com?subject=Hello%20Salvatore!',
-                title: 'gmail',
-            },
-            linkedin: {
-                img: 'social-linkedin.svg',
-                url: 'https://www.linkedin.com/in/salvatore-la-spata/',
-                title: 'Linkedin',
-            },
-        }}
+  <span class="g-hello text-xl">Ciao</span>
+  <span class="i-hello">👋</span>
+  <span class="g-im text-lg">Sono</span>
+
+  <h1 class="g-nome text-4xl font-bold px-3 z-10">Salvatore</h1>
+  <h1 class="g-cognome text-4xl font-bold px-3 text-nowrap z-10">La Spata</h1>
+  <div class="sticker absolute bottom-2 right-14">
+    <img
+      class="rounded-full opacity-40 z-0 w-auto h-32"
+      height="auto"
+      src="sticker.webp"
+      alt="Salvatore's sticker"
     />
+  </div>
+  <h2 class="g-role text-center text-2xl underline p-3 z-10">
+    Full-Stack Software Engineer
+  </h2>
+  <h3 class="g-company text-center text-2xl p-3 z-10">
+    SAP BTP Practice Leader <span class="text-lg text-blue-500">
+      @GotoNext S.r.l.
+    </span>
+  </h3>
+  <SocialLinks
+    socials={{
+      github: {
+        img: "social-github--white.svg",
+        url: "https://github.com/salvatorelaspata",
+        title: "Github",
+      },
+      gmail: {
+        img: "social-gmail.svg",
+        url: "mailto:salvatore.la.spata@gmail.com?subject=Hello%20Salvatore!",
+        title: "gmail",
+      },
+      linkedin: {
+        img: "social-linkedin.svg",
+        url: "https://www.linkedin.com/in/salvatore-la-spata/",
+        title: "Linkedin",
+      },
+    }}
+  />
 </SectionLayout>

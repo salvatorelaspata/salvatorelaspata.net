@@ -1,12 +1,14 @@
 ---
 interface Props {
-    title: string;
+    title?: string;
+    class?: string;
 }
 
-const { title } = Astro.props;
+const { title, class: c } = Astro.props;
 ---
 
-<div class='w-full text-start'>
+<div class=`${c} w-full text-start`>
+    {title && 
     <h1
         class='title-font my-3 text-2xl font-extrabold leading-10 tracking-tight sm:text-3xl sm:leading-none md:text-4xl'
     >
@@ -15,8 +17,9 @@ const { title } = Astro.props;
     <div class='flex my-1 justify-center'>
         <div class='w-full h-1 rounded-full bg-blue-500 inline-flex'></div>
     </div>
+    }
     <div
-        class='grid lg:grid-cols-5 lg:gap-5 md:grid-cols-3 md:gap-3 grid-cols-2 gap-5'
+        class='grid lg:grid-cols-4 lg:gap-5 md:grid-cols-3 md:gap-3 grid-cols-2 gap-5'
     >
         <slot />
     </div>

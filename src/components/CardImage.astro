@@ -13,14 +13,14 @@ interface Props {
 const { title, subtitle, description, tecnologie, img, github, npm, demo, slides } =
     Astro.props;
 ---
-<div class='dark:bg-gray-700 bg-gray-400 max-w-md w-full lg:max-w-full lg:flex shadow-md'>
+<div class='bg-palette1 w-full lg:flex shadow-md'>
     <div
         class='h-48 flex place-content-center align-top lg:h-48 lg:w-auto flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden'
     >
         <img src={img} {title} alt={title} class='h-48 w-48 object-cover' />
     </div>
     <div
-        class='w-full border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-gray-900 text-white dark:bg-gray-200 dark:text-black rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal'
+        class='w-full border-r border-b border-l border-palette1 lg:border-l-0 lg:border-t bg-gray-900 text-white dark:bg-gray-200 dark:text-black rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal'
     >
         <div class='mb-8'>
             <p class='text-sm dark:text-gray-600 text-white flex items-center'>

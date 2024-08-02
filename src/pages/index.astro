@@ -22,27 +22,32 @@ import Footer from '../landingpage/Footer.astro';
     // const skills = document.querySelector('#skills')
     // const technologies = document.querySelector('#technologies')
     // const project = document.querySelector('#project')
-    // const experiences = document.querySelector('#experiences')
-    // console.log(about && about.getBoundingClientRect().top)
-    // gsap.from(about, {
-    //     scrollTrigger: {
-    //         trigger: '#about',
-    //         start: "top 80%",
-    //         end: "bottom 20%",
-    //         once: false,
-    //     },
-    //     duration: 1, 
-    //     ease: "circ.out",
-    //     y: 20,
+    // const experiences = document.querySelector('#experiences');
+    // // animate on scroll
+    // [about, skills, technologies, project, experiences].forEach((section) => {
+    //     gsap.from(section, {
+    //         scrollTrigger: {
+    //             trigger: section,
+    //             // animation starts when the top of the trigger element hits the bottom of the viewport
+    //             start: 'top bottom',
+    //             // animation ends when the bottom of the trigger element hits the top of the viewport
+    //             end: 'bottom top',
+    //             // animation starts when the top of the trigger element hits the top of the viewport
+
+    //         },
+    //         opacity: 0,
+    //         y: 50,
+    //         duration: 1,
+    //     })
     // })
 </script>
 
 <Layout title='salvatorelaspata.net'>
-    <Main bgColor='bg-gray-300 dark:bg-gray-800' textColor='text-gray-800 dark:text-white' />
-    <About bgColor='bg-gray-400 dark:bg-gray-700' textColor='text-white dark:text-white' />
-    <Skills bgColor='bg-gray-500 dark:bg-gray-600' textColor='text-white dark:text-white' />
-    <Technologies bgColor='bg-gray-600 dark:bg-gray-500' textColor='text-white dark:text-white' />
-    <Project bgColor='bg-gray-700 dark:bg-gray-400' textColor='text-white dark:text-white' />
-    <Experiences bgColor='bg-gray-800 dark:bg-gray-300' textColor='text-white dark:text-black' />
+    <Main bgColor='bg-gray-300 dark:bg-palette1' textColor='text-gray-800 dark:text-white' />
+    <About bgColor='bg-gray-400 dark:bg-palette2' textColor='text-white dark:text-white' />
+    <Skills bgColor='bg-gray-500 dark:bg-palette3' textColor='text-white dark:text-white' />
+    <Technologies bgColor='bg-gray-600 dark:bg-palette4' textColor='text-white dark:text-white' />
+    <Project bgColor='bg-gray-700 dark:bg-palette5' textColor='text-white dark:text-white' />
+    <Experiences bgColor='bg-gray-800 dark:bg-palette1' textColor='text-white dark:text-white' />
     <Footer />
 </Layout>
