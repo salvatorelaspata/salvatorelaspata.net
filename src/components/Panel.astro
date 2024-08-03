@@ -1,10 +1,21 @@
 ---
+type Enumerate<N extends number, Acc extends number[] = []> = Acc['length'] extends N
+  ? Acc[number]
+  : Enumerate<N, [...Acc, Acc['length']]>
+
+type IntRange<F extends number, T extends number> = Exclude<Enumerate<T>, Enumerate<F>>
+
+type T = IntRange<1, 5>
+
 interface Props {
     title?: string;
     class?: string;
+    cols?: T;
 }
 
-const { title, class: c } = Astro.props;
+const { title, class: c, cols } = Astro.props;
+const col = cols || 2;
+const colClass = `grid-cols-${col} md:grid-cols-${col + 1} lg:grid-cols-${col + 2}`;
 ---
 
 <div class=`${c} w-full text-start`>
@@ -18,9 +29,7 @@ const { title, class: c } = Astro.props;
         <div class='w-full h-1 rounded-full bg-blue-500 inline-flex'></div>
     </div>
     }
-    <div
-        class='grid lg:grid-cols-4 lg:gap-5 md:grid-cols-3 md:gap-3 grid-cols-2 gap-5'
-    >
+    <div class={`w-full grid ${colClass} gap-5`}>
         <slot />
     </div>
 </div>

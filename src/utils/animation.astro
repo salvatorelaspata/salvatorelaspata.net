@@ -2,12 +2,20 @@
 import gsap from 'gsap'
 
 export const randomAnimation = (tl: gsap.core.Timeline) => (element: Element) => {
+  // Applica clip-path all'elemento
+  gsap.set(element, {
+    clipPath: 'inset(0% 0% 0% 0%)'
+  });
+
   tl.from(element, {
       duration: gsap.utils.random(0.2, 0.4),
       opacity: 0,
-      x: gsap.utils.random(-20, 20),
-      y: gsap.utils.random(-20, 20),
+      // scale: 2, // approfondire
+      transformOrigin: "center center",
       ease: 'power2.out',
+      clipPath: 'inset(100% 100% 100% 100%)', // Espandi il clip-path durante l'animazione
+      // xPercent: gsap.utils.random(-20, 20),
+      // yPercent: gsap.utils.random(-20, 20),
   })
 }
 
