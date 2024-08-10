@@ -1,0 +1,10 @@
+{
+  "id": 17,
+  "title": "Distinta ante",
+  "subtitle": "Project",
+  "img": "logo-code.svg",
+  "description": "Ad un amico serviva un calcolatore di lunghezze per la costruzione di Ante. Ho approfittato per approfondire concetti come currying function.",
+  "tecnologie": "React js, material-ui, FaunaDB",
+  "demo": "https://silly-banach-e807b9.netlify.app/",
+  "github": "https://github.com/salvatorelaspata/distinta-ante"
+}

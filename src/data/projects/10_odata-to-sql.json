@@ -1,0 +1,10 @@
+{
+  "id": 10,
+  "title": "odata-to-sql",
+  "subtitle": "npm package",
+  "img": "logo-npm.svg",
+  "description": "Un semplicissimo oData v2 url parser.",
+  "tecnologie": "Javascript",
+  "npm": "https://www.npmjs.com/package/odatav2-to-sql",
+  "github": "https://github.com/salvatorelaspata/odatav2-to-sql"
+}

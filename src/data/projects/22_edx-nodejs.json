@@ -1,0 +1,9 @@
+{
+  "id": 22,
+  "title": "Edx Node js",
+  "subtitle": "Learning",
+  "img": "logo-learn.svg",
+  "description": "Un corso seguito per approfondire concetti node js.",
+  "tecnologie": "Javascript",
+  "github": "https://github.com/salvatorelaspata/edx-nodejs"
+}

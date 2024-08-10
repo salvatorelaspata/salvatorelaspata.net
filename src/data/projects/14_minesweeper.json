@@ -1,0 +1,10 @@
+{
+  "id": 14,
+  "title": "Minesweeper",
+  "subtitle": "Project",
+  "img": "logo-code.svg",
+  "description": "Non sopportavo le pubblicità del mio giochino preferito..",
+  "tecnologie": "Vite, React, Socke Supply (wip)",
+  "demo": "https://comforting-sunflower-ea6732.netlify.app/",
+  "github": "https://github.com/salvatorelaspata/tree-project"
+}

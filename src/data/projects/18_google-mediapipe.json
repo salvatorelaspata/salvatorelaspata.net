@@ -1,0 +1,10 @@
+{
+  "id": 18,
+  "title": "Google Mediapipe",
+  "subtitle": "Project",
+  "img": "logo-code.svg",
+  "description": "Smanetting.",
+  "tecnologie": "Javascript",
+  "demo": "https://gracious-austin-c300be.netlify.app/",
+  "github": "https://github.com/salvatorelaspata/mediapipe"
+}

@@ -27,14 +27,18 @@ const { bgColor, textColor } = Astro.props;
 
   const iHello = document.querySelector(".i-hello");
 
+  const container = document.querySelector("#main");
+
   const tl = gsap.timeline({
     scrollTrigger: {
-      trigger: "#main",
+      trigger: container,
       start: "top center",
       end: "bottom center",
       toggleActions: "play none none none",
     },
   });
+  if(container) {
+   
   const random = randomAnimation(tl);
 
   gHello && random(gHello);
@@ -45,10 +49,10 @@ const { bgColor, textColor } = Astro.props;
   gRole && random(gRole);
   gCompany && random(gCompany);
   gSocial && random(gSocial);
-
+  }
   gsap.from(sticker, {
     scrollTrigger: {
-      trigger: ".sticker",
+      trigger: sticker,
       start: "bottom center",
       end: "bottom center",
       toggleActions: "play none none none",

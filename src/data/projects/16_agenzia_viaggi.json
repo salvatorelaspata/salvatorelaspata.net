@@ -1,0 +1,9 @@
+{
+  "id": "16",
+  "title": "Agenzia Viaggi",
+  "subtitle": "Project",
+  "img": "logo-code.svg",
+  "description": "Reingegnerizzazione del processo di gestione preventivi con una semplice anagrafica cliente. Da excel a web app.",
+  "tecnologie": "Next js, TS, Supabase",
+  "github": "https://github.com/salvatorelaspata/agenzia-viaggi--contratti"
+}

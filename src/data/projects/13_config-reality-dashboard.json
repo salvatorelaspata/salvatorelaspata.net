@@ -1,0 +1,9 @@
+{
+  "id": "13",
+  "title": "Config Realiy Dashboard Web",
+  "subtitle": "Project",
+  "img": "logo-code.svg",
+  "description": "From images to 3d models.",
+  "tecnologie": "Next JS, Tailwind CSS, Supabase",
+  "github": "https://github.com/ConfigReality/dashboard-web"
+}

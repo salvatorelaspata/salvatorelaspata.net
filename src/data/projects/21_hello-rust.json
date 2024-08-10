@@ -1,0 +1,9 @@
+{
+  "id": 21,
+  "title": "Hello Rust",
+  "subtitle": "Learning",
+  "img": "logo-learn.svg",
+  "description": "Ho voglia di approfondire un linguaggio di basso livello..",
+  "tecnologie": "Rust",
+  "github": "https://github.com/salvatorelaspata/hello-rust"
+}

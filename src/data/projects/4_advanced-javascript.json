@@ -1,0 +1,9 @@
+{
+  "id": 4,
+  "title": "Advanced JavaScript",
+  "subtitle": "slides",
+  "img": "logo-slides.svg",
+  "description": "Un corso di approfondimento su Javascript",
+  "tecnologie": "Javascript",
+  "slides": "https://cloudflare-google-api.salvatore-la-spata.workers.dev/advanced-javascript"
+}

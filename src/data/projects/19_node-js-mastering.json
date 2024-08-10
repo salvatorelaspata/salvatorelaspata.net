@@ -1,0 +1,9 @@
+{
+  "id": 19,
+  "title": "Node js Mastering",
+  "subtitle": "Learning",
+  "img": "logo-learn.svg",
+  "description": "Dal talk al codice...",
+  "tecnologie": "Javascript",
+  "github": "https://github.com/salvatorelaspata/nodejs-mastering"
+}

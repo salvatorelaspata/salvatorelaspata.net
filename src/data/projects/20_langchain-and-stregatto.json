@@ -1,0 +1,9 @@
+{
+  "id": 20,
+  "title": "Lang Chain & Stregatto",
+  "subtitle": "Learning",
+  "img": "logo-learn.svg",
+  "description": "Tramite una Open API key ho studiato un pò questa tecnologia producendo documentazione ed esempi. Lo stregatto è un progetto opensource che mi è piaciuto seguire grazie alle conoscenze/competenze di Piero Savastano",
+  "tecnologie": "Javascript & Python",
+  "github": "https://github.com/salvatorelaspata/langchain-learn"
+}

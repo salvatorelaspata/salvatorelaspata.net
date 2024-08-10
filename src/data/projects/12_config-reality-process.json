@@ -1,0 +1,9 @@
+{
+  "id": "12",
+  "title": "Config Realiy Process",
+  "subtitle": "Project",
+  "img": "logo-code.svg",
+  "description": "From images to 3d models.",
+  "tecnologie": "Node JS, Supabase, Apple Reality Kit",
+  "github": "https://github.com/ConfigReality/process"
+}

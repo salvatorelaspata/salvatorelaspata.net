@@ -1,0 +1,10 @@
+{
+  "id": 9,
+  "title": "viewer-3d-lit",
+  "subtitle": "npm package",
+  "img": "logo-npm.svg",
+  "description": "Un viewer per oggetti 3d.",
+  "tecnologie": "Lit Element, TS, Three js.",
+  "npm": "https://www.npmjs.com/package/viewer-3d-lit",
+  "github": "https://github.com/salvatorelaspata/viewer-3d-lit"
+}

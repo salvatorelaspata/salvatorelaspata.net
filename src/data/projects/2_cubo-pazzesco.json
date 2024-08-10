@@ -1,0 +1,10 @@
+{
+  "id": 2,
+  "title": "Cubo Pazzesco",
+  "subtitle": "Prototype",
+  "img": "logo-code.svg",
+  "description": "Un cubo pazzesco in 3D",
+  "tecnologie": "Javascript, ThreeJS",
+  "github": "https://github.com/salvatorelaspata/cubo-pazzesco",
+  "demo": "https://salvatorelaspata.github.io/cubo-pazzesco/"
+}

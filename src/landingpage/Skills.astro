@@ -38,7 +38,7 @@ const { bgColor, textColor } = Astro.props;
   textColor={textColor}
   title="Skills"
 >
-  <Panel class="container" >
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
     <!-- body={`Il Webdesign è il punto di congiunzione tra creatività e funzionalità. Attraverso una combinazione di estetica accattivante e usabilità intuitiva, il nostro approccio al Webdesign mira a creare esperienze utente coinvolgenti. Dalla progettazione di layout all'uso sapiente di colori e tipografie, lavoriamo con strumenti all'avanguardia per trasformare idee e concetti in design visivamente sorprendenti, garantendo che il tuo sito web sia non solo bello, ma anche altamente usufruibile`} -->
     <Card
       title="Webdesign"
@@ -165,5 +165,5 @@ const { bgColor, textColor } = Astro.props;
         ></path></svg
       >
     </Card>
-  </Panel>
+    </div>
 </SectionLayout>

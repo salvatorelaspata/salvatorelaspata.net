@@ -1,0 +1,10 @@
+{
+  "id": 1,
+  "title": "Config Reality",
+  "subtitle": "Telegram Bot",
+  "img": "logo-telegram.svg",
+  "description": "Un bot per la configurazione di oggetti 3D",
+  "tecnologie": "Node JS, Telegram API",
+  "github": "https://github.com/ConfigReality/3d-telegram-bot",
+  "demo": "https://t.me/configRealityBot"
+}

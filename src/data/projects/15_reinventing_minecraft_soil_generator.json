@@ -1,0 +1,10 @@
+{
+  "id": 15,
+  "title": "Reinventing Minecraft Soil Generator",
+  "subtitle": "Project",
+  "img": "logo-code.svg",
+  "description": "Ispirato da un video youtube di Henrik Kniberg ho dovuto provare con mano la generazione del terreno di minecraft.",
+  "tecnologie": "Vanilla JS, React, ThreeJS",
+  "demo": "https://sweet-mermaid-c9a9f0.netlify.app/",
+  "github": "https://github.com/salvatorelaspata/tree-project"
+}
