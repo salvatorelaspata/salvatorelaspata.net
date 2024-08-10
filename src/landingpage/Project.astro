@@ -20,8 +20,8 @@ interface Project {
 let projects: Project[] = [];
 try {
   projects = await Astro.glob("../data/projects/*.json");
-  // sort projects by id descending
-  projects.sort((a, b) => a.default.id - b.default.id);
+  // sort projects by id in ascending order
+  projects.sort((a, b) => b.default.id - a.default.id);
 } catch (e) {
   console.log(e);
 }
