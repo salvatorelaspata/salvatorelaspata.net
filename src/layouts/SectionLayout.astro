@@ -1,32 +1,41 @@
 ---
-import HeaderSection from './HeaderSection.astro';
+import HeaderSection from "./HeaderSection.astro";
 
 interface Props {
-    id: string;
-    bgColor: string;
-    textColor: string;
-    title?: string;
-    description?: string;
-    main?: boolean;
+  id: string;
+  bgColor: string;
+  textColor: string;
+  title?: string;
+  description?: string;
+  main?: boolean;
 }
-const { id, bgColor, textColor, title, description, main = false } = Astro.props;
+const {
+  id,
+  bgColor,
+  textColor,
+  title,
+  description,
+  main = false,
+} = Astro.props;
 ---
 
 {
-    main ? (
-        <main id={id}
-            class={`h-screen flex justify-center items-center flex-col ${bgColor} ${textColor}`}
-        >
-            <slot />
-        </main>
-    ) : (
-        <section id={id}
-            class={`flex justify-center items-center flex-col ${bgColor} ${textColor} pb-5`}
-        >
-            <HeaderSection title={title} description={description} />
-            <div class='max-w-6xl mx-auto px-5'>
-                <slot />
-            </div>
-        </section>
-    )
+  main ? (
+    <main
+      id={id}
+      class={`h-screen flex justify-center items-center flex-col ${bgColor} ${textColor}`}
+    >
+      <slot />
+    </main>
+  ) : (
+    <section
+      id={id}
+      class={`flex justify-center items-center flex-col ${bgColor} ${textColor} pb-5`}
+    >
+      <HeaderSection title={title} description={description} />
+      <div class="max-w-6xl mx-auto px-5">
+        <slot />
+      </div>
+    </section>
+  )
 }
