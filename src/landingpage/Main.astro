@@ -32,23 +32,20 @@ const { bgColor, textColor } = Astro.props;
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: container,
-      start: "top center",
-      end: "bottom center",
-      toggleActions: "play none none none",
+      toggleActions: "restart pause resume pause",
     },
   });
-  if(container) {
-   
-  const random = randomAnimation(tl);
+  if (container) {
+    const random = randomAnimation(tl);
 
-  gHello && random(gHello);
-  iHello && random(iHello);
-  gIm && random(gIm);
-  gNome && random(gNome);
-  gCognome && random(gCognome);
-  gRole && random(gRole);
-  gCompany && random(gCompany);
-  gSocial && random(gSocial);
+    gHello && random(gHello);
+    iHello && random(iHello);
+    gIm && random(gIm);
+    gNome && random(gNome);
+    gCognome && random(gCognome);
+    gRole && random(gRole);
+    gCompany && random(gCompany);
+    gSocial && random(gSocial);
   }
   gsap.from(sticker, {
     scrollTrigger: {
