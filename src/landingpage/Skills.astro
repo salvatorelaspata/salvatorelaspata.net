@@ -1,5 +1,4 @@
 ---
-import Card from "../components/Card.astro";
 import SectionLayout from "../layouts/SectionLayout.astro";
 interface Props {
   bgColor: string;
@@ -16,29 +15,6 @@ const skills = [
 ];
 ---
 
-<script>
-  import gsap from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
-  // import { randomAnimation } from "../utils/animation.astro";
-
-  gsap.registerPlugin(ScrollTrigger);
-
-  // enter skills card animation
-  const container = document.querySelector(".skills-container");
-  // scroll container animation
-  if (container) {
-    gsap.to(container, {
-      x: -650,
-      ease: "linear",
-      scrollTrigger: {
-        trigger: container,
-        scrub: true,
-        start: "-100 center",
-        end: "300 center",
-      },
-    });
-  }
-</script>
 <SectionLayout
   id="skills"
   bgColor={bgColor}
@@ -64,6 +40,15 @@ const skills = [
   </div>
 </SectionLayout>
 
+<script>
+  import { animateSkills } from "../utils/animation.astro";
+
+  const container = document.querySelector(".skills-container");
+
+  if (container) {
+    animateSkills(container);
+  }
+</script>
 <style>
   .skills-container {
     width: 100%;

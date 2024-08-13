@@ -1,5 +1,8 @@
 ---
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export const randomAnimation =
   (tl: gsap.core.Timeline) => (element: Element) => {
@@ -41,5 +44,18 @@ export const randomChildAnimation = (element: Element) => {
   for (let i = 0; i < children.length; i++) {
     random(children[i]);
   }
+};
+
+export const animateSkills = (element: Element) => {
+  gsap.to(element, {
+    x: -250,
+    ease: "linear",
+    scrollTrigger: {
+      trigger: element,
+      scrub: true,
+      start: "-100 center",
+      end: "300 center",
+    },
+  });
 };
 ---

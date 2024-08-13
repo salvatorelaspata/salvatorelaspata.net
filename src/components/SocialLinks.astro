@@ -1,36 +1,32 @@
 ---
 type item = {
-    url: string;
-    title: string;
-    img: string;
+  url: string;
+  title: string;
+  img: string;
 };
 interface Props {
-    socials: {
-        github: item;
-        gmail: item;
-        linkedin: item;
-    };
+  socials: {
+    github: item;
+    gmail: item;
+    linkedin: item;
+  };
 }
 const { socials } = Astro.props;
 ---
 
-<div class='g-social absolute bottom-4 right-2 z-10'>
-    <div class="flex flex-row">
+<div class="g-social absolute bottom-4 right-2 z-10">
+  <div class="flex flex-row">
     {
-        Object.entries(socials).map(([key, { url, img, title }]) => (
-            <a
-                href={url}
-                title={`${key} - Salvatore La Spata`}
-                target='_blank'
-                class='flex flex-col items-center w-16'
-            >
-                <img
-                    class='size-10 mt-2'
-                    src={img}
-                    alt={`${key} social link`}
-                />
-            </a>
-        ))
+      Object.entries(socials).map(([key, { url, img }]) => (
+        <a
+          href={url}
+          title={`${key} - Salvatore La Spata`}
+          target="_blank"
+          class="flex flex-col items-center w-16"
+        >
+          <img class="size-10 mt-2" src={img} alt={`${key} social link`} />
+        </a>
+      ))
     }
-    </div>
+  </div>
 </div>
