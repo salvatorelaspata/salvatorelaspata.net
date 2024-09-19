@@ -16,10 +16,10 @@ Object.keys(technologies).forEach((key) => {
   technologies[key].sort((a, b) => a.default.id - b.default.id);
 });
 
-interface Props {
-  bgColor: string;
-  textColor: string;
-}
+// interface Props {
+//   bgColor: string;
+//   textColor: string;
+// }
 const { bgColor, textColor } = Astro.props;
 
 function getCategoryTitle(
@@ -60,7 +60,18 @@ function getDefaultSvg() {
 >
   {
     Object.entries(technologies).map(([category, techs]) => (
-      <Panel title={getCategoryTitle(category)} class={category}>
+      <Panel
+        title={getCategoryTitle(
+          category as
+            | "languages"
+            | "frameworks"
+            | "sap"
+            | "nonsap"
+            | "inf"
+            | "other"
+        )}
+        class={category}
+      >
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {techs.map(({ default: tech }) => (
             <CardSimple
