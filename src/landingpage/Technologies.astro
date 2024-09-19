@@ -2,81 +2,55 @@
 import SectionLayout from "../layouts/SectionLayout.astro";
 import Panel from "../components/Panel.astro";
 import CardSimple from "../components/CardSimple.astro";
-const languages = await Astro.glob("../data/tech/languages/*.js");
-languages.sort((a, b) => a.default.id - b.default.id);
-const frameworks = await Astro.glob("../data/tech/frameworks/*.js");
-frameworks.sort((a, b) => a.default.id - b.default.id);
 
-const sap = await Astro.glob("../data/tech/sap/*.js");
-sap.sort((a, b) => a.default.id - b.default.id);
+const technologies: Record<string, any[]> = {
+  languages: await Astro.glob("../data/tech/languages/*.js"),
+  frameworks: await Astro.glob("../data/tech/frameworks/*.js"),
+  sap: await Astro.glob("../data/tech/sap/*.js"),
+  nonsap: await Astro.glob("../data/tech/nonsap/*.js"),
+  inf: await Astro.glob("../data/tech/inf/*.js"),
+  other: await Astro.glob("../data/tech/other/*.js"),
+};
 
-const nonsap = await Astro.glob("../data/tech/nonsap/*.js");
-nonsap.sort((a, b) => a.default.id - b.default.id);
-
-const inf = await Astro.glob("../data/tech/inf/*.js");
-inf.sort((a, b) => a.default.id - b.default.id);
-
-const other = await Astro.glob("../data/tech/other/*.js");
-other.sort((a, b) => a.default.id - b.default.id);
+Object.keys(technologies).forEach((key) => {
+  technologies[key].sort((a, b) => a.default.id - b.default.id);
+});
 
 interface Props {
   bgColor: string;
   textColor: string;
 }
 const { bgColor, textColor } = Astro.props;
+
+function getCategoryTitle(
+  category: "languages" | "frameworks" | "sap" | "nonsap" | "inf" | "other"
+) {
+  const titles = {
+    languages: "Linguaggi di Programmazione",
+    frameworks: "Frameworks",
+    sap: "Tecnologie SAP",
+    nonsap: "Tecnologie non SAP",
+    inf: "Infrastructures",
+    other: "Other",
+  };
+  return titles[category] || category;
+}
+
+function getDefaultSvg() {
+  return `<svg
+    class="w-6 h-6"
+    fill="currentColor"
+    stroke="none"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+    ><title>SAP</title><path
+      d="M0 6.064v11.872h12.13L24 6.064zm3.264 2.208h.005c.863.001 1.915.245 2.676.633l-.82 1.43c-.835-.404-1.255-.442-1.73-.467-.708-.038-1.064.215-1.069.488-.007.332.669.633 1.305.838.964.306 2.19.715 2.377 1.9L7.77 8.437h2.046l2.064 5.576-.007-5.575h2.37c2.257 0 3.318.764 3.318 2.519 0 1.575-1.09 2.514-2.936 2.514h-.763l-.01 2.094-3.588-.003-.25-.908c-.37.122-.787.189-1.23.189-.456 0-.885-.071-1.263-.2l-.358.919-2 .006.09-.462c-.029.025-.057.05-.087.074-.535.43-1.208.629-2.037.644l-.213.002a5.075 5.075 0 0 1-2.581-.675l.73-1.448c.79.467 1.286.572 1.956.558.347-.007.598-.07.761-.239a.557.557 0 0 0 .156-.369c.007-.376-.53-.553-1.185-.756-.531-.164-1.135-.389-1.606-.735-.559-.41-.825-.924-.812-1.65a1.99 1.99 0 0 1 .566-1.377c.519-.537 1.357-.863 2.363-.863zm10.597 1.67v1.904h.521c.694 0 1.247-.23 1.248-.964 0-.709-.554-.94-1.248-.94zm-5.087.767l-.748 2.362c.223.085.481.133.757.133.268 0 .52-.047.742-.126l-.736-2.37z"
+    ></path></svg
+  >`;
+}
 ---
 
-<script>
-  import gsap from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
-  import {
-    randomAnimation,
-    randomChildAnimation,
-  } from "../utils/animation.astro";
-
-  gsap.registerPlugin(ScrollTrigger);
-
-  const lang = document.querySelector(".lang");
-  const tech = document.querySelector(".tech");
-  const sap = document.querySelector(".sap");
-  const nonsap = document.querySelector(".nonsap");
-  const inf = document.querySelector(".inf");
-  const other = document.querySelector(".other");
-
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: "#technologies",
-      start: "top center",
-      end: "bottom center",
-      toggleActions: "play none none none",
-    },
-  });
-  const random = randomAnimation(tl);
-  if (lang) {
-    random(lang);
-    randomChildAnimation(lang);
-  }
-  if (tech) {
-    random(tech);
-    randomChildAnimation(tech);
-  }
-  if (sap) {
-    random(sap);
-    randomChildAnimation(sap);
-  }
-  if (nonsap) {
-    random(nonsap);
-    randomChildAnimation(nonsap);
-  }
-  if (inf) {
-    random(inf);
-    randomChildAnimation(inf);
-  }
-  if (other) {
-    random(other);
-    randomChildAnimation(other);
-  }
-</script>
+<script></script>
 
 <SectionLayout
   id="technologies"
@@ -84,108 +58,60 @@ const { bgColor, textColor } = Astro.props;
   textColor={textColor}
   title="Tecnologie"
 >
-  <Panel title="Linguaggi di Programmazione" class="lang">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {
-        languages.map(({ default: lang }) => (
-          <CardSimple
-            title={lang.title}
-            bgColorIcon={lang.bgColorIcon}
-            textColorIcon={lang.textColorIcon}
-          >
-            <Fragment set:html={lang.svg} />
-          </CardSimple>
-        ))
-      }
-    </div>
-  </Panel>
-  <Panel title="Frameworks" class="tech">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {
-        frameworks.map(({ default: tech }) => (
-          <CardSimple
-            title={tech.title}
-            bgColorIcon={tech.bgColorIcon}
-            textColorIcon={tech.textColorIcon}
-          >
-            <Fragment set:html={tech.svg} />
-          </CardSimple>
-        ))
-      }
-    </div>
-  </Panel>
-  <Panel title="Tecnologie SAP" class="sap">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {
-        sap.map(({ default: tech }) => (
-          <CardSimple
-            title={tech.title}
-            bgColorIcon={tech.bgColorIcon}
-            textColorIcon={tech.textColorIcon}
-          >
-            <Fragment
-              set:html={
-                tech.svg ||
-                `<svg
-                class="w-6 h-6"
-                fill="currentColor"
-                stroke="none"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                ><title>SAP</title><path
-                  d="M0 6.064v11.872h12.13L24 6.064zm3.264 2.208h.005c.863.001 1.915.245 2.676.633l-.82 1.43c-.835-.404-1.255-.442-1.73-.467-.708-.038-1.064.215-1.069.488-.007.332.669.633 1.305.838.964.306 2.19.715 2.377 1.9L7.77 8.437h2.046l2.064 5.576-.007-5.575h2.37c2.257 0 3.318.764 3.318 2.519 0 1.575-1.09 2.514-2.936 2.514h-.763l-.01 2.094-3.588-.003-.25-.908c-.37.122-.787.189-1.23.189-.456 0-.885-.071-1.263-.2l-.358.919-2 .006.09-.462c-.029.025-.057.05-.087.074-.535.43-1.208.629-2.037.644l-.213.002a5.075 5.075 0 0 1-2.581-.675l.73-1.448c.79.467 1.286.572 1.956.558.347-.007.598-.07.761-.239a.557.557 0 0 0 .156-.369c.007-.376-.53-.553-1.185-.756-.531-.164-1.135-.389-1.606-.735-.559-.41-.825-.924-.812-1.65a1.99 1.99 0 0 1 .566-1.377c.519-.537 1.357-.863 2.363-.863zm10.597 1.67v1.904h.521c.694 0 1.247-.23 1.248-.964 0-.709-.554-.94-1.248-.94zm-5.087.767l-.748 2.362c.223.085.481.133.757.133.268 0 .52-.047.742-.126l-.736-2.37z"
-                ></path></svg
-              >`
-              }
-            />
-          </CardSimple>
-        ))
-      }
-    </div>
-  </Panel>
-  <Panel title="Tecnologie non SAP" class="nonsap">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {
-        nonsap.map(({ default: tech }) => (
-          <CardSimple
-            title={tech.title}
-            bgColorIcon={tech.bgColorIcon}
-            textColorIcon={tech.textColorIcon}
-          >
-            <Fragment set:html={tech.svg} />
-          </CardSimple>
-        ))
-      }
-    </div>
-  </Panel>
-  <Panel title="Infrastructures" class="inf">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {
-        inf.map(({ default: tech }) => (
-          <CardSimple
-            title={tech.title}
-            bgColorIcon={tech.bgColorIcon}
-            textColorIcon={tech.textColorIcon}
-          >
-            <Fragment set:html={tech.svg} />
-          </CardSimple>
-        ))
-      }
-    </div>
-  </Panel>
-  <Panel title="Other" class="other">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {
-        other.map(({ default: tech }) => (
-          <CardSimple
-            title={tech.title}
-            bgColorIcon={tech.bgColorIcon}
-            textColorIcon={tech.textColorIcon}
-          >
-            <Fragment set:html={tech.svg} />
-          </CardSimple>
-        ))
-      }
-    </div>
-  </Panel>
+  {
+    Object.entries(technologies).map(([category, techs]) => (
+      <Panel title={getCategoryTitle(category)} class={category}>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {techs.map(({ default: tech }) => (
+            <CardSimple
+              title={tech.title}
+              bgColorIcon={tech.bgColorIcon}
+              textColorIcon={tech.textColorIcon}
+              className="tech-card opacity-0 translate-y-4"
+            >
+              <Fragment set:html={tech.svg || getDefaultSvg()} />
+            </CardSimple>
+          ))}
+        </div>
+      </Panel>
+    ))
+  }
 </SectionLayout>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function animateCards() {
+    const cards = document.querySelectorAll(".tech-card");
+
+    cards.forEach((card, index) => {
+      gsap.to(card, {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: card,
+          start: "top bottom-=100px",
+          end: "bottom top+=100px",
+          toggleActions: "play none none reverse",
+        },
+        delay: index * 0.05, // Staggered delay for each card
+      });
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", animateCards);
+</script>
+
+<style>
+  .tech-card {
+    transition: transform 0.3s ease-out;
+  }
+  .tech-card:hover {
+    transform: translateY(-5px);
+  }
+</style>

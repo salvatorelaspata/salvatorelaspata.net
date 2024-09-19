@@ -21,44 +21,67 @@ const skills = [
   textColor={textColor}
   title="Skills"
 >
-  <div class="overflow-hidden">
+  <div class="skills-container overflow-hidden">
     <div
-      class="skills-container flex space-x-4 p-4"
-      style={{ width: `${skills.length * 220}px` }}
+      class="skills-scroll-container flex flex-wrap justify-center gap-4 p-4"
     >
-      <div class="skills-scroll-container flex space-x-4 p-4">
-        {
-          skills.map((skill) => (
-            <div class="skills-item flex-shrink-0 w-48 h-32 bg-palette1 rounded-lg p-4 flex flex-col items-center justify-center text-white">
-              <span class="text-3xl mb-2">{skill.icon}</span>
-              <span class="text-center">{skill.name}</span>
-            </div>
-          ))
-        }
-      </div>
+      {
+        skills.map((skill, index) => (
+          <div
+            class="skill-item w-36 h-32 bg-palette1 rounded-lg p-4 flex flex-col items-center justify-center text-white opacity-0 transform translate-y-10"
+            data-index={index}
+          >
+            <span class="text-3xl mb-2">{skill.icon}</span>
+            <span class="text-center text-sm">{skill.name}</span>
+          </div>
+        ))
+      }
     </div>
   </div>
 </SectionLayout>
 
 <script>
-  import { animateSkills } from "../utils/animation.astro";
+  function animateSkills() {
+    const skillItems = document.querySelectorAll(".skill-item");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-in");
+          } else {
+            entry.target.classList.remove("animate-in");
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
 
-  const container = document.querySelector(".skills-container");
-
-  if (container) {
-    animateSkills(container);
+    skillItems.forEach((item) => {
+      observer.observe(item);
+    });
   }
+
+  document.addEventListener("DOMContentLoaded", animateSkills);
 </script>
+
 <style>
   .skills-container {
     width: 100%;
-    overflow: hidden;
-  }
-  .skills-scroll-container {
-    width: calc(300px * var(--skill-count));
   }
   .skill-item {
-    width: 280px;
-    margin-right: 20px;
+    transition:
+      opacity 0.5s ease,
+      transform 0.5s ease;
+  }
+  .skill-item.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (min-width: 640px) {
+    .skills-scroll-container {
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      width: max-content;
+    }
   }
 </style>

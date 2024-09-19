@@ -1,75 +1,77 @@
 ---
-import { AstroSeo } from '@astrolib/seo';
-import BackToTop from '../components/ui/BackToTop.astro';
-import ToggleTheme from '../components/ui/ToggleTheme.astro';
+import { AstroSeo } from "@astrolib/seo";
+import BackToTop from "../components/ui/BackToTop.astro";
+import ToggleTheme from "../components/ui/ToggleTheme.astro";
 interface Props {
-    title: string;
+  title: string;
 }
 
 const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang='en'>
-    <head>
+<html lang="en">
+  <head>
+    <AstroSeo
+      title="salvatorelaspata.net"
+      description="Salvatore La Spata website"
+    />
 
-        <AstroSeo
-            title="salvatorelaspata.net"
-            description="Salvatore La Spata website"
-        />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="author" content="Salvatore La Spata" />
+    <meta
+      name="keywords"
+      content="Salvatore La Spata, Salvatore, La Spata, Salvatore La Spata website"
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="Salvatore La Spata website" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/png" href="/sticker.webp" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <style is:global>
+      /* Improve Page speed */
+      /* https://css-tricks.com/almanac/properties/c/content-visibility/ */
+      img {
+        content-visibility: auto;
+      }
+    </style>
+  </head>
+  <body class="w-full font-mono m-0">
+    <ToggleTheme />
+    <slot />
+    <BackToTop />
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // theme switcher
+        const button = document.querySelector(
+          '.theme-switch input[type="checkbox"]'
+        ) as HTMLInputElement;
 
-        <meta charset='UTF-8' />
-        <meta http-equiv='X-UA-Compatible' content='IE=edge' />
-        <meta name='author' content='Salvatore La Spata' />
-        <meta name='keywords' content='Salvatore La Spata, Salvatore, La Spata, Salvatore La Spata website' />
-        <meta name='robots' content='index, follow' />
-        <meta name='description' content='Salvatore La Spata website' />
-        <meta name='viewport' content='width=device-width' />
-        <link rel='icon' type='image/png' href='/sticker.webp' />
-        <link rel='sitemap' href='/sitemap-index.xml' />
-        <meta name='generator' content={Astro.generator} />
-        <title>{title}</title>
-        <style is:global>
-			/* Improve Page speed */
-			/* https://css-tricks.com/almanac/properties/c/content-visibility/ */
-			img {
-				content-visibility: auto;
-			}
-		</style>
-    </head>
-    <body class='w-full font-mono m-0'>
-        <ToggleTheme/>
-        <slot />
-        <BackToTop />
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                // theme switcher
-                const button = document.querySelector(
-                    '.theme-switch input[type="checkbox"]'
-                ) as HTMLInputElement;
+        // const isNotDark = (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
 
-                // const isNotDark = (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        const switchTheme = () => {
+          if (document.body.classList.contains("dark")) {
+            console.log("light theme");
+            document.body.classList.remove("dark");
+            localStorage.removeItem("theme");
+            button.checked = false;
+          } else {
+            console.log("dark theme");
+            document.body.classList.add("dark");
+            localStorage.setItem("theme", "dark");
+            button.checked = true;
+          }
+        };
 
-                const switchTheme = () => {
-                    if (document.body.classList.contains('dark')) {
-                        console.log('light theme')
-                        document.body.classList.remove('dark');
-                        localStorage.removeItem('theme');
-                        button.checked = false;
-                    } else {
-                        console.log('dark theme')
-                        document.body.classList.add('dark');
-                        localStorage.setItem('theme', 'dark');
-                        button.checked = true;
-                    }
-                };
+        switchTheme();
 
-                switchTheme();
-                
-                button.addEventListener('click', () => {
-                    switchTheme();
-                });
-            });
-        </script>
-    </body>
+        button.addEventListener("click", () => {
+          switchTheme();
+        });
+      });
+    </script>
+  </body>
 </html>
