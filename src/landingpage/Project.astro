@@ -19,8 +19,9 @@ interface Project {
 
 let projects: Project[] = [];
 try {
-  projects = await Astro.glob("../data/projects/*.json");
-  // sort projects by id in ascending order
+  const projectModules = import.meta.glob("../data/projects/*.json", { eager: true });
+  projects = Object.values(projectModules) as Project[];
+  // sort projects by id in descending order
   projects.sort((a, b) => b.default.id - a.default.id);
 } catch (e) {
   console.log(e);

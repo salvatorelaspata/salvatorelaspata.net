@@ -3,13 +3,20 @@ import SectionLayout from "../layouts/SectionLayout.astro";
 import Panel from "../components/Panel.astro";
 import CardSimple from "../components/CardSimple.astro";
 
+const languagesModules = import.meta.glob("../data/tech/languages/*.js", { eager: true });
+const frameworksModules = import.meta.glob("../data/tech/frameworks/*.js", { eager: true });
+const sapModules = import.meta.glob("../data/tech/sap/*.js", { eager: true });
+const nonsapModules = import.meta.glob("../data/tech/nonsap/*.js", { eager: true });
+const infModules = import.meta.glob("../data/tech/inf/*.js", { eager: true });
+const otherModules = import.meta.glob("../data/tech/other/*.js", { eager: true });
+
 const technologies: Record<string, any[]> = {
-  languages: await Astro.glob("../data/tech/languages/*.js"),
-  frameworks: await Astro.glob("../data/tech/frameworks/*.js"),
-  sap: await Astro.glob("../data/tech/sap/*.js"),
-  nonsap: await Astro.glob("../data/tech/nonsap/*.js"),
-  inf: await Astro.glob("../data/tech/inf/*.js"),
-  other: await Astro.glob("../data/tech/other/*.js"),
+  languages: Object.values(languagesModules),
+  frameworks: Object.values(frameworksModules),
+  sap: Object.values(sapModules),
+  nonsap: Object.values(nonsapModules),
+  inf: Object.values(infModules),
+  other: Object.values(otherModules),
 };
 
 Object.keys(technologies).forEach((key) => {

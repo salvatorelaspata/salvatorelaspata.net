@@ -60,8 +60,8 @@ Each tech file exports a default object with: `id`, `title`, `subtitle`, `descri
 
 **Landing Page Sections** ([src/landingpage/](src/landingpage/)): Main content sections
 - All wrapped in `SectionLayout` which provides consistent section structure
-- [Technologies.astro](src/landingpage/Technologies.astro) uses `Astro.glob()` to dynamically import all tech data, categorizes and sorts by ID
-- [Project.astro](src/landingpage/Project.astro) uses `Astro.glob()` to load project JSON files
+- [Technologies.astro](src/landingpage/Technologies.astro) uses `import.meta.glob()` to dynamically import all tech data, categorizes and sorts by ID
+- [Project.astro](src/landingpage/Project.astro) uses `import.meta.glob()` to load project JSON files
 
 **Reusable Components** ([src/components/](src/components/)):
 - `Card.astro` - Generic card component
@@ -121,7 +121,7 @@ Basic i18n setup in [src/i18n/](src/i18n/) but currently minimal:
 1. Create a new `.js` file in the appropriate [src/data/tech/](src/data/tech/) subdirectory
 2. Export default object with required fields: `id`, `title`, `subtitle`, `description`, `bgColorIcon`, `textColorIcon`, `svg`
 3. Assign a unique ID (increment from highest existing ID in that category)
-4. The component will automatically pick it up via `Astro.glob()`
+4. The component will automatically pick it up via `import.meta.glob()`
 
 ### Adding a New Project
 1. Create a new JSON file in [src/data/projects/](src/data/projects/) with format `NN_project-name.json`
