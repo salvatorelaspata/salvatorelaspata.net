@@ -12,7 +12,7 @@ const { bgColor, textColor } = Astro.props;
 <script>
   import gsap from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
-  import { randomAnimation } from "../utils/animation.astro";
+  import { randomAnimation } from "../utils/animation";
   gsap.registerPlugin(ScrollTrigger);
 
   // animate text on load

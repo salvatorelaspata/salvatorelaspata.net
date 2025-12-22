@@ -46,24 +46,24 @@ const { title, subtitle, description, tecnologie, img, github, npm, demo, slides
                 <p class='text-end text-blue-600'>
                     {
                         slides && (
-                            <a class='underline mx-1' target="_blank" href={slides || '#'}>
+                            <a class='underline mx-1' target="_blank" rel="noopener noreferrer" href={slides || '#'}>
                                 slides
                             </a>
                         )
                     }
                     {
                         npm && (
-                            <a class='underline mx-1' target="_blank" href={npm || '#'}>npm</a>
+                            <a class='underline mx-1' target="_blank" rel="noopener noreferrer" href={npm || '#'}>npm</a>
                         )
                     }
                     {
                         demo && (
-                            <a class='underline mx-1' target="_blank" href={demo || '#'}>demo</a>
+                            <a class='underline mx-1' target="_blank" rel="noopener noreferrer" href={demo || '#'}>demo</a>
                         )
                     }
                     {
                         github && (
-                            <a class='underline mx-1' target="_blank" href={github || '#'}>github</a>
+                            <a class='underline mx-1' target="_blank" rel="noopener noreferrer" href={github || '#'}>github</a>
                         )
                     }
                 </p>
