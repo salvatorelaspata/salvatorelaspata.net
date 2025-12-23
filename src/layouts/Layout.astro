@@ -1,21 +1,19 @@
 ---
-import { AstroSeo } from "@astrolib/seo";
 import BackToTop from "../components/ui/BackToTop.astro";
 import ToggleTheme from "../components/ui/ToggleTheme.astro";
 interface Props {
   title: string;
+  description?: string;
 }
 
-const { title } = Astro.props;
+const { title, description = "Salvatore La Spata website" } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <AstroSeo
-      title="salvatorelaspata.net"
-      description="Salvatore La Spata website"
-    />
+    <title>{title}</title>
+    <meta name="description" content={description} />
 
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -25,12 +23,10 @@ const { title } = Astro.props;
       content="Salvatore La Spata, Salvatore, La Spata, Salvatore La Spata website"
     />
     <meta name="robots" content="index, follow" />
-    <meta name="description" content="Salvatore La Spata website" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/png" href="/sticker.webp" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
     <style is:global>
       /* Improve Page speed */
       /* https://css-tricks.com/almanac/properties/c/content-visibility/ */
@@ -47,7 +43,7 @@ const { title } = Astro.props;
       document.addEventListener("DOMContentLoaded", () => {
         // theme switcher
         const button = document.querySelector(
-          '.theme-switch input[type="checkbox"]'
+          '.theme-switch input[type="checkbox"]',
         ) as HTMLInputElement;
 
         // const isNotDark = (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
