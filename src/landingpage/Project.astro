@@ -1,44 +1,13 @@
 ---
-import SectionLayout from "../layouts/SectionLayout.astro";
 import CardImage from "../components/CardImage.astro";
+import HeaderSection from "../layouts/HeaderSection.astro";
+import { type Project, getProjects } from "../data/util";
 
-interface Project {
-  default: {
-    id: number;
-    title: string;
-    subtitle: string;
-    img: string;
-    description: string;
-    tecnologie: string;
-    github?: string;
-    demo?: string;
-    npm?: string;
-    slides?: string;
-  };
-}
-
-let projects: Project[] = [];
-try {
-  const projectModules = import.meta.glob("../data/projects/*.json", { eager: true });
-  projects = Object.values(projectModules) as Project[];
-  // sort projects by id in descending order
-  projects.sort((a, b) => b.default.id - a.default.id);
-} catch (e) {
-  console.log(e);
-}
-interface Props {
-  bgColor: string;
-  textColor: string;
-}
-const { bgColor, textColor } = Astro.props;
+let projects: Project[] = (await getProjects()) || [];
 ---
 
-<SectionLayout
-  id="project"
-  bgColor={bgColor}
-  textColor={textColor}
-  title="Side Project"
->
+<section id="project" class="my-8 align-middle max-w-6xl mx-auto px-5">
+  <HeaderSection title="Side Projects" />
   <div class="grid gap-5">
     {
       projects.map(({ default: project }) => (
@@ -56,4 +25,4 @@ const { bgColor, textColor } = Astro.props;
       ))
     }
   </div>
-</SectionLayout>
+</section>

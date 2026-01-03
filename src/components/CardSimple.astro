@@ -10,15 +10,15 @@ const { title, bgColorIcon, textColorIcon, className } = Astro.props;
 ---
 
 <div
-    class=`cardSimple h-full rounded bg-palette1 p-4 flex flex-col justify-center items-center ${className}`
+    class=`cardSimple rounded bg-palette1 p-4 flex flex-col justify-center items-center ${className}`
 >
     <div
-        class={`w-10 h-10 inline-flex items-center justify-center rounded-full ${bgColorIcon} ${textColorIcon} mb-5 flex-shrink p-2`}
+        class={`w-10 h-10 inline-flex items-center justify-center rounded-full ${bgColorIcon} ${textColorIcon} mb-3 flex-shrink-0 p-2`}
     >
         <slot />
     </div>
     <h2
-        class={`text-lg text-center  items-center md:text-xl h-full title-font font-medium ${textColorIcon}`}
+        class={`text-sm text-center title-font font-medium ${textColorIcon}`}
     >
         {
             title.split('\n').map((a) => {

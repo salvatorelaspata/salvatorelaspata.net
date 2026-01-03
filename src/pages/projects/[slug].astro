@@ -1,0 +1,12 @@
+---
+import { getProjects } from "../../data/util";
+
+export async function getStaticPaths() {
+    const projects = await getProjects();
+    if (!projects) return [];
+    return projects.map((p) => ({
+        params: { slug: p.default.slug },
+        props: { project: p },
+    }));
+}
+---

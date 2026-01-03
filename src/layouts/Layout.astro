@@ -39,35 +39,5 @@ const { title, description = "Salvatore La Spata website" } = Astro.props;
     <ToggleTheme />
     <slot />
     <BackToTop />
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        // theme switcher
-        const button = document.querySelector(
-          '.theme-switch input[type="checkbox"]',
-        ) as HTMLInputElement;
-
-        // const isNotDark = (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-
-        const switchTheme = () => {
-          if (document.body.classList.contains("dark")) {
-            console.log("light theme");
-            document.body.classList.remove("dark");
-            localStorage.removeItem("theme");
-            button.checked = false;
-          } else {
-            console.log("dark theme");
-            document.body.classList.add("dark");
-            localStorage.setItem("theme", "dark");
-            button.checked = true;
-          }
-        };
-
-        switchTheme();
-
-        button.addEventListener("click", () => {
-          switchTheme();
-        });
-      });
-    </script>
   </body>
 </html>

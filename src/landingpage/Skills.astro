@@ -1,87 +1,62 @@
 ---
-import SectionLayout from "../layouts/SectionLayout.astro";
-interface Props {
-  bgColor: string;
-  textColor: string;
-}
-const { bgColor, textColor } = Astro.props;
-const skills = [
-  { name: "Webdesign", icon: "🎨" },
-  { name: "Web App", icon: "💻" },
-  { name: "Back-end", icon: "🖥️" },
-  { name: "Mobile Developer", icon: "📱" },
-  { name: "Software architect", icon: "🏗️" },
-  { name: "DevOps", icon: "🛠️" },
-];
+import HeaderSection from "../layouts/HeaderSection.astro";
+import { skills } from "../data/util";
 ---
 
-<SectionLayout
-  id="skills"
-  bgColor={bgColor}
-  textColor={textColor}
-  title="Skills"
->
-  <div class="skills-container overflow-hidden">
+<section id="skills" class="my-8 align-middle max-w-6xl mx-auto px-5">
+  <HeaderSection title="Skills" />
+  <div class="overflow-hidden flex justify-center">
     <div
-      class="skills-scroll-container flex flex-wrap justify-center gap-4 p-4"
+      class="flex flex-wrap justify-center sm:flex-nowrap sm:justify-start sm:w-max gap-4 p-4"
     >
       {
         skills.map((skill, index) => (
           <div
-            class="skill-item w-36 h-32 bg-palette1 rounded-lg p-4 flex flex-col items-center justify-center text-white opacity-0 transform translate-y-10"
-            data-index={index}
+            class="skill-item w-36 h-32 bg-palette1 rounded-lg p-4 flex flex-col items-center justify-center text-white opacity-0 translate-y-10 transition-all duration-500 ease-out"
+            style={`transition-delay: ${index * 100}ms`}
           >
             <span class="text-3xl mb-2">{skill.icon}</span>
-            <span class="text-center text-sm">{skill.name}</span>
+            <span class="text-center text-sm font-medium">{skill.name}</span>
           </div>
         ))
       }
     </div>
   </div>
-</SectionLayout>
+</section>
 
 <script>
-  function animateSkills() {
-    const skillItems = document.querySelectorAll(".skill-item");
+  function animateSkills(): void {
+    const skillItems = document.querySelectorAll<HTMLElement>(".skill-item");
+
     const observer = new IntersectionObserver(
-      (entries) => {
+      (entries: IntersectionObserverEntry[]) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("animate-in");
+            (entry.target as HTMLElement).classList.add(
+              "opacity-100",
+              "translate-y-0",
+            );
+            (entry.target as HTMLElement).classList.remove(
+              "opacity-0",
+              "translate-y-10",
+            );
           } else {
-            entry.target.classList.remove("animate-in");
+            (entry.target as HTMLElement).classList.remove(
+              "opacity-100",
+              "translate-y-0",
+            );
+            (entry.target as HTMLElement).classList.add(
+              "opacity-0",
+              "translate-y-10",
+            );
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
-    skillItems.forEach((item) => {
-      observer.observe(item);
-    });
+    skillItems.forEach((item) => observer.observe(item));
   }
 
   document.addEventListener("DOMContentLoaded", animateSkills);
 </script>
-
-<style>
-  .skills-container {
-    width: 100%;
-  }
-  .skill-item {
-    transition:
-      opacity 0.5s ease,
-      transform 0.5s ease;
-  }
-  .skill-item.animate-in {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  @media (min-width: 640px) {
-    .skills-scroll-container {
-      flex-wrap: nowrap;
-      justify-content: flex-start;
-      width: max-content;
-    }
-  }
-</style>

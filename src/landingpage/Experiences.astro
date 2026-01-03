@@ -1,65 +1,58 @@
 ---
-import Timeline from '../components/Timeline.astro';
-import SectionLayout from '../layouts/SectionLayout.astro';
-interface Props {
-    bgColor: string;
-    textColor: string;
-}
-const { bgColor, textColor } = Astro.props;
+import Timeline from "../components/Timeline.astro";
+import HeaderSection from "../layouts/HeaderSection.astro";
 ---
 
-<SectionLayout
-    id="experiences"
-    bgColor={bgColor}
-    textColor={textColor}
-    title='Esperienze'
-    description='Team Leader, Software Architect, Progettazione ed implementazione architetture On Prem con integrazione su SAP ECC, Progettazione e implementazione architetture In Cloud - SAP BPT, Sviluppo e progettazione applicazioni SAP Fiori, SAP CAP, SAP ABAP; Sviluppo applicazioni React & React Native; Prototipazione e sviluppo middleware Node js'
->
-    <ol class='border-l border-gray-500'>
+<section id="experiences" class="my-8 align-middle max-w-6xl mx-auto px-5">
+    <HeaderSection
+        title="Esperienze"
+        description="Team Leader, Software Architect, Progettazione ed implementazione architetture On Prem con integrazione su SAP ECC, Progettazione e implementazione architetture In Cloud - SAP BPT, Sviluppo e progettazione applicazioni SAP Fiori, SAP CAP, SAP ABAP; Sviluppo applicazioni React & React Native; Prototipazione e sviluppo middleware Node js"
+    />
+    <ol class="border-l border-gray-500">
         <Timeline
-            title='Practice Leader - SME | SAP BTP Architect, Senior SAP Full Stack Technical Consultant, Team Leader'
-            subtitle='GOTONEXT SRL'
-            date='01/2023 - Present'
+            title="Practice Leader - SME | SAP BTP Architect, Senior SAP Full Stack Technical Consultant, Team Leader"
+            subtitle="GOTONEXT SRL"
+            date="01/2023 - Present"
             current
             descriptions={[
-                'Come Practice Leader specializzato in SAP BTP (Business Technology Platform), mi dedico a guidare e orchestrare iniziative di consulenza tecnica SAP di alto livello. Con una vasta esperienza come SAP BTP Architect e Senior SAP Full Stack Technical Consultant, il mio ruolo è di massimizzare il valore delle soluzioni SAP attraverso un approccio completo, dalla progettazione e sviluppo al deployment.',
+                "Come Practice Leader specializzato in SAP BTP (Business Technology Platform), mi dedico a guidare e orchestrare iniziative di consulenza tecnica SAP di alto livello. Con una vasta esperienza come SAP BTP Architect e Senior SAP Full Stack Technical Consultant, il mio ruolo è di massimizzare il valore delle soluzioni SAP attraverso un approccio completo, dalla progettazione e sviluppo al deployment.",
 
                 "In qualità di Team Leader, assumo la responsabilità di guidare un team altamente qualificato verso l'eccellenza. Coordinando le risorse, distribuendo i compiti e fornendo direzione strategica, cerco di massimizzare il potenziale del team, promuovendo al contempo un ambiente di lavoro collaborativo e stimolante.",
 
                 "La mia competenza tecnica abbraccia l'intero stack SAP, consentendomi di offrire soluzioni complete e integrate. Sono dedicato a garantire che ogni progetto sia implementato con le migliori pratiche, soddisfacendo le esigenze uniche dei clienti e contribuendo al successo a lungo termine delle iniziative aziendali.",
 
-                'In sintesi, come Practice Leader - SME (Subject Matter Expert), SAP BTP Architect, Senior SAP Full Stack Technical Consultant e Team Leader, cerco di unire competenza tecnica, leadership e una visione strategica per guidare progetti SAP di successo e trasformare le sfide aziendali in opportunità di crescita e innovazione.',
+                "In sintesi, come Practice Leader - SME (Subject Matter Expert), SAP BTP Architect, Senior SAP Full Stack Technical Consultant e Team Leader, cerco di unire competenza tecnica, leadership e una visione strategica per guidare progetti SAP di successo e trasformare le sfide aziendali in opportunità di crescita e innovazione.",
             ]}
         />
         <Timeline
-            title='SAP Full Stack Developer'
-            subtitle='Cube Consultants'
-            date='02/2017 - 12/2022'
+            title="SAP Full Stack Developer"
+            subtitle="Cube Consultants"
+            date="02/2017 - 12/2022"
             descriptions={[
-                'In qualità di SAP Full Stack Developer con competenze sia su sistemi in cloud che on-premise, il mio ruolo è quello di progettare e implementare soluzioni SAP complete e integrate. Sono specializzato nel lavorare con sistemi SAP in diverse configurazioni, garantendo flessibilità e scalabilità per soddisfare le esigenze specifiche delle aziende.',
-                'Nel contesto dei sistemi in cloud, mi avvalgo delle più avanzate tecnologie e piattaforme, come la SAP Business Technology Platform (BTP), assicurando una maggiore agilità, elasticità e adattabilità alle dinamiche aziendali in evoluzione. Inoltre, sono in grado di integrare i sistemi SAP con le più recenti tecnologie di terze parti, come React, React Native e Node.js, per fornire soluzioni complete e personalizzate.',
-                'Per quanto riguarda i sistemi on-premise, mi occupo di implementazioni solide e personalizzate seguendo le best practices di sviluppo SAP ABAP tra i moduli HCM, MM, SD.',
-                'In entrambi i contesti, il mio approccio Full Stack mi consente di operare su tutti gli strati del sistema, dallo sviluppo back-end al front-end, garantendo una visione completa e coesa. ',
+                "In qualità di SAP Full Stack Developer con competenze sia su sistemi in cloud che on-premise, il mio ruolo è quello di progettare e implementare soluzioni SAP complete e integrate. Sono specializzato nel lavorare con sistemi SAP in diverse configurazioni, garantendo flessibilità e scalabilità per soddisfare le esigenze specifiche delle aziende.",
+                "Nel contesto dei sistemi in cloud, mi avvalgo delle più avanzate tecnologie e piattaforme, come la SAP Business Technology Platform (BTP), assicurando una maggiore agilità, elasticità e adattabilità alle dinamiche aziendali in evoluzione. Inoltre, sono in grado di integrare i sistemi SAP con le più recenti tecnologie di terze parti, come React, React Native e Node.js, per fornire soluzioni complete e personalizzate.",
+                "Per quanto riguarda i sistemi on-premise, mi occupo di implementazioni solide e personalizzate seguendo le best practices di sviluppo SAP ABAP tra i moduli HCM, MM, SD.",
+                "In entrambi i contesti, il mio approccio Full Stack mi consente di operare su tutti gli strati del sistema, dallo sviluppo back-end al front-end, garantendo una visione completa e coesa. ",
             ]}
         />
         <Timeline
-            title='Analista programmatore'
-            subtitle='Cube Consultants'
-            date='07/2016 - 01/2017'
+            title="Analista programmatore"
+            subtitle="Cube Consultants"
+            date="07/2016 - 01/2017"
             descriptions={[
-                'Stage e attivitò di analisi e implementazione di una soluzione Java per la gestione logistica di equipments..',
+                "Stage e attivitò di analisi e implementazione di una soluzione Java per la gestione logistica di equipments..",
             ]}
         />
         <Timeline
-            title='Xenia Progetti'
-            subtitle='Stage formativo'
-            date='09/2015 - 04/2016'
+            title="Xenia Progetti"
+            subtitle="Stage formativo"
+            date="09/2015 - 04/2016"
             descriptions={[
-                'Realizzazione di un app turistica con contenuti aggiuntivi di realtà aumentata (AR)',
+                "Realizzazione di un app turistica con contenuti aggiuntivi di realtà aumentata (AR)",
                 "Il lavoro svolto consisteva nello sviluppo di un'applicazione turistica mobile Android e Ios.",
-                'Questa, oltre a fornire dei contenuti multimediali quali foto, video, audio, streaming, fornisce anche dei contenuti di realtà aumentata (AR).',
+                "Questa, oltre a fornire dei contenuti multimediali quali foto, video, audio, streaming, fornisce anche dei contenuti di realtà aumentata (AR).",
                 "La durata dello stage è stata di 6 mesi grazie alla quale ho potuto ampliare le mie competenze nello sviluppo di applicazioni mobile e nello stesso tempo formarmi nello sviluppo della realtà aumentata integrata all'applicazione e realizzata attraverso l'engine Unity3D e l'integrazione con l'augmented reality tramite Vuforia Augmented Reality SDK",
             ]}
         />
     </ol>
-</SectionLayout>
+</section>

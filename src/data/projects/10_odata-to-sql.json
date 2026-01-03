@@ -1,5 +1,6 @@
 {
   "id": 10,
+  "slug": "odata-to-sql",
   "title": "odata-to-sql",
   "subtitle": "npm package",
   "img": "logo-npm.svg",

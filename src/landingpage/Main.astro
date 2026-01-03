@@ -1,12 +1,6 @@
 ---
 import SectionLayout from "../layouts/SectionLayout.astro";
 import SocialLinks from "../components/SocialLinks.astro";
-
-interface Props {
-  bgColor: string;
-  textColor: string;
-}
-const { bgColor, textColor } = Astro.props;
 ---
 
 <script>
@@ -57,48 +51,75 @@ const { bgColor, textColor } = Astro.props;
     opacity: 0,
     duration: 1,
   });
+
+  // Animazione padding e border-radius allo scroll
+  const innerContainer = document.querySelector("#main > div");
+  if (container && innerContainer) {
+    gsap.to(container, {
+      padding: "0px",
+      scrollTrigger: {
+        trigger: container,
+        start: "top top",
+        end: "30% top",
+        scrub: true,
+      },
+    });
+    gsap.to(innerContainer, {
+      borderRadius: "0px",
+      scrollTrigger: {
+        trigger: container,
+        start: "top top",
+        end: "30% top",
+        scrub: true,
+      },
+    });
+  }
 </script>
 
-<SectionLayout id="main" bgColor={bgColor} textColor={textColor} main={true}>
-  <span class="g-hello text-xl">Ciao</span>
-  <span class="i-hello">👋</span>
-  <span class="g-im text-lg">Sono</span>
+<main id="main" class="h-screen p-4">
+  <div
+    class="h-full flex justify-center items-center flex-col bg-palette1 dark:bg-palette5 rounded-lg relative overflow-hidden text-white"
+  >
+    <span class="g-hello text-xl">Ciao</span>
+    <span class="i-hello">👋</span>
+    <span class="g-im text-lg">Sono</span>
 
-  <h1 class="g-nome text-4xl font-bold px-3 z-10">Salvatore</h1>
-  <h1 class="g-cognome text-4xl font-bold px-3 text-nowrap z-10">La Spata</h1>
-  <div class="sticker absolute bottom-2 right-14">
-    <img
-      class="rounded-full opacity-40 z-0 w-auto h-32"
-      height="auto"
-      src="sticker.webp"
-      alt="Salvatore's sticker"
+    <h1 class="g-nome text-4xl font-bold px-3 z-10">Salvatore</h1>
+    <h1 class="g-cognome text-4xl font-bold px-3 text-nowrap z-10">La Spata</h1>
+    <div class="sticker absolute bottom-2 right-14">
+      <img
+        class="rounded-full opacity-40 z-0 w-auto h-32"
+        height="auto"
+        src="sticker.webp"
+        alt="Salvatore's sticker"
+      />
+    </div>
+    <h2 class="g-role text-center text-2xl underline p-3 z-10">
+      Full-Stack Software Engineer
+    </h2>
+    <h3 class="g-company text-center text-2xl p-3 z-10">
+      SAP BTP Practice Leader <span class="text-lg text-blue-500">
+        @GotoNext S.r.l.
+      </span>
+    </h3>
+    <SocialLinks
+      socials={{
+        github: {
+          img: "social-github--white.svg",
+          url: "https://github.com/salvatorelaspata",
+          title: "Github",
+        },
+        gmail: {
+          img: "social-gmail.svg",
+          url: "mailto:salvatore.la.spata@gmail.com?subject=Hello%20Salvatore!",
+          title: "gmail",
+        },
+        linkedin: {
+          img: "social-linkedin.svg",
+          url: "https://www.linkedin.com/in/salvatore-la-spata/",
+          title: "Linkedin",
+        },
+      }}
     />
   </div>
-  <h2 class="g-role text-center text-2xl underline p-3 z-10">
-    Full-Stack Software Engineer
-  </h2>
-  <h3 class="g-company text-center text-2xl p-3 z-10">
-    SAP BTP Practice Leader <span class="text-lg text-blue-500">
-      @GotoNext S.r.l.
-    </span>
-  </h3>
-  <SocialLinks
-    socials={{
-      github: {
-        img: "social-github--white.svg",
-        url: "https://github.com/salvatorelaspata",
-        title: "Github",
-      },
-      gmail: {
-        img: "social-gmail.svg",
-        url: "mailto:salvatore.la.spata@gmail.com?subject=Hello%20Salvatore!",
-        title: "gmail",
-      },
-      linkedin: {
-        img: "social-linkedin.svg",
-        url: "https://www.linkedin.com/in/salvatore-la-spata/",
-        title: "Linkedin",
-      },
-    }}
-  />
-</SectionLayout>
+</main>

@@ -5,18 +5,51 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
+
+const slugify = (text: string) =>
+    text
+        .toLowerCase()
+        .replace(/\s+/g, "-")
+        .replace(/[^\w-]+/g, "");
+
+const id = title ? slugify(title) : undefined;
 ---
 
-<div class='text-center my-8'>
+<div class="text-center py-8">
     <h1
-        class='title-font mb-4 text-4xl font-extrabold leading-10 tracking-tight sm:text-5xl sm:leading-none md:text-6xl'
+        id={id}
+        class="group title-font mb-4 text-4xl font-extrabold leading-10 tracking-tight sm:text-5xl sm:leading-none md:text-6xl inline-flex items-center gap-2 justify-center"
     >
-        {title || ''}
+        {title || ""}
+        {
+            id && (
+                <a
+                    href={`#${id}`}
+                    class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-palette1 hover:text-palette2"
+                    aria-label={`Link to ${title}`}
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="w-6 h-6 sm:w-8 sm:h-8"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+                        />
+                    </svg>
+                </a>
+            )
+        }
     </h1>
-    <p class='text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-5 sm:mx-auto'>
+    <p class="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-5 sm:mx-auto">
         {description}
     </p>
-    <div class='flex mt-6 justify-center'>
-        <div class='w-16 h-1 rounded-full bg-palette1 inline-flex'></div>
+    <div class="flex mt-6 justify-center">
+        <div class="w-16 h-1 rounded-full bg-palette1 inline-flex"></div>
     </div>
 </div>
