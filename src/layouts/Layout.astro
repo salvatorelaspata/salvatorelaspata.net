@@ -1,6 +1,7 @@
 ---
 import BackToTop from "../components/ui/BackToTop.astro";
 import ToggleTheme from "../components/ui/ToggleTheme.astro";
+import ClickSpark from "../components/ClickSpark.astro";
 interface Props {
   title: string;
   description?: string;
@@ -36,8 +37,10 @@ const { title, description = "Salvatore La Spata website" } = Astro.props;
     </style>
   </head>
   <body class="w-full font-mono m-0 bg-bg text-text">
-    <ToggleTheme />
-    <slot />
-    <BackToTop />
+    <ClickSpark sparkSize={15} sparkRadius={20} sparkCount={12} duration={0.5}>
+      <ToggleTheme />
+      <slot />
+      <BackToTop />
+    </ClickSpark>
   </body>
 </html>

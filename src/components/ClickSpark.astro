@@ -1,0 +1,223 @@
+---
+interface Props {
+  sparkColorClass?: string;
+  sparkSize?: number;
+  sparkRadius?: number;
+  sparkCount?: number;
+  duration?: number;
+  extraScale?: number;
+  class?: string;
+}
+
+const {
+  sparkColorClass = "text-text",
+  sparkSize = 20,
+  sparkRadius = 20,
+  sparkCount = 8,
+  duration = 0.4,
+  extraScale = 1.0,
+  class: className = "",
+} = Astro.props;
+---
+
+<div
+  class:list={["click-spark-container", className]}
+  data-spark-size={sparkSize}
+  data-spark-radius={sparkRadius}
+  data-spark-count={sparkCount}
+  data-duration={duration}
+  data-extra-scale={extraScale}
+>
+  <canvas class="click-spark-canvas"></canvas>
+  <span class:list={["spark-color-ref", sparkColorClass]}></span>
+  <slot />
+</div>
+
+<style>
+  .click-spark-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .click-spark-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    user-select: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+  }
+
+  .spark-color-ref {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  import gsap from "gsap";
+
+  interface Spark {
+    x: number;
+    y: number;
+    angle: number;
+    progress: number;
+  }
+
+  class ClickSparkController {
+    container: HTMLElement;
+    canvas: HTMLCanvasElement;
+    ctx: CanvasRenderingContext2D;
+    colorRef: HTMLElement;
+    sparks: Spark[] = [];
+    animationId: number | null = null;
+
+    sparkSize: number;
+    sparkRadius: number;
+    sparkCount: number;
+    duration: number;
+    extraScale: number;
+
+    constructor(container: HTMLElement) {
+      this.container = container;
+      this.canvas = container.querySelector(
+        ".click-spark-canvas",
+      ) as HTMLCanvasElement;
+      this.ctx = this.canvas.getContext("2d")!;
+      this.colorRef = container.querySelector(
+        ".spark-color-ref",
+      ) as HTMLElement;
+
+      // Read configuration from data attributes
+      this.sparkSize = parseFloat(container.dataset.sparkSize || "10");
+      this.sparkRadius = parseFloat(container.dataset.sparkRadius || "15");
+      this.sparkCount = parseInt(container.dataset.sparkCount || "8");
+      this.duration = parseFloat(container.dataset.duration || "0.4");
+      this.extraScale = parseFloat(container.dataset.extraScale || "1.0");
+
+      this.init();
+    }
+
+    getSparkColor(): string {
+      // Read the computed color from the reference element
+      // This allows Tailwind classes (including dark mode) to work
+      return getComputedStyle(this.colorRef).color;
+    }
+
+    init() {
+      this.resizeCanvas();
+      this.setupResizeObserver();
+      this.setupClickHandler();
+      this.startAnimation();
+    }
+
+    resizeCanvas() {
+      const { width, height } = this.container.getBoundingClientRect();
+      if (this.canvas.width !== width || this.canvas.height !== height) {
+        this.canvas.width = width;
+        this.canvas.height = height;
+      }
+    }
+
+    setupResizeObserver() {
+      let resizeTimeout: ReturnType<typeof setTimeout>;
+
+      const ro = new ResizeObserver(() => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => this.resizeCanvas(), 100);
+      });
+
+      ro.observe(this.container);
+    }
+
+    setupClickHandler() {
+      this.container.addEventListener("click", (e) => {
+        const rect = this.canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        this.createSparks(x, y);
+      });
+    }
+
+    createSparks(x: number, y: number) {
+      // Get the current color at click time (respects theme changes)
+      const currentColor = this.getSparkColor();
+
+      for (let i = 0; i < this.sparkCount; i++) {
+        const spark: Spark & { color: string } = {
+          x,
+          y,
+          angle: (2 * Math.PI * i) / this.sparkCount,
+          progress: 0,
+          color: currentColor,
+        };
+
+        this.sparks.push(spark);
+
+        // Animate progress with GSAP
+        gsap.to(spark, {
+          progress: 1,
+          duration: this.duration,
+          ease: "power2.out",
+          onComplete: () => {
+            const index = this.sparks.indexOf(spark);
+            if (index > -1) {
+              this.sparks.splice(index, 1);
+            }
+          },
+        });
+      }
+    }
+
+    startAnimation() {
+      const draw = () => {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+        for (const spark of this.sparks as (Spark & { color?: string })[]) {
+          const distance = spark.progress * this.sparkRadius * this.extraScale;
+          const lineLength = this.sparkSize * (1 - spark.progress);
+
+          const x1 = spark.x + distance * Math.cos(spark.angle);
+          const y1 = spark.y + distance * Math.sin(spark.angle);
+          const x2 = spark.x + (distance + lineLength) * Math.cos(spark.angle);
+          const y2 = spark.y + (distance + lineLength) * Math.sin(spark.angle);
+
+          this.ctx.strokeStyle = spark.color || this.getSparkColor();
+          this.ctx.lineWidth = 2;
+          this.ctx.beginPath();
+          this.ctx.moveTo(x1, y1);
+          this.ctx.lineTo(x2, y2);
+          this.ctx.stroke();
+        }
+
+        this.animationId = requestAnimationFrame(draw);
+      };
+
+      this.animationId = requestAnimationFrame(draw);
+    }
+  }
+
+  // Initialize all ClickSpark containers
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".click-spark-container").forEach((container) => {
+      new ClickSparkController(container as HTMLElement);
+    });
+  });
+
+  // Re-initialize on Astro page transitions (if using View Transitions)
+  document.addEventListener("astro:page-load", () => {
+    document.querySelectorAll(".click-spark-container").forEach((container) => {
+      if (!(container as any).__sparkInitialized) {
+        new ClickSparkController(container as HTMLElement);
+        (container as any).__sparkInitialized = true;
+      }
+    });
+  });
+</script>
