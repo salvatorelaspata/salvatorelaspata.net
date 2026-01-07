@@ -3,36 +3,40 @@
 ---
 
 <script>
-    import gsap from "gsap";
-    import { ScrollTrigger } from "gsap/ScrollTrigger";
-    gsap.registerPlugin(ScrollTrigger);
+    // import gsap from "gsap";
+    // import { ScrollTrigger } from "gsap/ScrollTrigger";
+    // gsap.registerPlugin(ScrollTrigger);
 
-    const container = document.querySelector("footer");
-    const innerContainer = document.querySelector("footer > div");
-    if (container && innerContainer) {
-        gsap.to(container, {
-            padding: "0px",
-            scrollTrigger: {
-                trigger: container,
-                start: "top top",
-                end: "80% top",
-                scrub: true,
-            },
-        });
-        gsap.to(innerContainer, {
-            borderRadius: "0px",
-            scrollTrigger: {
-                trigger: container,
-                start: "top top",
-                end: "80% top",
-                scrub: true,
-            },
-        });
-    }
+    // const container = document.querySelector("footer");
+    // const innerContainer = document.querySelector("footer > div");
+    // if (container && innerContainer) {
+    //     gsap.to(container, {
+    //         padding: "0px",
+    //         scrollTrigger: {
+    //             trigger: container,
+    //             start: "bottom bottom",
+    //             end: " top",
+    //             scrub: true,
+    //             markers: true,
+    //         },
+    //     });
+    //     gsap.to(innerContainer, {
+    //         borderRadius: "0px",
+    //         scrollTrigger: {
+    //             trigger: container,
+    //             start: "bottom bottom",
+    //             end: " top",
+    //             scrub: true,
+    //             markers: true,
+    //         },
+    //     });
+    // }
 </script>
-<footer id="footer" class="bg-bg border-t-2 p-4">
+<footer id="footer" class="bg-bg border-t-2 border-border p-4">
     <div
         class="text-center bg-bg
+                rounded-lg
+                p-2
                 border
                 border-border
                 shadow-shadow
