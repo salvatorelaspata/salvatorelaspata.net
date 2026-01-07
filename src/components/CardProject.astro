@@ -1,0 +1,120 @@
+---
+interface Props {
+    title: string;
+    subtitle: string;
+    description: string;
+    tecnologie: string;
+    img: string;
+    github?: string;
+    npm?: string;
+    demo?: string;
+    slides?: string;
+}
+const {
+    title,
+    subtitle,
+    description,
+    tecnologie,
+    img,
+    github,
+    npm,
+    demo,
+    slides,
+} = Astro.props;
+---
+
+<div class="bg-palette1 grid grid-cols-1 lg:grid-cols-3">
+    <div
+        class="col-span-1 h-48 flex place-content-center align-middle flex-none bg-cover text-center overflow-hidden"
+    >
+        <img src={img} {title} alt={title} class="h-48 w-48 object-cover" />
+    </div>
+    <div
+        class="col-span-2 w-full border-2 border-border text-text bg-bg p-4 flex flex-col justify-between leading-normal"
+    >
+        <div class="mb-8">
+            <p class="text-sm text-text flex items-center">
+                <svg
+                    class="fill-current dark:text-gray-500 w-3 h-3 mr-2"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                >
+                    <path
+                        d="M4 8V6a6 6 0 1 1 12 0v2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-8c0-1.1.9-2 2-2h1zm5 6.73V17h2v-2.27a2 2 0 1 0-2 0zM7 6v2h6V6a3 3 0 0 0-6 0z"
+                    ></path>
+                </svg>
+                {subtitle}
+            </p>
+            <div class="text-text font-bold text-xl mb-2">
+                {title}
+            </div>
+            <p class="text-text text-sm">
+                {
+                    description.length > 200
+                        ? description.slice(0, 60) + "..."
+                        : description
+                }
+            </p>
+        </div>
+        <div class="flex items-center">
+            <div class="text-sm w-full">
+                <p class="text-text leading-none">
+                    Tecnologie: {tecnologie}
+                </p>
+                <div
+                    class="w-full text-link grid gap-2 grid-cols-4 mt-2"
+                    dir="rtl"
+                >
+                    {
+                        slides && (
+                            <a
+                                class="underline"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href={slides || "#"}
+                            >
+                                slides
+                            </a>
+                        )
+                    }
+                    {
+                        npm && (
+                            <a
+                                class="underline"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href={npm || "#"}
+                            >
+                                npm
+                            </a>
+                        )
+                    }
+                    {
+                        demo && (
+                            <a
+                                class="underline"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href={demo || "#"}
+                            >
+                                demo
+                            </a>
+                        )
+                    }
+                    {
+                        github && (
+                            <a
+                                class="underline"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href={github || "#"}
+                            >
+                                github
+                            </a>
+                        )
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

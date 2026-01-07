@@ -1,6 +1,6 @@
 ---
 import Panel from "../components/Panel.astro";
-import CardSimple from "../components/CardSimple.astro";
+import CardTech from "../components/CardTech.astro";
 import HeaderSection from "../layouts/HeaderSection.astro";
 import {
   type TechnologyCategory,
@@ -15,24 +15,22 @@ const technologies = getTechnologies();
 <section id="technologies" class="my-8 align-middle max-w-6xl mx-auto px-5">
   <HeaderSection title="Tecnologie" />
   {
-    (Object.entries(technologies) as [TechnologyCategory, typeof technologies[TechnologyCategory]][]).map(
-      ([category, techs]) => (
-        <Panel title={getCategoryTitle(category)} class={category}>
-          <div class="flex flex-wrap justify-center gap-3 md:gap-4">
-            {techs.map(({ default: tech }) => (
-              <CardSimple
-                title={tech.title}
-                bgColorIcon={tech.bgColorIcon}
-                textColorIcon={tech.textColorIcon}
-                className="tech-card w-28 sm:w-32 opacity-0 translate-y-4 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg"
-              >
-                <Fragment set:html={tech.svg || defaultSvg} />
-              </CardSimple>
-            ))}
-          </div>
-        </Panel>
-      )
-    )
+    (
+      Object.entries(technologies) as [
+        TechnologyCategory,
+        (typeof technologies)[TechnologyCategory],
+      ][]
+    ).map(([category, techs]) => (
+      <Panel title={getCategoryTitle(category)} class={category}>
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-9 gap-4">
+          {techs.map(({ default: tech }) => (
+            <CardTech title={tech.title}>
+              <Fragment set:html={tech.svg || defaultSvg} />
+            </CardTech>
+          ))}
+        </div>
+      </Panel>
+    ))
   }
 </section>
 
@@ -64,4 +62,3 @@ const technologies = getTechnologies();
 
   document.addEventListener("DOMContentLoaded", animateCards);
 </script>
-

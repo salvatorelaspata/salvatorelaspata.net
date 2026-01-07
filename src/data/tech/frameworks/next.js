@@ -7,6 +7,7 @@ export default {
   bgColorIcon: "bg-gray-200",
   textColorIcon: "text-blue-400",
   svg: `<svg
+        fill="currentColor"
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
         class="w-6 h-6"

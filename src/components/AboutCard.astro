@@ -1,0 +1,38 @@
+---
+interface Props {
+    title: string;
+    icon: string;
+}
+
+const { title, icon } = Astro.props;
+---
+
+<div
+    class="group px-4 rounded-lg
+    grid gap-4 grid-rows-4
+    border-2
+	bg-bg
+	border-border
+	hover:shadow-shadow
+	hover:shadow-[4px_4px_0px_rgba(0,0,0,1)]
+    transition-all duration-300 hover:scale-[1.02]"
+>
+    <div class="flex items-center gap-3 row-span-1 border-b-2 border-border">
+        <div class="p-2 rounded-lg bg-white/20">
+            <svg
+                class="w-6 h-6 text-text"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                set:html={icon}
+            />
+        </div>
+        <h3 class="font-semibold text-lg">{title}</h3>
+    </div>
+    <div class="row-span-2">
+        <slot name="content" />
+    </div>
+    <div class="row-span-1">
+        <slot name="footer" />
+    </div>
+</div>

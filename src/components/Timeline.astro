@@ -8,24 +8,24 @@ interface Props {
 }
 const { date, title, subtitle, descriptions, current } = Astro.props;
 
-const bg = current ? 'bg-blue-500' : 'bg-gray-500';
-const text = current ? 'text-blue-500' : 'text-white dark:text-gray-300';
+const bg = current ? "bg-link" : "bg-text";
+const text = current ? "text-link" : "text-text";
 ---
 
 <li>
-    <div class='flex-start flex items-center pt-3'>
+    <div class="flex-start flex items-center pt-3">
         <div class={`-ml-[5px] mr-3 h-[9px] w-[9px] rounded-full ${bg}`}></div>
         <p class={`text-sm ${text}`}>
             {date}
         </p>
     </div>
-    <div class='mb-6 ml-4 mt-2'>
-        <h2 class='mb-1.5 text-2xl font-semibold'>{title}</h2>
-        <h3 class='mb-1.5 text-xl font-semibold'>{subtitle}</h3>
-        <p class='mb-3'>
+    <div class="mb-6 ml-4 mt-2">
+        <h2 class="mb-1.5 text-2xl font-semibold">{title}</h2>
+        <h3 class="mb-1.5 text-xl font-semibold">{subtitle}</h3>
+        <p class="mb-3">
             {
                 descriptions.map((description) => (
-                    <span class='block mb-1.5'>{description}</span>
+                    <span class="block mb-1.5">{description}</span>
                 ))
             }
         </p>

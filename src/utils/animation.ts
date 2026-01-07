@@ -3,47 +3,47 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const randomAnimation =
-  (tl: gsap.core.Timeline) => (element: Element) => {
-    // Applica clip-path all'elemento
-    gsap.set(element, {
-      clipPath: "inset(0% 0% 0% 0%)",
-    });
-    const randomEase = gsap.utils.random([
-      "power1.in",
-      "power1.out",
-      "power1.inOut",
-      "power2.in",
-      "power2.out",
-      "power2.inOut",
-      "power3.in",
-      "power3.out",
-      "power3.inOut",
-    ]);
-    tl.from(element, {
-      duration: gsap.utils.random(0.2, 0.5),
-      opacity: 0,
-      // transformOrigin: "center center",
-      ease: randomEase,
-      // clipPath: "inset(100% 100% 100% 100%)",
-    });
-  };
+// export const randomAnimation =
+//   (tl: gsap.core.Timeline) => (element: Element) => {
+//     // Applica clip-path all'elemento
+//     gsap.set(element, {
+//       clipPath: "inset(0% 0% 0% 0%)",
+//     });
+//     const randomEase = gsap.utils.random([
+//       "power1.in",
+//       "power1.out",
+//       "power1.inOut",
+//       "power2.in",
+//       "power2.out",
+//       "power2.inOut",
+//       "power3.in",
+//       "power3.out",
+//       "power3.inOut",
+//     ]);
+//     tl.from(element, {
+//       duration: gsap.utils.random(0.2, 0.5),
+//       opacity: 0,
+//       // transformOrigin: "center center",
+//       ease: randomEase,
+//       // clipPath: "inset(100% 100% 100% 100%)",
+//     });
+//   };
 
-export const randomChildAnimation = (element: Element) => {
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: element,
-      start: "top center",
-      end: "bottom center",
-      toggleActions: "play none none none",
-    },
-  });
-  const random = randomAnimation(tl);
-  const children = Array.from(element.children);
-  for (let i = 0; i < children.length; i++) {
-    random(children[i]);
-  }
-};
+// export const randomChildAnimation = (element: Element) => {
+//   const tl = gsap.timeline({
+//     scrollTrigger: {
+//       trigger: element,
+//       start: "top center",
+//       end: "bottom center",
+//       toggleActions: "play none none none",
+//     },
+//   });
+//   const random = randomAnimation(tl);
+//   const children = Array.from(element.children);
+//   for (let i = 0; i < children.length; i++) {
+//     random(children[i]);
+//   }
+// };
 
 export const animateSkills = (element: Element) => {
   gsap.to(element, {

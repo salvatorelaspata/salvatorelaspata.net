@@ -15,18 +15,17 @@ interface Props {
 
 const { title, class: c, cols } = Astro.props;
 const col = cols || 2;
-const colClass = `grid-cols-${col} md:grid-cols-${col + 1} lg:grid-cols-${col + 2}`;
 ---
 
 <div class=`${c} w-full text-start`>
     {title &&
     <h1
-        class='title-font my-3 text-2xl font-extrabold leading-10 tracking-tight sm:text-3xl sm:leading-none md:text-4xl'
+        class='text-palette1 title-font my-3 text-2xl font-extrabold leading-10 tracking-tight sm:text-3xl sm:leading-none md:text-4xl'
     >
         {title}
     </h1>
     <div class='flex my-1 justify-center'>
-        <div class='w-full h-1 rounded-full bg-blue-500 inline-flex'></div>
+        <div class='w-full h-1 rounded-full bg-link inline-flex'></div>
     </div>
     }
     <div class="w-full py-4">

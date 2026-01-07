@@ -4,12 +4,17 @@ export default {
 	darkMode: 'class',
 	theme: {
 		extend: {
-			colors:{
-        palette1: "#002B39",
-        palette2: "#004A58",
-        palette3: "#006B7A",
-        palette4: "#358E9D",
-        palette5: "#5EB2C2",
+			colors: {
+				palette1: "var(--palette1)",
+				palette2: "var(--palette2)",
+				palette3: "var(--palette3)",
+				palette4: "var(--palette4)",
+				palette5: "var(--palette5)",
+				bg: 'var(--bg)',
+				text: 'var(--text)',
+				link: 'var(--link)',
+				border: 'var(--border)',
+				shadow: 'var(--shadow)',
 			}
 		},
 	},

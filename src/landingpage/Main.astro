@@ -1,58 +1,13 @@
 ---
-import SectionLayout from "../layouts/SectionLayout.astro";
 import SocialLinks from "../components/SocialLinks.astro";
 ---
 
 <script>
   import gsap from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
-  import { randomAnimation } from "../utils/animation";
   gsap.registerPlugin(ScrollTrigger);
 
-  // animate text on load
-  const gHello = document.querySelector(".g-hello");
-  const gIm = document.querySelector(".g-im");
-  const gNome = document.querySelector(".g-nome");
-  const gCognome = document.querySelector(".g-cognome");
-  const gRole = document.querySelector(".g-role");
-  const gCompany = document.querySelector(".g-company");
-  const gSocial = document.querySelector(".g-social");
-  const sticker = document.querySelector(".sticker");
-
-  const iHello = document.querySelector(".i-hello");
-
   const container = document.querySelector("#main");
-
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: container,
-      toggleActions: "restart pause resume pause",
-    },
-  });
-  if (container) {
-    const random = randomAnimation(tl);
-
-    gHello && random(gHello);
-    iHello && random(iHello);
-    gIm && random(gIm);
-    gNome && random(gNome);
-    gCognome && random(gCognome);
-    gRole && random(gRole);
-    gCompany && random(gCompany);
-    gSocial && random(gSocial);
-  }
-  gsap.from(sticker, {
-    scrollTrigger: {
-      trigger: sticker,
-      start: "bottom center",
-      end: "bottom center",
-      toggleActions: "play none none none",
-    },
-    opacity: 0,
-    duration: 1,
-  });
-
-  // Animazione padding e border-radius allo scroll
   const innerContainer = document.querySelector("#main > div");
   if (container && innerContainer) {
     gsap.to(container, {
@@ -60,7 +15,7 @@ import SocialLinks from "../components/SocialLinks.astro";
       scrollTrigger: {
         trigger: container,
         start: "top top",
-        end: "30% top",
+        end: "80% top",
         scrub: true,
       },
     });
@@ -69,39 +24,40 @@ import SocialLinks from "../components/SocialLinks.astro";
       scrollTrigger: {
         trigger: container,
         start: "top top",
-        end: "30% top",
+        end: "80% top",
         scrub: true,
       },
     });
   }
 </script>
 
-<main id="main" class="h-screen p-4">
+<main id="main" class="h-screen p-4 md:p-8 mx-auto">
   <div
-    class="h-full flex justify-center items-center flex-col bg-palette1 dark:bg-palette5 rounded-lg relative overflow-hidden text-white"
+    class="h-full flex justify-center items-center flex-col rounded-lg overflow-hidden text-text
+    bg-bg
+    border
+    border-border
+    shadow-shadow
+    shadow-[4px_4px_0px_rgba(0,0,0,1)]"
   >
-    <span class="g-hello text-xl">Ciao</span>
-    <span class="i-hello">👋</span>
-    <span class="g-im text-lg">Sono</span>
-
-    <h1 class="g-nome text-4xl font-bold px-3 z-10">Salvatore</h1>
-    <h1 class="g-cognome text-4xl font-bold px-3 text-nowrap z-10">La Spata</h1>
-    <div class="sticker absolute bottom-2 right-14">
-      <img
-        class="rounded-full opacity-40 z-0 w-auto h-32"
-        height="auto"
-        src="sticker.webp"
-        alt="Salvatore's sticker"
-      />
-    </div>
-    <h2 class="g-role text-center text-2xl underline p-3 z-10">
+    <h1 class="g-nome text-2xl font-bold z-10">Salvatore La Spata</h1>
+    <h2 class="g-role text-center text-xl underline z-10 pt-4">
       Full-Stack Software Engineer
     </h2>
-    <h3 class="g-company text-center text-2xl p-3 z-10">
-      SAP BTP Practice Leader <span class="text-lg text-blue-500">
+
+    <h3 class="g-company text-center text-lg pt-4 z-10">
+      SAP BTP Practice Leader <span class="text-lg text-link">
         @GotoNext S.r.l.
       </span>
     </h3>
+    <div class="w-1/4 h-16 flex flex-row bg-bg py-4">
+      <div class="w-1/5 h-full bg-palette1"></div>
+      <div class="w-1/5 h-full bg-palette2"></div>
+      <div class="w-1/5 h-full bg-palette3"></div>
+      <div class="w-1/5 h-full bg-palette4"></div>
+      <div class="w-1/5 h-full bg-palette5"></div>
+    </div>
+
     <SocialLinks
       socials={{
         github: {

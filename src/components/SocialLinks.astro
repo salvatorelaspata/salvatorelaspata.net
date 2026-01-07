@@ -14,20 +14,24 @@ interface Props {
 const { socials } = Astro.props;
 ---
 
-<div class="g-social absolute bottom-4 right-2 z-10">
-  <div class="flex flex-row">
-    {
-      Object.entries(socials).map(([key, { url, img }]) => (
-        <a
-          href={url}
-          title={`${key} - Salvatore La Spata`}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="flex flex-col items-center w-16"
-        >
-          <img class="size-10 mt-2" src={img} alt={`${key} social link`} />
-        </a>
-      ))
-    }
-  </div>
+<div class="w-full flex flex-row justify-center gap-4">
+  {
+    Object.entries(socials).map(([key, { url, img }]) => (
+      <a
+        href={url}
+        title={`${key} - Salvatore La Spata`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex flex-col items-center w-16 h-16 justify-center
+          border-palette4 
+          active:bg-palette1 
+          bg-palette1 
+          hover:bg-palette5
+          hover:shadow-palette1
+          hover:shadow-[4px_4px_0px_rgba(0,0,0,1)]"
+      >
+        <img class="size-10" src={img} alt={`${key} social link`} />
+      </a>
+    ))
+  }
 </div>

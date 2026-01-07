@@ -2,11 +2,44 @@
 
 ---
 
-<!-- TW Elements is free under AGPL, with commercial license required for specific uses. See more details: https://tw-elements.com/license/ and contact us for queries at tailwind@mdbootstrap.com -->
-<footer class='bg-gray-200 text-center dark:bg-gray-700 lg:text-left'>
-    <div class='p-4 text-center text-gray-700 dark:text-gray-200'>
+<script>
+    import gsap from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    const container = document.querySelector("footer");
+    const innerContainer = document.querySelector("footer > div");
+    if (container && innerContainer) {
+        gsap.to(container, {
+            padding: "0px",
+            scrollTrigger: {
+                trigger: container,
+                start: "top top",
+                end: "80% top",
+                scrub: true,
+            },
+        });
+        gsap.to(innerContainer, {
+            borderRadius: "0px",
+            scrollTrigger: {
+                trigger: container,
+                start: "top top",
+                end: "80% top",
+                scrub: true,
+            },
+        });
+    }
+</script>
+<footer id="footer" class="bg-bg border-t-2 p-4">
+    <div
+        class="text-center bg-bg
+                border
+                border-border
+                shadow-shadow
+                shadow-[4px_4px_0px_rgba(0,0,0,1)]"
+    >
         © 2024 Copyright:
-        <p class='text-gray-800 dark:text-gray-400'>
+        <p class="text-link">
             With ♥️ <code> &lt;Salvatore La Spata/&gt;</code>
         </p>
     </div>

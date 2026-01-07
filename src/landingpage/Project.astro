@@ -1,5 +1,5 @@
 ---
-import CardImage from "../components/CardImage.astro";
+import CardProject from "../components/CardProject.astro";
 import HeaderSection from "../layouts/HeaderSection.astro";
 import { type Project, getProjects } from "../data/util";
 
@@ -8,10 +8,10 @@ let projects: Project[] = (await getProjects()) || [];
 
 <section id="project" class="my-8 align-middle max-w-6xl mx-auto px-5">
   <HeaderSection title="Side Projects" />
-  <div class="grid gap-5">
+  <div class="grid gap-4 md:grid-cols-2">
     {
       projects.map(({ default: project }) => (
-        <CardImage
+        <CardProject
           title={project.title}
           subtitle={project.subtitle}
           img={project.img}

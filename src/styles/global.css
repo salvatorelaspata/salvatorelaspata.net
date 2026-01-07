@@ -1,0 +1,25 @@
+:root {
+    --palette1: #002B39;
+    --palette2: #004A58;
+    --palette3: #006B7A;
+    --palette4: #358E9D;
+    --palette5: #5EB2C2;
+    --bg: #F5F5F0;
+    --text: #1A1A1A;
+    --link: #006B7A;
+    --border: #1A1A1A;
+    --shadow: #1A1A1A;
+}
+
+.dark {
+    --palette1: #5EB2C2;
+    --palette2: #358E9D;
+    --palette3: #006B7A;
+    --palette4: #004A58;
+    --palette5: #002B39;
+    --bg: #1A1A1A;
+    --text: #E0E0E0;
+    --link: #5EB2C2;
+    --border: #E0E0E0;
+    --shadow: #E0E0E0;
+}

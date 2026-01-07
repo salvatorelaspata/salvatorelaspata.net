@@ -4,7 +4,13 @@
 	aria-label="back to top button"
 	data-mdb-ripple="true"
 	data-mdb-ripple-color="light"
-	class="fixed bottom-5 right-5 hidden inline-block rounded-full border-gray-50 border-2 hover:bg-orange-400 p-3 text-xs font-medium uppercase leading-tight shadow-md transition duration-150 ease-in-out hover:bg-orange hover:shadow-lg focus:outline-none focus:ring-0 dark:bg-orange dark:hover:bg-white dark:hover:text-black"
+	class="hidden fixed bottom-2 right-2 w-10 h-10 justify-center items-center border-2
+	border-border
+	active:bg-palette1
+	bg-palette1
+	hover:bg-palette5
+	hover:shadow-shadow
+	hover:shadow-[4px_4px_0px_rgba(0,0,0,1)]"
 	id="btn-back-to-top"
 >
 	<svg
@@ -23,19 +29,21 @@
 </button>
 
 <script>
-	const btn = document.getElementById('btn-back-to-top');
-	window.addEventListener('scroll', () => {
-		if(!btn) return;
+	const btn = document.getElementById("btn-back-to-top");
+	window.addEventListener("scroll", () => {
+		if (!btn) return;
 		if (window.scrollY > 100) {
-			btn.style.display = 'block';
+			btn.style.display = "flex";
 		} else {
-			btn.style.display = 'none';
+			btn.style.display = "none";
 		}
 	});
-	document?.getElementById('btn-back-to-top')?.addEventListener('click', () => {
-		window.scrollTo({
-			top: 0,
-			behavior: 'smooth',
+	document
+		?.getElementById("btn-back-to-top")
+		?.addEventListener("click", () => {
+			window.scrollTo({
+				top: 0,
+				behavior: "smooth",
+			});
 		});
-	});
 </script>

@@ -1,0 +1,19 @@
+---
+interface Props {
+    content: string;
+}
+
+const { content } = Astro.props;
+---
+
+<span
+    class="h-8 px-2 flex items-center justify-center text-xs rounded-md
+            bg-bg
+            border-2
+            border-border
+            hover:shadow-text
+            hover:shadow-[2px_2px_0px_rgba(0,0,0,1)]
+            text-text"
+>
+    {content}
+</span>

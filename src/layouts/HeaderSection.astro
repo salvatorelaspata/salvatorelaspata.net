@@ -18,14 +18,14 @@ const id = title ? slugify(title) : undefined;
 <div class="text-center py-8">
     <h1
         id={id}
-        class="group title-font mb-4 text-4xl font-extrabold leading-10 tracking-tight sm:text-5xl sm:leading-none md:text-6xl inline-flex items-center gap-2 justify-center"
+        class="group title-font text-4xl font-extrabold leading-10 tracking-tight sm:text-5xl sm:leading-none md:text-6xl inline-flex items-center gap-2 justify-center"
     >
         {title || ""}
         {
             id && (
                 <a
                     href={`#${id}`}
-                    class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-palette1 hover:text-palette2"
+                    class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-link hover:text-text"
                     aria-label={`Link to ${title}`}
                 >
                     <svg
@@ -46,10 +46,10 @@ const id = title ? slugify(title) : undefined;
             )
         }
     </h1>
-    <p class="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-5 sm:mx-auto">
+    <p class="text-base leading-relaxed">
         {description}
     </p>
-    <div class="flex mt-6 justify-center">
-        <div class="w-16 h-1 rounded-full bg-palette1 inline-flex"></div>
+    <div class="flex m-4 justify-center">
+        <div class="w-16 h-1 rounded-full bg-link inline-flex"></div>
     </div>
 </div>
