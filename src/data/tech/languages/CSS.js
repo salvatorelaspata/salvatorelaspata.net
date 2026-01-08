@@ -1,11 +1,12 @@
 export default {
   id: 2,
   title: "CSS 3",
-  subtitle: "HyperText Markup Language",
+  link: "https://developer.mozilla.org/en-US/docs/Web/CSS",
+  subtitle: "Cascading Style Sheets",
   description:
-    "The standard markup language for documents designed to be displayed in a web browser.",
-  bgColorIcon: "bg-red-500",
-  textColorIcon: "text-red-100",
+    "A style sheet language used for describing the presentation of a document written in a markup language like HTML.",
+  bgColorIcon: "bg-blue-500",
+  textColorIcon: "text-blue-100",
   svg: ` <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
     <path fill="transparent" d="M71.357 460.819L30.272 0h451.456l-41.129 460.746L255.724 512z"/>
     <path fill="transparent" d="M405.388 431.408l35.148-393.73H256v435.146z"/>

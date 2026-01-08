@@ -29,7 +29,19 @@ const {
 } = Astro.props;
 ---
 
-<div class="relative bg-palette1 grid grid-cols-1 lg:grid-cols-3">
+<div
+    class="relative grid grid-cols-1 lg:grid-cols-3
+    border-2
+    border-border
+	active:bg-palette1
+	bg-palette1
+	hover:bg-palette5
+	transition-all
+	hover:translate-x-[-4px]
+	hover:translate-y-[-4px]
+	hover:shadow-shadow
+	hover:shadow-[4px_4px_0px_rgba(0,0,0,1)]"
+>
     <!-- Link overlay che copre tutta la card -->
     <a
         href={`/projects/${slug}`}
@@ -48,7 +60,7 @@ const {
         />
     </div>
     <div
-        class="col-span-2 w-full border-2 border-border bg-bg text-text p-4 flex flex-col justify-between leading-normal"
+        class="col-span-2 w-full border-border bg-bg text-text p-4 flex flex-col justify-between leading-normal"
     >
         <div class="mb-8">
             <p

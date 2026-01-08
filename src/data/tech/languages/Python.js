@@ -1,6 +1,7 @@
 export default {
   id: 7,
   title: "Python",
+  link: "https://www.python.org/",
   subtitle: "Python",
   description:
     "An interpreted, high-level, general-purpose programming language.",

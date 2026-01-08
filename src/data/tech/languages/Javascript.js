@@ -1,6 +1,7 @@
 export default {
   id: 3,
   title: "JavaScript",
+  link: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
   subtitle: "Programming Language",
   description:
     "A high-level, often just-in-time compiled, and multi-paradigm programming language.",

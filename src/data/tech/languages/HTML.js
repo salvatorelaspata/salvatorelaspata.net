@@ -1,6 +1,7 @@
 export default {
   id: 1,
   title: "HTML5",
+  link: "https://developer.mozilla.org/en-US/docs/Web/HTML",
   subtitle: "HyperText Markup Language",
   description:
     "The standard markup language for documents designed to be displayed in a web browser.",

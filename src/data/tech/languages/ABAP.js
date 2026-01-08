@@ -1,6 +1,7 @@
 export default {
   id: 6,
   title: "ABAP",
+  link: "https://en.wikipedia.org/wiki/ABAP",
   subtitle: "Advanced Business Application Programming",
   description:
     "A high-level programming language created by the German software company SAP.",

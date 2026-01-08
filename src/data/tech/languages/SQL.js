@@ -1,6 +1,7 @@
 export default {
   id: 5,
   title: "SQL",
+  link: "https://en.wikipedia.org/wiki/SQL",
   subtitle: "Structured Query Language",
   description:
     "A domain-specific language used in programming and designed for managing data held in a relational database management system.",

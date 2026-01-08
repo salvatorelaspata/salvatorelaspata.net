@@ -52,6 +52,7 @@ export interface Technology {
   default: {
     id: number;
     title: string;
+    link: string;
     subtitle: string;
     description: string;
     bgColorIcon: string;

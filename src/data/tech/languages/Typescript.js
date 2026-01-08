@@ -1,6 +1,7 @@
 export default {
   id: 4,
   title: "Typescript",
+  link: "https://www.typescriptlang.org/",
   subtitle: "Typed JavaScript at Any Scale.",
   description:
     "TypeScript extends JavaScript by adding types to the language. TypeScript speeds up your development experience by catching errors and providing fixes before you even run your code and runs on any browser, any OS, and any host.",

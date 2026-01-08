@@ -1,6 +1,7 @@
 export default {
   id: 8,
   title: "Rust (learning)",
+  link: "https://www.rust-lang.org/",
   subtitle: "Rust",
   description:
     "A systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety.",

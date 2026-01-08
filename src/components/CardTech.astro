@@ -1,18 +1,28 @@
 ---
 interface Props {
     title: string;
+    link: string;
+    svg: string;
 }
 
-const { title } = Astro.props;
+const { title, link, svg } = Astro.props;
 ---
 
 <div
-    class={`rounded bg-bg p-4 flex flex-col justify-center items-center`}
+    class={`relative rounded p-4 flex flex-col justify-center items-center 
+	transition-all
+	hover:translate-x-[-4px]
+	hover:translate-y-[-4px]
+	hover:shadow-text
+	hover:shadow-[4px_4px_0px_rgba(0,0,0,1)]"
+    border bg-bg hover:border-border
+    `}
 >
+    <a href={link} target="_blank" rel="noopener noreferrer" class="absolute inset-0 z-10" aria-label={`Vai alla pagina di ${title}`}></a>
     <div
         class={`w-10 h-10 inline-flex items-center justify-center rounded-full mb-3 flex-shrink-0 p-2`}
     >
-        <slot />
+        <Fragment set:html={svg} />
     </div>
     <h2
         class={`text-sm text-center title-font font-medium`}

@@ -1,6 +1,7 @@
 export default {
   id: 9,
   title: "Swift (learning)",
+  link: "https://swift.org/",
   subtitle: "Swift",
   description:
     "A powerful and intuitive programming language for macOS, iOS, watchOS, and tvOS.",
