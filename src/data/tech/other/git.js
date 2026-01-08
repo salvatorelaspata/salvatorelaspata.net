@@ -1,6 +1,7 @@
 export default {
   id: 2,
   title: "Git",
+  link: "https://git-scm.com/",
   subTitle: "Git",
   description: `Git is a distributed version control system that allows you to track changes in your codebase, collaborate with other developers, and manage your project's history. With Git, you can create branches, merge changes, and resolve conflicts, all in a secure and scalable environment.`,
 

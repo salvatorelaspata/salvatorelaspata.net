@@ -1,6 +1,7 @@
 export default {
   id: 7,
   title: "Lit",
+  link: "https://lit.dev/",
   subtitle: "Lit",
   description:
     "A simple library for building fast, lightweight web components.",

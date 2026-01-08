@@ -1,6 +1,7 @@
 export default {
   id: 2,
   title: "SAPUI5",
+  link: "https://sapui5.hana.ondemand.com/",
   subtitle: "UI Development Toolkit for HTML5",
   description:
     "A Web Framework for building responsive applications for desktop and mobile devices.",

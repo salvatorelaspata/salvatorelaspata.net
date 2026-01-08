@@ -1,6 +1,7 @@
 export default {
   id: 3,
   title: "Jenkins",
+  link: "https://www.jenkins.io/",
   subTitle: "Jenkins",
   description: `Jenkins is an open-source automation server that provides a set of tools and services to help you build, deploy, and run applications in the cloud. With Jenkins, you can develop and deploy applications, connect to data sources, and integrate with other systems, all in a secure and scalable environment.`,
 

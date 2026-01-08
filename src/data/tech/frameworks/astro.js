@@ -1,6 +1,7 @@
 export default {
   id: 6,
   title: "Astro",
+  link: "https://astro.build/",
   subtitle: "Astro",
   description:
     "A new kind of static site generator that delivers lightning-fast performance with a modern developer experience.",

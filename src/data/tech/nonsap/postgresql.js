@@ -1,6 +1,7 @@
 export default {
   id: 3,
   title: "PostgreSQL",
+  link: "https://www.postgresql.org/",
   subTitle: "PostgreSQL",
   description: `PostgreSQL is a powerful, open-source object-relational database system that is used to build and deploy applications in the cloud. It provides a set of tools and services to help you develop, deploy, and run applications that are fast, secure, and scalable. With PostgreSQL, you can build applications that leverage the power of relational databases to deliver real-time insights and analytics, all in a single platform.`,
 

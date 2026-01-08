@@ -1,6 +1,7 @@
 export default {
   id: 3,
   title: "Kubernetes",
+  link: "https://kubernetes.io/",
   subTitle: "K8s",
   description:
     "Kubernetes is an open-source container-orchestration system for automating computer application deployment, scaling, and management.",

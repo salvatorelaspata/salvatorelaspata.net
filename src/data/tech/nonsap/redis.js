@@ -1,6 +1,7 @@
 export default {
   id: 5,
   title: "Redis",
+  link: "https://redis.io/",
   subTitle: "Redis",
   description: `Redis is an open-source, in-memory data structure store that can be used as a database, cache, and message broker. It supports various data structures such as strings, hashes, lists, sets, and sorted sets, and provides high availability, automatic failover, and data persistence. Redis is commonly used to build real-time applications, caching layers, and message queues, and is known for its high performance, scalability, and reliability.`,
 

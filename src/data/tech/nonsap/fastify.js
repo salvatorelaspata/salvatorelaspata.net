@@ -1,6 +1,7 @@
 export default {
   id: 1,
   title: "Fastify",
+  link: "https://www.fastify.io/",
   subTitle: "Fastify",
   description: `Fastify is a web framework highly focused on providing the best developer experience with the least overhead and a powerful plugin architecture. It is inspired by Hapi and Express and is one of the fastest web frameworks in the Node.js ecosystem.`,
   bgColorIcon: "bg-gray-900",

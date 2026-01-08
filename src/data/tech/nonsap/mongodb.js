@@ -1,6 +1,7 @@
 export default {
   id: 4,
   title: "MongoDB",
+  link: "https://www.mongodb.com/",
   subTitle: "MongoDB",
   description: `MongoDB is a NoSQL database that is designed to be flexible, scalable, and high-performance. It is a document-oriented database that stores data in JSON-like documents, making it easy to work with and integrate with other systems. MongoDB is used by companies of all sizes to build and deploy applications that require a flexible and scalable database solution.`,
 

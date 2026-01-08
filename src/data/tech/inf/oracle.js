@@ -1,6 +1,7 @@
 export default {
   id: 5,
   title: "Oracle",
+  link: "https://www.oracle.com/",
   subTitle: "Oracle",
   description: `Oracle is a leading provider of enterprise software and cloud services. Oracle offers a comprehensive suite of products and services that help organizations manage their business processes, data, and applications. With Oracle, you can build, deploy, and run applications that are secure, scalable, and reliable, all in a single platform.`,
 

@@ -1,6 +1,7 @@
 export default {
   id: 3,
   title: "React",
+  link: "https://react.dev/",
   subtitle: "JavaScript Library",
   description:
     "A JavaScript library for building user interfaces. It's maintained by Facebook and a community of individual developers and companies.",

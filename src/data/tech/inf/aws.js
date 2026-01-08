@@ -1,9 +1,9 @@
 export default {
   id: 4,
   title: "AWS",
+  link: "https://aws.amazon.com/",
   subTitle: "Amazon Web Services",
   description: `Amazon Web Services (AWS) is a cloud computing platform that provides a wide range of services to help you build, deploy, and run applications in the cloud. With AWS, you can build applications that are fast, secure, and scalable, all in a single platform. AWS provides a set of tools and services to help you develop, deploy, and run applications that leverage the power of cloud computing to deliver real-time insights and analytics.`,
-
   bgColorIcon: "bg-yellow-500",
   textColorIcon: "text-yellow-100",
   svg: `<svg

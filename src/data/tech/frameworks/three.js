@@ -1,6 +1,7 @@
 export default {
   id: 8,
   title: "Three.js",
+  link: "https://threejs.org/",
   subtitle: "Three.js",
   description:
     "A JavaScript 3D library that makes WebGL simpler. It allows you to create and display animated 3D computer graphics on a web browser using WebGL.",

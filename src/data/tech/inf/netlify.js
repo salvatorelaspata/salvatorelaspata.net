@@ -1,6 +1,7 @@
 export default {
   id: 6,
   title: "Netlify",
+  link: "https://www.netlify.com/",
   subTitle: "Netlify",
   description: `Netlify is a platform as a service (PaaS) offering that provides a set of tools and services to help you build, deploy, and run applications in the cloud. With Netlify, you can develop and deploy applications, connect to data sources, and integrate with other systems, all in a secure and scalable environment.`,
 

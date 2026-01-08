@@ -1,6 +1,7 @@
 export default {
   id: 4,
   title: "WebdriverIO",
+  link: "https://webdriver.io/",
   subTitle: "WebdriverIO",
   description: `WebdriverIO is a popular test automation framework that allows you to write and run tests using a simple and concise syntax. With WebdriverIO, you can write tests in JavaScript and run them in a variety of browsers and devices. It provides a set of tools and services to help you build, deploy, and run tests that are fast, reliable, and scalable. With WebdriverIO, you can build tests that are easy to maintain and extend, all in a single platform that is easy to use and integrate with other systems.`,
 

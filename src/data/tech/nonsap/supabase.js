@@ -1,6 +1,7 @@
 export default {
   id: 2,
   title: "Supabase",
+  link: "https://supabase.com/",
   subTitle: "Supabase",
   description: `Supabase is an open-source Firebase alternative. It is a cloud database service that provides a set of tools and services to help you build, deploy, and run applications in the cloud. It provides a set of tools and services to help you develop, deploy, and run applications that are fast, secure, and scalable. With Supabase, you can build applications that leverage the power of in-memory computing to deliver real-time insights and analytics, all in a single platform.`,
   bgColorIcon: "bg-green-500",

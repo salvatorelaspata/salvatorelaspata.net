@@ -1,6 +1,7 @@
 export default {
   id: 4,
   title: "React Native",
+  link: "https://reactnative.dev/",
   subtitle: "Build Mobile Apps",
   description: "A framework for building native apps using React.",
   bgColorIcon: "bg-gray-200",

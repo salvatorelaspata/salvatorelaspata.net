@@ -1,6 +1,7 @@
 export default {
   id: 5,
   title: "Next.js",
+  link: "https://nextjs.org/",
   subtitle: "React Framework",
   description:
     "An open-source React front-end development web framework that enables functionality such as server-side rendering and generating static websites for React based web applications.",

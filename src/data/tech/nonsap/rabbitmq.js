@@ -1,6 +1,7 @@
 export default {
   id: 6,
   title: "RabbitMQ",
+  link: "https://www.rabbitmq.com/",
   subTitle: "RabbitMQ",
   description: `RabbitMQ is an open-source message broker software that implements the Advanced Message Queuing Protocol (AMQP). It provides a set of tools and services to help you build, deploy, and run applications that communicate with each other using message queues. With RabbitMQ, you can build applications that are decoupled, scalable, and fault-tolerant, all in a single platform.`,
 
