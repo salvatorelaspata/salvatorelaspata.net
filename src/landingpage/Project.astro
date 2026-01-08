@@ -12,6 +12,8 @@ let projects: Project[] = (await getProjects()) || [];
     {
       projects.map(({ default: project }) => (
         <CardProject
+          id={project.id}
+          slug={project.slug}
           title={project.title}
           subtitle={project.subtitle}
           img={project.img}

@@ -1,13 +1,21 @@
 ---
+import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
+
 import BackToTop from "../components/ui/BackToTop.astro";
 import ToggleTheme from "../components/ui/ToggleTheme.astro";
 import ClickSpark from "../components/ClickSpark.astro";
 interface Props {
   title: string;
   description?: string;
+  keywords?: string;
 }
 
-const { title, description = "Salvatore La Spata website" } = Astro.props;
+const {
+  title,
+  description = "Salvatore La Spata website",
+  keywords = "Salvatore La Spata, Salvatore, La Spata, Salvatore La Spata website, salvatorela, developer, software engineer, salvatorelaspata.net, salvatorelaspata.dev",
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -19,10 +27,7 @@ const { title, description = "Salvatore La Spata website" } = Astro.props;
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="author" content="Salvatore La Spata" />
-    <meta
-      name="keywords"
-      content="Salvatore La Spata, Salvatore, La Spata, Salvatore La Spata website"
-    />
+    <meta name="keywords" content={keywords} />
     <meta name="robots" content="index, follow" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/png" href="/sticker.webp" />
@@ -35,6 +40,7 @@ const { title, description = "Salvatore La Spata website" } = Astro.props;
         content-visibility: auto;
       }
     </style>
+    <ClientRouter />
   </head>
   <body class="w-full font-mono m-0 bg-bg text-text">
     <ClickSpark sparkSize={15} sparkRadius={20} sparkCount={12} duration={0.5}>

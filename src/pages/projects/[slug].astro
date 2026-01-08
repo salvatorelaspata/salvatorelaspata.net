@@ -1,5 +1,8 @@
 ---
+import BackButton from "../../components/ui/BackButton.astro";
+import ProjectLinks from "../../components/ProjectLinks.astro";
 import { getProjects } from "../../data/util";
+import Layout from "../../layouts/Layout.astro";
 
 export async function getStaticPaths() {
     const projects = await getProjects();
@@ -9,4 +12,67 @@ export async function getStaticPaths() {
         props: { project: p },
     }));
 }
+const {
+    project: {
+        default: {
+            title,
+            subtitle,
+            tecnologie,
+            img,
+            id,
+            github,
+            npm,
+            demo,
+            slides,
+            description,
+        },
+    },
+} = Astro.props;
+
+let keywords =
+    "Salvatore La Spata, Salvatore, La Spata, Salvatore La Spata website, salvatorela, developer, software engineer, salvatorelaspata.net, salvatorelaspata.dev";
+keywords += `, ${title}`;
+keywords += `, ${subtitle}`;
+keywords += `, ${description.replace(/,/g, ", ")}`;
 ---
+
+<Layout
+    title={`salvatorelaspata.net - ${title}`}
+    description={subtitle}
+    keywords={keywords}
+>
+    <BackButton />
+    <main class="h-screen max-w-4xl mx-auto p-5 bg-bg text-text flex flex-col">
+        <p transition:name={`project-subtitle-${id}`}>{subtitle}</p>
+        <div class="flex flex-col items-center mb-6">
+            <img
+                transition:name={`project-img-${id}`}
+                src={`../${img}`}
+                alt={title}
+                class="w-1/2 h-auto mb-6 bg-palette1"
+            />
+        </div>
+        <h1
+            class="text-3xl font-bold mb-4"
+            transition:name={`project-title-${id}`}
+        >
+            {title}
+        </h1>
+        <p
+            class="h-full text-lg mb-6"
+            transition:name={`project-description-${id}`}
+        >
+            {description}
+        </p>
+        <ProjectLinks
+            id={id}
+            github={github}
+            demo={demo}
+            npm={npm}
+            slides={slides}
+        />
+        <!-- Add more project details here as needed -->
+    </main>
+</Layout>
+<!-- </body>
+</html> -->

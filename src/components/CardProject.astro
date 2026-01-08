@@ -1,5 +1,9 @@
 ---
+import ProjectLinks from "./ProjectLinks.astro";
+
 interface Props {
+    id: number;
+    slug: string;
     title: string;
     subtitle: string;
     description: string;
@@ -11,6 +15,8 @@ interface Props {
     slides?: string;
 }
 const {
+    id,
+    slug,
     title,
     subtitle,
     description,
@@ -23,17 +29,32 @@ const {
 } = Astro.props;
 ---
 
-<div class="bg-palette1 grid grid-cols-1 lg:grid-cols-3">
+<div class="relative bg-palette1 grid grid-cols-1 lg:grid-cols-3">
+    <!-- Link overlay che copre tutta la card -->
+    <a
+        href={`/projects/${slug}`}
+        class="absolute inset-0 z-10"
+        aria-label={`Vai al progetto ${title}`}></a>
     <div
-        class="col-span-1 h-48 flex place-content-center align-middle flex-none bg-cover text-center overflow-hidden"
+        class="col-span-1 flex justify-center items-center
+         bg-cover text-center overflow-hidden"
     >
-        <img src={img} {title} alt={title} class="h-48 w-48 object-cover" />
+        <img
+            transition:name={`project-img-${id}`}
+            src={img}
+            alt={title}
+            alt={title}
+            class="h-48 object-cover"
+        />
     </div>
     <div
-        class="col-span-2 w-full border-2 border-border text-text bg-bg p-4 flex flex-col justify-between leading-normal"
+        class="col-span-2 w-full border-2 border-border bg-bg text-text p-4 flex flex-col justify-between leading-normal"
     >
         <div class="mb-8">
-            <p class="text-sm text-text flex items-center">
+            <p
+                transition:name={`project-subtitle-${id}`}
+                class="text-sm text-text flex items-center"
+            >
                 <svg
                     class="fill-current dark:text-gray-500 w-3 h-3 mr-2"
                     xmlns="http://www.w3.org/2000/svg"
@@ -45,10 +66,16 @@ const {
                 </svg>
                 {subtitle}
             </p>
-            <div class="text-text font-bold text-xl mb-2">
+            <div
+                transition:name={`project-title-${id}`}
+                class="text-text font-bold text-xl mb-2"
+            >
                 {title}
             </div>
-            <p class="text-text text-sm">
+            <p
+                class="text-text text-sm"
+                transition:name={`project-description-${id}`}
+            >
                 {
                     description.length > 200
                         ? description.slice(0, 60) + "..."
@@ -61,59 +88,13 @@ const {
                 <p class="text-text leading-none">
                     Tecnologie: {tecnologie}
                 </p>
-                <div
-                    class="w-full text-link grid gap-2 grid-cols-4 mt-2"
-                    dir="rtl"
-                >
-                    {
-                        slides && (
-                            <a
-                                class="underline"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                href={slides || "#"}
-                            >
-                                slides
-                            </a>
-                        )
-                    }
-                    {
-                        npm && (
-                            <a
-                                class="underline"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                href={npm || "#"}
-                            >
-                                npm
-                            </a>
-                        )
-                    }
-                    {
-                        demo && (
-                            <a
-                                class="underline"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                href={demo || "#"}
-                            >
-                                demo
-                            </a>
-                        )
-                    }
-                    {
-                        github && (
-                            <a
-                                class="underline"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                href={github || "#"}
-                            >
-                                github
-                            </a>
-                        )
-                    }
-                </div>
+                <ProjectLinks
+                    id={id}
+                    github={github}
+                    demo={demo}
+                    npm={npm}
+                    slides={slides}
+                />
             </div>
         </div>
     </div>

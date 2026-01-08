@@ -1,0 +1,65 @@
+---
+interface Props {
+    id: number;
+    github?: string;
+    demo?: string;
+    npm?: string;
+    slides?: string;
+}
+const { id, github, demo, npm, slides } = Astro.props as Props;
+---
+
+<div class="w-full text-link grid gap-2 grid-cols-4 mt-2" dir="rtl">
+    {
+        slides && (
+            <a
+                transition:name={`project-slides-${id}`}
+                class="underline"
+                target="_blank"
+                rel="noopener noreferrer"
+                href={slides || "#"}
+            >
+                slides
+            </a>
+        )
+    }
+    {
+        npm && (
+            <a
+                transition:name={`project-npm-${id}`}
+                class="underline"
+                target="_blank"
+                rel="noopener noreferrer"
+                href={npm || "#"}
+            >
+                npm
+            </a>
+        )
+    }
+    {
+        demo && (
+            <a
+                transition:name={`project-demo-${id}`}
+                class="underline"
+                target="_blank"
+                rel="noopener noreferrer"
+                href={demo || "#"}
+            >
+                demo
+            </a>
+        )
+    }
+    {
+        github && (
+            <a
+                transition:name={`project-github-${id}`}
+                class="underline"
+                target="_blank"
+                rel="noopener noreferrer"
+                href={github || "#"}
+            >
+                github
+            </a>
+        )
+    }
+</div>
