@@ -5,7 +5,10 @@ RUN npm ci --only=production
 COPY . .
 RUN npm run build
 
-FROM nginx:1.27-alpine AS runtime
+FROM nginx:stable-alpine-slim AS runtime
+
+# Update Alpine packages to get security patches
+RUN apk update && apk upgrade --no-cache
 
 # Create nginx user if it doesn't exist and set proper permissions
 RUN addgroup -g 101 -S nginx 2>/dev/null || true && \
