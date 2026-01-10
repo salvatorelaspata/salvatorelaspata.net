@@ -40,6 +40,18 @@ const {
         content-visibility: auto;
       }
     </style>
+    <script is:inline>
+      // Apply theme immediately to prevent flash
+      (function() {
+        const theme = localStorage.getItem("theme") ||
+          (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        if (theme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      })();
+    </script>
     <ClientRouter />
   </head>
   <body class="w-full font-mono m-0 bg-bg text-text">

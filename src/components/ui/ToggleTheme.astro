@@ -47,9 +47,6 @@
 </button>
 
 <script>
-	const button = document.getElementById("theme-toggle") as HTMLButtonElement;
-
-	// Check initial theme
 	const getThemePreference = (): "dark" | "light" => {
 		if (localStorage.getItem("theme") === "dark") {
 			return "dark";
@@ -57,7 +54,6 @@
 		if (localStorage.getItem("theme") === "light") {
 			return "light";
 		}
-		// Respect system preference
 		return window.matchMedia("(prefers-color-scheme: dark)").matches
 			? "dark"
 			: "light";
@@ -65,28 +61,38 @@
 
 	const applyTheme = (theme: "dark" | "light") => {
 		if (theme === "dark") {
-			document.body.classList.add("dark");
+			document.documentElement.classList.add("dark");
 		} else {
-			document.body.classList.remove("dark");
+			document.documentElement.classList.remove("dark");
 		}
 	};
 
-	// Apply theme on load
-	applyTheme(getThemePreference());
+	const setupThemeToggle = () => {
+		const button = document.getElementById("theme-toggle") as HTMLButtonElement;
+		if (!button) return;
 
-	// Toggle on click
-	button.addEventListener("click", () => {
-		const isDark = document.body.classList.contains("dark");
-		const newTheme = isDark ? "light" : "dark";
-		localStorage.setItem("theme", newTheme);
-		applyTheme(newTheme);
+		// Remove existing listeners by cloning
+		const newButton = button.cloneNode(true) as HTMLButtonElement;
+		button.parentNode?.replaceChild(newButton, button);
+
+		newButton.addEventListener("click", () => {
+			const isDark = document.documentElement.classList.contains("dark");
+			const newTheme = isDark ? "light" : "dark";
+			localStorage.setItem("theme", newTheme);
+			applyTheme(newTheme);
+		});
+	};
+
+	// Apply theme and setup toggle on page load (including View Transitions)
+	document.addEventListener("astro:page-load", () => {
+		applyTheme(getThemePreference());
+		setupThemeToggle();
 	});
 
 	// Listen for system theme changes
 	window
 		.matchMedia("(prefers-color-scheme: dark)")
 		.addEventListener("change", (e) => {
-			// Only apply if user hasn't set a preference
 			if (!localStorage.getItem("theme")) {
 				applyTheme(e.matches ? "dark" : "light");
 			}
