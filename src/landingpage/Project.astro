@@ -1,14 +1,14 @@
 ---
-import CardProject from "../components/CardProject.astro";
-import HeaderSection from "../layouts/HeaderSection.astro";
-import { type Project, getProjects } from "../data/util";
+import CardProject from '../components/CardProject.astro'
+import HeaderSection from '../layouts/HeaderSection.astro'
+import { type Project, getProjects } from '../data/util'
 
-let projects: Project[] = (await getProjects()) || [];
+let projects: Project[] = (await getProjects()) || []
 ---
 
-<section id="project" class="my-8 align-middle max-w-6xl mx-auto px-5">
-  <HeaderSection title="Side Projects" />
-  <div class="grid gap-4 md:grid-cols-2">
+<section id='project' class='my-8 align-middle max-w-6xl mx-auto px-5'>
+  <HeaderSection title='Side Projects' />
+  <div class='grid gap-4 md:grid-cols-2'>
     {
       projects.map(({ default: project }) => (
         <CardProject

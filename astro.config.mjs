@@ -6,5 +6,12 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   site: 'https://salvatorelaspata.net',
   base: process.env.BASE_PATH || '/',
-  integrations: [tailwind(), sitemap()]
+  integrations: [tailwind(), sitemap()],
+  i18n: {
+    defaultLocale: 'it',
+    locales: ['it', 'en'],
+    routing: {
+      prefixDefaultLocale: false  // '/' per italiano, '/en/' per inglese
+    }
+  }
 });

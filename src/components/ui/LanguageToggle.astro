@@ -1,0 +1,100 @@
+---
+
+---
+
+<button
+	type="button"
+	id="language-toggle"
+	aria-label="Toggle language"
+	class="fixed right-2 top-14 z-20 h-10 w-10 flex justify-center items-center
+	border-2
+	bg-palette2
+	border-border
+	active:bg-palette4
+	hover:bg-palette5
+	transition-all
+	hover:translate-x-[-4px]
+	hover:translate-y-[-4px]
+	hover:shadow-shadow
+	hover:shadow-[4px_4px_0px_rgba(0,0,0,1)]"
+>
+	<!-- IT flag (shown on English pages) -->
+	<span
+		id="lang-icon-it"
+		class="hidden font-bold text-sm text-white"
+		aria-hidden="true"
+	>
+		IT
+	</span>
+
+	<!-- EN flag (shown on Italian pages) -->
+	<span
+		id="lang-icon-en"
+		class="font-bold text-sm text-white"
+		aria-hidden="true"
+	>
+		EN
+	</span>
+</button>
+
+<script>
+	const getCurrentLang = (): "it" | "en" => {
+		const path = window.location.pathname;
+		return path.startsWith("/en") ? "en" : "it";
+	};
+
+	const updateLanguageIcons = () => {
+		const currentLang = getCurrentLang();
+		const itIcon = document.getElementById("lang-icon-it");
+		const enIcon = document.getElementById("lang-icon-en");
+
+		if (!itIcon || !enIcon) return;
+
+		if (currentLang === "en") {
+			// On English page, show IT flag to switch to Italian
+			itIcon.classList.remove("hidden");
+			itIcon.classList.add("block");
+			enIcon.classList.remove("block");
+			enIcon.classList.add("hidden");
+		} else {
+			// On Italian page, show EN flag to switch to English
+			enIcon.classList.remove("hidden");
+			enIcon.classList.add("block");
+			itIcon.classList.remove("block");
+			itIcon.classList.add("hidden");
+		}
+	};
+
+	const setupLanguageToggle = () => {
+		const button = document.getElementById("language-toggle") as HTMLButtonElement;
+		if (!button) return;
+
+		// Remove existing listeners by cloning
+		const newButton = button.cloneNode(true) as HTMLButtonElement;
+		button.parentNode?.replaceChild(newButton, button);
+
+		newButton.addEventListener("click", () => {
+			const currentLang = getCurrentLang();
+			const currentPath = window.location.pathname;
+
+			let newPath: string;
+			if (currentLang === "it") {
+				// Switch to English
+				newPath = "/en" + (currentPath === "/" ? "" : currentPath);
+			} else {
+				// Switch to Italian
+				newPath = currentPath.replace(/^\/en/, "") || "/";
+			}
+
+			window.location.href = newPath;
+		});
+
+		// Update icons
+		updateLanguageIcons();
+	};
+
+	// Setup on page load (including View Transitions)
+	document.addEventListener("astro:page-load", () => {
+		setupLanguageToggle();
+	});
+</script>
