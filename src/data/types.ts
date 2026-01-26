@@ -47,3 +47,24 @@ export type TechnologyCategory =
   | 'nonsap'
   | 'inf'
   | 'other'
+
+// ============ Experiences ============
+
+export interface Experience {
+  index: number
+  title: string
+  subtitle: string
+  date: string
+  current: boolean
+  descriptions: string[]
+}
+
+// unused but maybe useful later
+// ============ Education ============
+
+export interface Education {
+  title: string
+  subtitle: string
+  date: string
+  descriptions: string[]
+}

@@ -1,0 +1,13 @@
+{
+  "index": 1,
+  "title": "Stage formativo",
+  "subtitle": "Xenia Progetti",
+  "date": "09/2015 - 04/2016",
+  "current": false,
+  "descriptions": [
+    "Realizzazione di un'app turistica con contenuti aggiuntivi di realtà aumentata (AR).",
+    "Il lavoro svolto consisteva nello sviluppo di un'applicazione turistica mobile Android e iOS.",
+    "Questa, oltre a fornire dei contenuti multimediali quali foto, video, audio, streaming, fornisce anche dei contenuti di realtà aumentata (AR).",
+    "La durata dello stage è stata di 6 mesi grazie alla quale ho potuto ampliare le mie competenze nello sviluppo di applicazioni mobile e nello stesso tempo formarmi nello sviluppo della realtà aumentata integrata all'applicazione e realizzata attraverso l'engine Unity3D e l'integrazione con l'augmented reality tramite Vuforia Augmented Reality SDK."
+  ]
+}

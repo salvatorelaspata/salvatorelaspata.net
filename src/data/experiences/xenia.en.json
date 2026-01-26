@@ -1,0 +1,13 @@
+{
+  "index": 1,
+  "title": "Training Internship",
+  "subtitle": "Xenia Progetti",
+  "date": "09/2015 - 04/2016",
+  "current": false,
+  "descriptions": [
+    "Development of a tourism app with augmented reality (AR) additional content.",
+    "The work consisted of developing a mobile tourism application for Android and iOS.",
+    "In addition to providing multimedia content such as photos, videos, audio, and streaming, it also provides augmented reality (AR) content.",
+    "The internship lasted 6 months, during which I was able to expand my skills in mobile application development and at the same time train in augmented reality development integrated into the application, created using the Unity3D engine and integration with augmented reality through Vuforia Augmented Reality SDK."
+  ]
+}

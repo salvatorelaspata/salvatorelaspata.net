@@ -1,6 +1,7 @@
 // ============ Projects ============
 
 import type {
+  Experience,
   Locale,
   Project,
   Skill,
@@ -107,6 +108,7 @@ export const defaultSvg = `<svg
 export const getTechnologies = (
   locale: Locale,
 ): Record<TechnologyCategory, Technology[]> => {
+  console.log('Loading technologies for locale:', locale)
   const languagesModules = import.meta.glob('./tech/languages/*.js', {
     eager: true,
   })
@@ -133,4 +135,32 @@ export const getTechnologies = (
   })
 
   return technologies
+}
+
+// ============ Experiences ============
+
+export const getExperiences = async (locale: Locale) => {
+  let experiences: Experience[] = []
+  try {
+    // Import all JSON files statically, then filter by locale at runtime
+    const allExperienceModules = import.meta.glob(
+      '../data/experiences/*.json',
+      {
+        eager: true,
+      },
+    )
+
+    // Filter only files matching the current locale
+    const experienceModules = Object.entries(allExperienceModules).filter(
+      ([path]) => path.endsWith(`.${locale}.json`),
+    )
+
+    experiences = experienceModules.map(([, module]) => module) as Experience[]
+    experiences.sort((a, b) => {
+      return b.index - a.index
+    })
+    return experiences
+  } catch (e) {
+    console.log(e)
+  }
 }

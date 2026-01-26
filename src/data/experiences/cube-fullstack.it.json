@@ -1,0 +1,13 @@
+{
+  "index": 3,
+  "title": "SAP Full Stack Developer",
+  "subtitle": "Cube Consultants",
+  "date": "02/2017 - 12/2022",
+  "current": false,
+  "descriptions": [
+    "In qualità di SAP Full Stack Developer con competenze sia su sistemi in cloud che on-premise, il mio ruolo è quello di progettare e implementare soluzioni SAP complete e integrate. Sono specializzato nel lavorare con sistemi SAP in diverse configurazioni, garantendo flessibilità e scalabilità per soddisfare le esigenze specifiche delle aziende.",
+    "Nel contesto dei sistemi in cloud, mi avvalgo delle più avanzate tecnologie e piattaforme, come la SAP Business Technology Platform (BTP), assicurando una maggiore agilità, elasticità e adattabilità alle dinamiche aziendali in evoluzione. Inoltre, sono in grado di integrare i sistemi SAP con le più recenti tecnologie di terze parti, come React, React Native e Node.js, per fornire soluzioni complete e personalizzate.",
+    "Per quanto riguarda i sistemi on-premise, mi occupo di implementazioni solide e personalizzate seguendo le best practices di sviluppo SAP ABAP tra i moduli HCM, MM, SD.",
+    "In entrambi i contesti, il mio approccio Full Stack mi consente di operare su tutti gli strati del sistema, dallo sviluppo back-end al front-end, garantendo una visione completa e coesa."
+  ]
+}
