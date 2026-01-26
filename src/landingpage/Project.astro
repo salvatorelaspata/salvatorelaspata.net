@@ -1,13 +1,17 @@
 ---
 import CardProject from '../components/CardProject.astro'
 import HeaderSection from '../layouts/HeaderSection.astro'
-import { type Project, getProjects } from '../data/util'
+import { getProjects } from '../data/util'
+import type { Locale, Project } from '../data/types'
+const { currentLocale } = Astro
 
-let projects: Project[] = (await getProjects()) || []
+let projects: Project[] = (await getProjects(currentLocale as Locale)) || []
 ---
 
 <section id='project' class='my-8 align-middle max-w-6xl mx-auto px-5'>
-  <HeaderSection title='Side Projects' />
+  <HeaderSection
+    title={currentLocale === 'en' ? 'Side Projects' : 'Progetti'}
+  />
   <div class='grid gap-4 md:grid-cols-2'>
     {
       projects.map(({ default: project }) => (
@@ -18,7 +22,7 @@ let projects: Project[] = (await getProjects()) || []
           subtitle={project.subtitle}
           img={project.img}
           description={project.description}
-          tecnologie={project.tecnologie}
+          technologies={project.technologies}
           github={project.github}
           demo={project.demo}
           npm={project.npm}

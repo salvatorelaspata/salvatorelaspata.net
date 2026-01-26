@@ -1,24 +1,23 @@
 ---
-import BackButton from '../../components/ui/BackButton.astro'
-import ProjectLinks from '../../components/ProjectLinks.astro'
-import { getProjects } from '../../data/util'
-import Layout from '../../layouts/Layout.astro'
+import BackButton from '../../../components/ui/BackButton.astro'
+import ProjectLinks from '../../../components/ProjectLinks.astro'
+import { getProjects } from '../../../data/util'
+import Layout from '../../../layouts/Layout.astro'
 
 export async function getStaticPaths() {
-  const projects = await getProjects('it')
+  const projects = await getProjects('en')
   if (!projects) return []
   return projects.map(p => ({
     params: { slug: p.default.slug },
     props: { project: p },
   }))
 }
-
 const {
   project: {
     default: {
       title,
       subtitle,
-      tecnologie,
+      technologies,
       img,
       id,
       github,
@@ -63,9 +62,7 @@ keywords += `, ${description.replace(/,/g, ', ')}`
     >
       {description}
     </p>
-
     <Content />
-
     <ProjectLinks
       id={id}
       github={github}

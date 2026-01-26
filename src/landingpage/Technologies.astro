@@ -1,19 +1,19 @@
 ---
-import Panel from "../components/Panel.astro";
-import CardTech from "../components/CardTech.astro";
-import HeaderSection from "../layouts/HeaderSection.astro";
-import {
-  type TechnologyCategory,
-  getTechnologies,
-  getCategoryTitle,
-  defaultSvg,
-} from "../data/util";
+import Panel from '../components/Panel.astro'
+import CardTech from '../components/CardTech.astro'
+import HeaderSection from '../layouts/HeaderSection.astro'
+import { getTechnologies, getCategoryTitle, defaultSvg } from '../data/util'
+import type { Locale, TechnologyCategory } from '../data/types'
 
-const technologies = getTechnologies();
+const { currentLocale } = Astro
+
+const technologies = getTechnologies(currentLocale as Locale)
 ---
 
-<section id="technologies" class="my-8 align-middle max-w-6xl mx-auto px-5">
-  <HeaderSection title="Tecnologie" />
+<section id='technologies' class='my-8 align-middle max-w-6xl mx-auto px-5'>
+  <HeaderSection
+    title={currentLocale === 'en' ? 'Technologies' : 'Tecnologie'}
+  />
   {
     (
       Object.entries(technologies) as [
@@ -21,8 +21,11 @@ const technologies = getTechnologies();
         (typeof technologies)[TechnologyCategory],
       ][]
     ).map(([category, techs]) => (
-      <Panel title={getCategoryTitle(category)} class={category}>
-        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-9 gap-4">
+      <Panel
+        title={getCategoryTitle(category, currentLocale as Locale)}
+        class={category}
+      >
+        <div class='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-9 gap-4'>
           {techs.map(({ default: tech }) => (
             <CardTech
               title={tech.title}
@@ -37,30 +40,30 @@ const technologies = getTechnologies();
 </section>
 
 <script>
-  import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { gsap } from 'gsap'
+  import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-  gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger)
 
   function animateCards() {
-    const cards = document.querySelectorAll(".tech-card");
+    const cards = document.querySelectorAll('.tech-card')
 
     cards.forEach((card, index) => {
       gsap.to(card, {
         opacity: 1,
         y: 0,
         duration: 0.5,
-        ease: "power2.out",
+        ease: 'power2.out',
         scrollTrigger: {
           trigger: card,
-          start: "top bottom-=100px",
-          end: "bottom top+=100px",
-          toggleActions: "play none none reverse",
+          start: 'top bottom-=100px',
+          end: 'bottom top+=100px',
+          toggleActions: 'play none none reverse',
         },
         delay: index * 0.05, // Staggered delay for each card
-      });
-    });
+      })
+    })
   }
 
-  document.addEventListener("DOMContentLoaded", animateCards);
+  document.addEventListener('DOMContentLoaded', animateCards)
 </script>
