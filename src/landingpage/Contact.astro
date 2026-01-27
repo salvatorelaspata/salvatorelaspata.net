@@ -1,0 +1,139 @@
+---
+import HeaderSection from '../layouts/HeaderSection.astro'
+const { currentLocale } = Astro
+---
+
+<section id='contact' class='my-8 align-middle max-w-6xl mx-auto px-5'>
+  <HeaderSection
+    title={currentLocale === 'en' ? 'Contact' : 'Contatti'}
+    description={currentLocale === 'en'
+      ? 'Book a meeting with me to discuss your project or just to have a chat! Service provided by Cal.com'
+      : 'Prenota un incontro con me per discutere del tuo progetto o semplicemente per fare una chiacchierata! Servizio fornito da Cal.com'}
+  />
+
+  <div class='flex flex-col sm:flex-row gap-6 justify-center items-center'>
+    <!-- 30 min meeting -->
+    <button
+      data-cal-namespace={`30min-${currentLocale}`}
+      data-cal-link={`salvatore-la-spata/30min-${currentLocale}`}
+      data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
+      class='flex items-center gap-3 px-8 py-4
+        border-2 border-border
+        bg-palette1 text-white
+        active:bg-palette4
+        hover:bg-palette5
+        transition-all
+        hover:translate-x-[-4px] hover:translate-y-[-4px]
+        hover:shadow-shadow hover:shadow-[4px_4px_0px_rgba(0,0,0,1)]
+        cursor-pointer'
+    >
+      <svg
+        xmlns='http://www.w3.org/2000/svg'
+        class='w-6 h-6'
+        fill='none'
+        viewBox='0 0 24 24'
+        stroke='currentColor'
+        stroke-width='2'
+      >
+        <path
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'
+        ></path>
+      </svg>
+      <span class='font-bold'>
+        {
+          currentLocale === 'en'
+            ? '🇬🇧 SAP Dev Coffee Chat ☕ – 30 min'
+            : '🇮🇹 SAP Dev Coffee Chat ☕ – 30 min'
+        }
+      </span>
+    </button>
+
+    <!-- 60 min roundtable -->
+    <button
+      data-cal-namespace={`60min-${currentLocale}`}
+      data-cal-link={`salvatore-la-spata/60min-${currentLocale}`}
+      data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
+      class='flex items-center gap-3 px-8 py-4
+        border-2 border-border
+        bg-palette3 text-white
+        active:bg-palette4
+        hover:bg-palette5
+        transition-all
+        hover:translate-x-[-4px] hover:translate-y-[-4px]
+        hover:shadow-shadow hover:shadow-[4px_4px_0px_rgba(0,0,0,1)]
+        cursor-pointer'
+    >
+      <svg
+        xmlns='http://www.w3.org/2000/svg'
+        class='w-6 h-6'
+        fill='none'
+        viewBox='0 0 24 24'
+        stroke='currentColor'
+        stroke-width='2'
+      >
+        <path
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          d='M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z'
+        ></path>
+      </svg>
+      <span class='font-bold'>
+        {
+          currentLocale === 'en'
+            ? '🇬🇧 Modern SAP Dev Roundtable 🤖 - 60 min'
+            : '🇮🇹 Sviluppo in SAP Moderno 🤖 - 60 min'
+        }
+      </span>
+    </button>
+  </div>
+</section>
+
+<!-- Cal.com embed script -->
+<script is:inline define:vars={{ currentLocale }}>
+  ;(function (C, A, L) {
+    let p = function (a, ar) {
+      a.q.push(ar)
+    }
+    let d = C.document
+    C.Cal =
+      C.Cal ||
+      function () {
+        let cal = C.Cal
+        let ar = arguments
+        if (!cal.loaded) {
+          cal.ns = {}
+          cal.q = cal.q || []
+          d.head.appendChild(d.createElement('script')).src = A
+          cal.loaded = true
+        }
+        if (ar[0] === L) {
+          const api = function () {
+            p(api, arguments)
+          }
+          const namespace = ar[1]
+          api.q = api.q || []
+          if (typeof namespace === 'string') {
+            cal.ns[namespace] = cal.ns[namespace] || api
+            p(cal.ns[namespace], ar)
+            p(cal, ['initNamespace', namespace])
+          } else p(cal, ar)
+          return
+        }
+        p(cal, ar)
+      }
+  })(window, 'https://app.cal.com/embed/embed.js', 'init')
+
+  const initCal = locale => evn => {
+    Cal('init', `${evn}-${locale}`, { origin: 'https://app.cal.com' })
+    Cal.ns[`${evn}-${locale}`]('ui', {
+      hideEventTypeDetails: false,
+      layout: 'month_view',
+    })
+  }
+
+  const currentCal = initCal(currentLocale || 'it')
+  currentCal('30min')
+  currentCal('60min')
+</script>

@@ -108,7 +108,6 @@ export const defaultSvg = `<svg
 export const getTechnologies = (
   locale: Locale,
 ): Record<TechnologyCategory, Technology[]> => {
-  console.log('Loading technologies for locale:', locale)
   const languagesModules = import.meta.glob('./tech/languages/*.js', {
     eager: true,
   })

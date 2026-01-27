@@ -5,5 +5,5 @@
 - [x] Optimize the code
 - [ ] Include 3d model and animate it on scroll
 
-- [ ] i18n
+- [x] i18n
 - [ ] cal.com

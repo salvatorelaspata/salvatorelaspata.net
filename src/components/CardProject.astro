@@ -1,4 +1,6 @@
 ---
+import { getRelativeLocaleUrl } from 'astro:i18n'
+
 import ProjectLinks from './ProjectLinks.astro'
 
 interface Props {
@@ -29,23 +31,24 @@ const {
 } = Astro.props
 
 const { currentLocale } = Astro
+const projectsUrl = getRelativeLocaleUrl(currentLocale || 'it', 'projects')
 ---
 
 <div
   class='relative grid grid-cols-1 lg:grid-cols-3
     border-2
     border-border
-	bg-palette1
-	hover:bg-palette5
-	transition-all
-	hover:translate-x-[-4px]
-	hover:translate-y-[-4px]
-	hover:shadow-shadow
-	hover:shadow-[4px_4px_0px_rgba(0,0,0,1)]'
+    bg-palette1
+    hover:bg-palette5
+    transition-all
+    hover:translate-x-[-4px]
+    hover:translate-y-[-4px]
+    hover:shadow-shadow
+  	hover:shadow-[4px_4px_0px_rgba(0,0,0,1)]'
 >
   <!-- Link overlay che copre tutta la card -->
   <a
-    href={`/projects/${slug}`}
+    href={`${projectsUrl}${slug}`}
     class='absolute inset-0 z-10'
     aria-label={`Vai al progetto ${title}`}></a>
   <div
