@@ -1,0 +1,35 @@
+{
+  "title": "Chi Sono",
+  "description": "Full Stack Developer con 12+ anni di esperienza, specializzato in architetture enterprise SAP e sviluppo web moderno.",
+  "items": [
+    {
+      "icon": "location",
+      "title": "Origini",
+      "description": "Siciliano di nascita, romano d'adozione da {yearsInRome} anni. Porto con me la determinazione del Sud e l'energia della Capitale.",
+      "footer": {
+        "type": "img",
+        "src": "/sicily.svg",
+        "alt": "Sicilia"
+      }
+    },
+    {
+      "icon": "code",
+      "title": "Tech Stack",
+      "description": "Background Java, oggi specializzato in ecosistema SAP BTP. Nei progetti personali esploro React, Node.js e TypeScript",
+      "footer": {
+        "type": "chip",
+        "items": ["SAP", "React", "Node.js", "TypeScript", "Java"]
+      }
+    },
+    {
+      "icon": "briefcase",
+      "title": "Ruolo Attuale",
+      "description": "SAP BTP Practice Leader presso GOTONEXT SRL. Guido un team di 16 professionisti nella progettazione di architetture cloud e on-premise.",
+      "footer": {
+        "type": "textWithIcon",
+        "icon": "userGroup",
+        "text": "Team Leadership & Architettura"
+      }
+    }
+  ]
+}

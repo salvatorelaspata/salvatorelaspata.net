@@ -1,0 +1,35 @@
+{
+  "title": "About Me",
+  "description": "Full Stack Developer with 12+ years of experience, specialized in SAP enterprise architectures and modern web development.",
+  "items": [
+    {
+      "icon": "location",
+      "title": "Origins",
+      "description": "Born in Sicily, adopted Roman for {yearsInRome} years. I carry with me the determination of the South and the energy of the Capital.",
+      "footer": {
+        "type": "img",
+        "src": "/sicily.svg",
+        "alt": "Sicily"
+      }
+    },
+    {
+      "icon": "code",
+      "title": "Tech Stack",
+      "description": "Java background, now specialized in SAP BTP ecosystem. In personal projects I explore React, Node.js and TypeScript",
+      "footer": {
+        "type": "chip",
+        "items": ["SAP", "React", "Node.js", "TypeScript", "Java"]
+      }
+    },
+    {
+      "icon": "briefcase",
+      "title": "Current Role",
+      "description": "SAP BTP Practice Leader at GOTONEXT SRL. I lead a team of 16 professionals in designing cloud and on-premise architectures.",
+      "footer": {
+        "type": "textWithIcon",
+        "icon": "userGroup",
+        "text": "Team Leadership & Architecture"
+      }
+    }
+  ]
+}

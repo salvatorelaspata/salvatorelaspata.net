@@ -68,3 +68,35 @@ export interface Education {
   date: string
   descriptions: string[]
 }
+
+// ============ About ============
+
+interface AboutFooterImg {
+  type: 'img'
+  src: string
+  alt: string
+}
+
+interface AboutFooterChip {
+  type: 'chip'
+  items: string[]
+}
+
+interface AboutFooterTextWithIcon {
+  type: 'textWithIcon'
+  icon: string
+  text: string
+}
+
+interface AboutItem {
+  icon: string
+  title: string
+  description: string
+  footer: AboutFooterImg | AboutFooterChip | AboutFooterTextWithIcon
+}
+
+export interface About {
+  title: string
+  description: string
+  items: AboutItem[]
+}

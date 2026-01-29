@@ -163,3 +163,13 @@ export const getExperiences = async (locale: Locale) => {
     console.log(e)
   }
 }
+
+export const getAboutData = async (locale: Locale) => {
+  try {
+    // retrieve a single JSON file based on locale
+    const aboutModule = await import(`../data/about/index.${locale}.json`)
+    return aboutModule
+  } catch (e) {
+    console.log(e)
+  }
+}
