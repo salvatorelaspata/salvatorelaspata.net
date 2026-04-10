@@ -37,3 +37,53 @@ export type genderType =
   | 'O' // "other"
   | 'N' // "none or not applicable"
   | 'U' // "unknown"
+
+// RELATED TYPE values - RFC 6350 §6.6.6
+export type relatedTypeValue =
+  | 'contact'
+  | 'acquaintance'
+  | 'friend'
+  | 'met'
+  | 'co-worker'
+  | 'colleague'
+  | 'co-resident'
+  | 'neighbor'
+  | 'child'
+  | 'parent'
+  | 'sibling'
+  | 'spouse'
+  | 'kin'
+  | 'muse'
+  | 'crush'
+  | 'date'
+  | 'sweetheart'
+  | 'me'
+  | 'agent'
+  | 'emergency'
+
+// IMPP entry - RFC 6350 §6.4.3
+export type imppEntry = {
+  uri: string // e.g. xmpp:alice@example.com, sip:alice@example.com
+  pref?: number // 1-100
+}
+
+// RELATED entry - RFC 6350 §6.6.6
+export type relatedEntry = {
+  value: string // URI or text
+  type: relatedTypeValue
+}
+
+// LANG entry - RFC 6350 §6.4.4
+export type langEntry = {
+  tag: string // BCP 47 language tag, e.g. "it", "en"
+  pref?: number // 1-100
+}
+
+// GEO entry - RFC 6350 §6.5.2
+export type geoEntry = {
+  lat: number
+  lon: number
+}
+
+// KEY type - RFC 6350 §6.8.1
+export type keyType = 'pgp' | 'x509'

@@ -7,6 +7,11 @@ import type {
   emailType,
   adrType,
   genderType,
+  imppEntry,
+  relatedEntry,
+  langEntry,
+  geoEntry,
+  keyType,
 } from './VCard'
 
 class VCard {
@@ -39,6 +44,19 @@ class VCard {
     adr: adrType
   }[]
   note: string
+  photo: string
+  anniversary: Date | null
+  uid: string
+  langs: langEntry[]
+  logo: string
+  role: string
+  related: relatedEntry[]
+  impp: imppEntry[]
+  tz: string
+  geo: geoEntry | null
+  categories: string[]
+  sortAs: string
+  rev: Date
 
   constructor() {
     this.name = 'Salvatore'
@@ -105,12 +123,29 @@ class VCard {
       },
     ]
     this.note = `Sono un software engineer con esperienza in sviluppo soluzione SAP e sviluppo web.Amo la tecnologia e sono sempre alla ricerca di nuove sfide. Questa è la mia vCard, scaricala per avere tutte le mie informazioni di contatto in un unico posto!`
+    this.photo = 'https://salvatorelaspata.net/sticker.webp'
+    this.anniversary = null
+    this.uid = 'urn:uuid:salvatore-la-spata-portfolio'
+    this.langs = [
+      { tag: 'it', pref: 1 },
+      { tag: 'en', pref: 2 },
+    ]
+    this.logo = ''
+    this.role = 'Full-Stack Developer'
+    this.related = []
+    this.impp = [{ uri: 'https://linkedin.com/in/salvatorelaspata', pref: 1 }]
+    this.tz = 'Europe/Rome'
+    this.geo = { lat: 41.9028, lon: 12.4964 }
+    this.categories = ['Software Engineer', 'SAP', 'Web Developer']
+    this.sortAs = 'La Spata,Salvatore'
+    this.rev = new Date()
   }
 
   generate() {
     let vcard = 'BEGIN:VCARD\r\n'
     vcard += this.getVERSION() // Obbligatorio subito dopo BEGIN [1]
     vcard += this.getFN() // Obbligatorio [1]
+    vcard += this.getUID()
     vcard += this.getN(
       this.surname,
       this.name,
@@ -120,6 +155,22 @@ class VCard {
     ) // es: N:Public;John;Quinlan;Mr.;Esq
     vcard += this.getKIND()
     vcard += this.getORG()
+    vcard += this.getROLE()
+    if (this.photo) vcard += this.getPHOTO()
+    if (this.logo) vcard += this.getLOGO()
+    this.langs.forEach(l => {
+      vcard += this.getLANG(l)
+    })
+    this.related.forEach(r => {
+      vcard += this.getRELATED(r)
+    })
+    this.impp.forEach(i => {
+      vcard += this.getIMPP(i)
+    })
+    if (this.tz) vcard += this.getTZ()
+    if (this.geo) vcard += this.getGEO()
+    if (this.categories.length) vcard += this.getCATEGORIES()
+    if (this.sortAs) vcard += this.getSORT_AS()
     vcard += this.getEMAIL('home', this.email)
     this.works.forEach(work => {
       vcard += this.getEMAIL('work', work.workEmail)
@@ -161,6 +212,8 @@ class VCard {
     vcard += this.getURL('home', this.website)
     vcard += this.getURL('work', this.works[0].website)
     vcard += this.getNOTE()
+    if (this.anniversary) vcard += this.getANNIVERSARY()
+    vcard += this.getREV()
     vcard += 'END:VCARD\r\n'
     return vcard
   }
@@ -239,6 +292,64 @@ class VCard {
   private getNOTE(): string {
     const escapedNote = this.note.replace(/\r\n/g, '\\n').replace(/\n/g, '\\n')
     return `NOTE:${escapedNote}\r\n`
+  }
+
+  private getUID(): string {
+    return `UID:${this.uid}\r\n`
+  }
+
+  private getPHOTO(): string {
+    return `PHOTO;MEDIATYPE=image/jpeg:${this.photo}\r\n`
+  }
+
+  private getLOGO(): string {
+    return `LOGO;MEDIATYPE=image/jpeg:${this.logo}\r\n`
+  }
+
+  private getANNIVERSARY(): string {
+    const d = this.anniversary!
+    const year = d.getFullYear()
+    const month = String(d.getMonth() + 1).padStart(2, '0')
+    const day = String(d.getDate()).padStart(2, '0')
+    return `ANNIVERSARY:${year}${month}${day}\r\n`
+  }
+
+  private getLANG(entry: langEntry): string {
+    const pref = entry.pref ? `;PREF=${entry.pref}` : ''
+    return `LANG${pref}:${entry.tag}\r\n`
+  }
+
+  private getROLE(): string {
+    return `ROLE:${this.role}\r\n`
+  }
+
+  private getRELATED(entry: relatedEntry): string {
+    return `RELATED;TYPE=${entry.type}:${entry.value}\r\n`
+  }
+
+  private getIMPP(entry: imppEntry): string {
+    const pref = entry.pref ? `;PREF=${entry.pref}` : ''
+    return `IMPP${pref}:${entry.uri}\r\n`
+  }
+
+  private getTZ(): string {
+    return `TZ:${this.tz}\r\n`
+  }
+
+  private getGEO(): string {
+    return `GEO:geo:${this.geo!.lat},${this.geo!.lon}\r\n`
+  }
+
+  private getCATEGORIES(): string {
+    return `CATEGORIES:${this.categories.join(',')}\r\n`
+  }
+
+  private getSORT_AS(): string {
+    return `SORT-AS:${this.sortAs}\r\n`
+  }
+
+  private getREV(): string {
+    return `REV:${this.rev.toISOString()}\r\n`
   }
 }
 ---
