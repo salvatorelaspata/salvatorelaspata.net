@@ -1,0 +1,253 @@
+---
+// https://www.rfc-editor.org/rfc/rfc6350.html
+import type {
+  kindValue,
+  commonTypeValue,
+  telType,
+  emailType,
+  adrType,
+  genderType,
+} from './VCard'
+
+class VCard {
+  name: string
+  surname: string
+  additionalNames: string
+  prefixes: string
+  suffixes: string
+  nickname: string
+  fullname: string
+  gender: genderType
+  genderString: string
+  birthday: Date
+  tel: string
+  mobile: string
+  fax: string
+  email: string
+  title: string
+  adr: adrType
+  website: string
+  works: {
+    org: string
+    department: string
+    office: string
+    workEmail: string
+    tel: string
+    fax: string
+    pager: string
+    website: string
+    adr: adrType
+  }[]
+  note: string
+
+  constructor() {
+    this.name = 'Salvatore'
+    this.surname = 'La Spata'
+    this.additionalNames = '' // Second name
+    this.prefixes = '' // es: Dr., Mr., Ms., etc.
+    this.suffixes = '' // es: Jr., Sr., III, etc.
+    this.nickname = 'Salvo'
+    this.fullname =
+      `${this.prefixes} ${this.name} ${this.surname} ${this.suffixes}`.trim()
+    this.gender = 'M'
+    this.genderString = ''
+    this.birthday = new Date('1993-07-28')
+    this.tel = '+39 333 1234567'
+    this.mobile = '+39 06 12345678'
+    this.fax = '+39 06 87654321'
+    this.email = 'salvatore.la.spata@gmail.com'
+    this.title = 'Software Engineer'
+    this.adr = {
+      type: 'home',
+      street: 'Via Milano 20',
+      city: 'Palermo',
+      region: 'PA',
+      postCode: '90100',
+      country: 'Italy',
+    }
+    this.website = 'https://salvatorelaspata.net'
+    this.works = [
+      {
+        org: 'GoToNext SRL.',
+        department: 'Sviluppo Software',
+        office: 'Milano',
+        workEmail: 'salvatore.laspata@gotonext.it',
+        tel: '+39 333 3333333',
+        fax: '+39 02 3333334',
+        pager: '+39 02 3333335',
+        website: 'https://gotonext.it',
+        adr: {
+          type: 'work',
+          street: 'Via Roma 10',
+          city: 'Milano',
+          region: 'MI',
+          postCode: '20100',
+          country: 'Italy',
+        },
+      },
+      {
+        org: 'CubeConsultants SRL.',
+        department: 'SAP Development',
+        office: 'Roma',
+        workEmail: 'salvatore.laspata@cubemail.it',
+        tel: '+39 333 4444444',
+        fax: '+39 06 4444445',
+        pager: '',
+        website: 'https://cubemail.it',
+        adr: {
+          type: 'work',
+          street: 'Via Francesco 5',
+          city: 'Roma',
+          region: 'RM',
+          postCode: '00100',
+          country: 'Italy',
+        },
+      },
+    ]
+    this.note = `Sono un software engineer con esperienza in sviluppo soluzione SAP e sviluppo web.Amo la tecnologia e sono sempre alla ricerca di nuove sfide. Questa è la mia vCard, scaricala per avere tutte le mie informazioni di contatto in un unico posto!`
+  }
+
+  generate() {
+    let vcard = 'BEGIN:VCARD\r\n'
+    vcard += this.getVERSION() // Obbligatorio subito dopo BEGIN [1]
+    vcard += this.getFN() // Obbligatorio [1]
+    vcard += this.getN(
+      this.surname,
+      this.name,
+      this.additionalNames,
+      this.prefixes,
+      this.suffixes,
+    ) // es: N:Public;John;Quinlan;Mr.;Esq
+    vcard += this.getKIND()
+    vcard += this.getORG()
+    vcard += this.getEMAIL('home', this.email)
+    this.works.forEach(work => {
+      vcard += this.getEMAIL('work', work.workEmail)
+      vcard += this.getTEL(['voice', 'work'], work.tel)
+      vcard += this.getTEL(['fax', 'work'], work.fax)
+      if (work.pager) vcard += this.getTEL(['pager', 'work'], work.pager)
+      vcard += this.getADR(
+        'work',
+        work.adr.street,
+        work.adr.city,
+        work.adr.region,
+        work.adr.postCode,
+        work.adr.country,
+      )
+    })
+    vcard += this.getTEL(['voice', 'home'], this.tel)
+    vcard += this.getTEL(['fax', 'home'], this.fax)
+    vcard += this.getTEL(['cell', 'home'], this.mobile)
+    vcard += this.getADR(
+      'home',
+      this.adr.street,
+      this.adr.city,
+      this.adr.region,
+      this.adr.postCode,
+      this.adr.country,
+    )
+    vcard += this.getADR(
+      'work',
+      this.works[0].adr.street,
+      this.works[0].adr.city,
+      this.works[0].adr.region,
+      this.works[0].adr.postCode,
+      this.works[0].adr.country,
+    )
+    vcard += this.getBDAY()
+    vcard += this.getGENDER()
+    vcard += this.getTitle()
+    vcard += this.getNICKNAME()
+    vcard += this.getURL('home', this.website)
+    vcard += this.getURL('work', this.works[0].website)
+    vcard += this.getNOTE()
+    vcard += 'END:VCARD\r\n'
+    return vcard
+  }
+
+  private getVERSION(value: string = '4.0'): string {
+    return `VERSION:${value}\r\n`
+  }
+
+  private getFN(): string {
+    return `FN:${this.fullname}\r\n`
+  }
+
+  private getN(
+    surname: string,
+    name: string,
+    additionalNames: string,
+    prefixes: string,
+    suffixes: string,
+  ): string {
+    return `N:${surname};${name};${additionalNames};${prefixes};${suffixes}\r\n`
+  }
+
+  private getKIND(value: kindValue = 'individual'): string {
+    return `KIND:${value}\r\n`
+  }
+
+  private getBDAY(): string {
+    const year = this.birthday.getFullYear()
+    const month = String(this.birthday.getMonth() + 1).padStart(2, '0')
+    const day = String(this.birthday.getDate()).padStart(2, '0')
+    return `BDAY:${year}${month}${day}\r\n`
+  }
+
+  private getORG(): string {
+    const { org, department } = this.works[0]
+    return `ORG:${org}${department ? `;${department}` : ''}\r\n`
+  }
+
+  private getEMAIL(type: emailType, address: string): string {
+    const typeStr = Array.isArray(type) ? type.join(',') : type
+    return `EMAIL;TYPE=${typeStr}:${address}\r\n`
+  }
+
+  private getTEL(type: telType, number: string): string {
+    const typeStr = Array.isArray(type) ? type.join(',') : type
+    return `TEL;VALUE=uri;TYPE=${typeStr}:${number}\r\n`
+  }
+
+  private getADR(
+    type: commonTypeValue,
+    street: string,
+    city: string,
+    region: string,
+    postCode: string,
+    country: string,
+  ): string {
+    return `ADR;TYPE=${type}:;;${street};${city};${region};${postCode};${country}\r\n`
+  }
+
+  private getGENDER(): string {
+    return `GENDER:${this.gender}${this.genderString ? `;${this.genderString}` : ''}\r\n`
+  }
+
+  private getTitle(): string {
+    return `TITLE:${this.title}\r\n`
+  }
+
+  private getNICKNAME(): string {
+    return `NICKNAME:${this.nickname}\r\n`
+  }
+
+  private getURL(type: commonTypeValue, url: string): string {
+    return `URL;TYPE=${type}:${url}\r\n`
+  }
+
+  private getNOTE(): string {
+    const escapedNote = this.note.replace(/\r\n/g, '\\n').replace(/\n/g, '\\n')
+    return `NOTE:${escapedNote}\r\n`
+  }
+}
+---
+
+<button>
+  <a
+    href={`data:text/vcard;charset=utf-8,${encodeURIComponent(new VCard().generate())}`}
+    download={`${new VCard().fullname}.vcf`}
+  >
+    Download vCard
+  </a>
+</button>

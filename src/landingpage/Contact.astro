@@ -1,4 +1,5 @@
 ---
+import VCard from '../components/VCard.astro'
 import HeaderSection from '../layouts/HeaderSection.astro'
 const { currentLocale } = Astro
 ---
@@ -87,6 +88,9 @@ const { currentLocale } = Astro
         }
       </span>
     </button>
+  </div>
+  <div class='mt-12 flex justify-center items-center'>
+    <VCard />
   </div>
 </section>
 
