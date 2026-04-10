@@ -1,5 +1,6 @@
 ---
 // https://www.rfc-editor.org/rfc/rfc6350.html
+import QRCode from 'qrcode'
 import type {
   kindValue,
   commonTypeValue,
@@ -123,7 +124,7 @@ class VCard {
       },
     ]
     this.note = `Sono un software engineer con esperienza in sviluppo soluzione SAP e sviluppo web.Amo la tecnologia e sono sempre alla ricerca di nuove sfide. Questa è la mia vCard, scaricala per avere tutte le mie informazioni di contatto in un unico posto!`
-    this.photo = 'https://salvatorelaspata.net/sticker.webp'
+    this.photo = 'https://salvatorelaspata.net/me.jpg'
     this.anniversary = null
     this.uid = 'urn:uuid:salvatore-la-spata-portfolio'
     this.langs = [
@@ -258,8 +259,9 @@ class VCard {
   }
 
   private getTEL(type: telType, number: string): string {
-    const typeStr = Array.isArray(type) ? type.join(',') : type
-    return `TEL;VALUE=uri;TYPE=${typeStr}:${number}\r\n`
+    const typeStr = Array.isArray(type) ? `${type.join(',')}` : type
+    // TODO PREF
+    return `TEL;VALUE=uri;PREF=39;TYPE=${typeStr}:${number}\r\n`
   }
 
   private getADR(
@@ -299,11 +301,11 @@ class VCard {
   }
 
   private getPHOTO(): string {
-    return `PHOTO;MEDIATYPE=image/jpeg:${this.photo}\r\n`
+    return `PHOTO:${this.photo}\r\n`
   }
 
   private getLOGO(): string {
-    return `LOGO;MEDIATYPE=image/jpeg:${this.logo}\r\n`
+    return `LOGO:${this.logo}\r\n`
   }
 
   private getANNIVERSARY(): string {
@@ -352,13 +354,32 @@ class VCard {
     return `REV:${this.rev.toISOString()}\r\n`
   }
 }
+const vcard = new VCard()
+const vcardContent = vcard.generate()
+const vcardDataUri = `data:text/vcard;charset=utf-8,${encodeURIComponent(vcardContent)}`
+const qrSvg = await QRCode.toString(vcardContent, {
+  type: 'svg',
+  errorCorrectionLevel: 'M',
+})
 ---
 
-<button>
+<div class='flex flex-col items-center gap-4 w-full'>
   <a
-    href={`data:text/vcard;charset=utf-8,${encodeURIComponent(new VCard().generate())}`}
-    download={`${new VCard().fullname}.vcf`}
+    href={vcardDataUri}
+    download={`${vcard.fullname}.vcf`}
+    class='inline-flex items-center gap-2 px-4 py-2 rounded border border-current hover:opacity-80 transition-opacity'
   >
     Download vCard
   </a>
-</button>
+  <details class='text-center w-1/2 rounded-lg p-4'>
+    <summary
+      class='cursor-pointer text-sm opacity-70 hover:opacity-100 transition-opacity select-none'
+    >
+      Scansiona il QR code
+    </summary>
+    <div
+      class='mt-3 p-2 bg-white rounded-lg inline-block w-full'
+      set:html={qrSvg}
+    />
+  </details>
+</div>
