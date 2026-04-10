@@ -32,7 +32,7 @@ class VCard {
   genderString: string
   birthday: Date
   tel: string
-  mobile: string
+  mobile?: string
   fax?: string
   email: string
   title: string
@@ -47,7 +47,7 @@ class VCard {
     fax?: string
     pager?: string
     website: string
-    adr: adrType
+    adr?: adrType
   }[]
   note: string
   photo: string
@@ -76,12 +76,12 @@ class VCard {
     this.gender = 'M'
     this.genderString = ''
     this.birthday = new Date('1993-07-28')
-    this.tel = '+39 333 1234567'
-    this.mobile = '+39 06 12345678'
+    this.tel = '+39 3342561182'
+    // this.mobile = '+39 06 12345678'
     // this.fax = '+39 06 87654321'
     this.email = 'salvatore.la.spata@gmail.com'
     this.title =
-      currentLocale === 'it' ? 'Ingegnere del Software' : 'Software Engineer'
+      currentLocale !== 'en' ? 'Ingegnere del Software' : 'Software Engineer'
     this.adr = {
       type: 'home',
       street: 'Via Milano 20',
@@ -95,7 +95,7 @@ class VCard {
       {
         org: 'GoToNext SRL',
         department:
-          currentLocale === 'it' ? 'Sviluppo Software' : 'Software Development',
+          currentLocale !== 'en' ? 'Sviluppo Software' : 'Software Development',
         office: 'Milano',
         workEmail: 'salvatore.laspata@gotonext.it',
         // tel: '+39 333 3333333',
@@ -113,25 +113,25 @@ class VCard {
       },
       {
         org: 'CubeConsultants SRL',
-        department: currentLocale === 'it' ? 'Sviluppo SAP' : 'SAP Development',
+        department: currentLocale !== 'en' ? 'Sviluppo SAP' : 'SAP Development',
         office: 'Roma',
         workEmail: 'salvatore.laspata@cubemail.it',
         // tel: '+39 333 4444444',
         // fax: '+39 06 4444445',
-        pager: '',
+        // pager: '',
         website: 'https://cubemail.it',
-        adr: {
-          type: 'work',
-          street: 'Via Francesco 5',
-          city: 'Roma',
-          region: 'RM',
-          postCode: '00100',
-          country: 'Italy',
-        },
+        // adr: {
+        //   type: 'work',
+        //   street: 'Via Francesco 5',
+        //   city: 'Roma',
+        //   region: 'RM',
+        //   postCode: '00100',
+        //   country: 'Italy',
+        // },
       },
     ]
     this.note =
-      currentLocale === 'it'
+      currentLocale !== 'en'
         ? `Sono un software engineer con esperienza in sviluppo soluzione SAP e sviluppo web. Amo la tecnologia e sono sempre alla ricerca di nuove sfide. Questa è la mia vCard, scaricala per avere tutte le mie informazioni di contatto in un unico posto!`
         : `I am a software engineer with experience in SAP solution development and web development. I love technology and am always looking for new challenges. This is my vCard, download it to have all my contact information in one place!`
     this.photo = 'https://salvatorelaspata.net/me.jpg'
@@ -189,36 +189,37 @@ class VCard {
       if (work.fax) vcard += this.getTEL(['fax', 'work'], work.fax, work.org)
       if (work.pager)
         vcard += this.getTEL(['pager', 'work'], work.pager, work.org)
-      vcard += this.getADR(
-        'work',
-        work.adr.street,
-        work.adr.city,
-        work.adr.region,
-        work.adr.postCode,
-        work.adr.country,
-        work.org,
-      )
+      if (work.adr)
+        vcard += this.getADR(
+          'work',
+          work.adr.street,
+          work.adr.city,
+          work.adr.region,
+          work.adr.postCode,
+          work.adr.country,
+          work.org,
+        )
     })
     if (this.tel)
       vcard += this.getTEL(
         ['voice', 'home'],
         this.tel,
         undefined,
-        currentLocale === 'it' ? 'Mobile' : 'Mobile',
+        currentLocale !== 'en' ? 'Mobile' : 'Mobile',
       )
     if (this.fax)
       vcard += this.getTEL(
         ['fax', 'home'],
         this.fax,
         undefined,
-        currentLocale === 'it' ? 'Fax' : 'Fax',
+        currentLocale !== 'en' ? 'Fax' : 'Fax',
       )
     if (this.mobile)
       vcard += this.getTEL(
         ['cell', 'home'],
         this.mobile,
         undefined,
-        currentLocale === 'it' ? 'Telefono' : 'Landline',
+        currentLocale !== 'en' ? 'Telefono' : 'Landline',
       )
     vcard += this.getADR(
       'home',
@@ -228,15 +229,16 @@ class VCard {
       this.adr.postCode,
       this.adr.country,
     )
-    vcard += this.getADR(
-      'work',
-      this.works[0].adr.street,
-      this.works[0].adr.city,
-      this.works[0].adr.region,
-      this.works[0].adr.postCode,
-      this.works[0].adr.country,
-      this.works[0].org,
-    )
+    // if (this.works.length > 0 && this.works[0].adr)
+    //  vcard += this.getADR(
+    //    'work',
+    //    this.works[0].adr.street,
+    //    this.works[0].adr.city,
+    //    this.works[0].adr.region,
+    //    this.works[0].adr.postCode,
+    //    this.works[0].adr.country,
+    //    this.works[0].org,
+    //  )
     vcard += this.getBDAY()
     vcard += this.getGENDER()
     vcard += this.getTitle()
@@ -300,9 +302,9 @@ class VCard {
     // TODO PREF TEL;TYPE=work,voice;PREF=1;VALUE=uri:tel:+39-333-3333333
     let LABEL = ''
     if (type.includes('home')) {
-      LABEL = `${currentLocale === 'it' ? 'Personale' : 'Personal'} (${key})`
+      LABEL = `${currentLocale !== 'en' ? 'Personale' : 'Personal'} (${key})`
     } else if (type.includes('work')) {
-      LABEL = `${currentLocale === 'it' ? 'Lavoro' : 'Work'} (${org})`
+      LABEL = `${currentLocale !== 'en' ? 'Lavoro' : 'Work'} (${org})`
     }
     return `TEL;TYPE=${typeStr};PREF=39;${LABEL};VALUE=uri:${number}\r\n`
   }
@@ -318,10 +320,10 @@ class VCard {
   ): string {
     let label =
       type === 'home'
-        ? currentLocale === 'it'
+        ? currentLocale !== 'en'
           ? 'Personale'
           : 'Personal'
-        : (currentLocale === 'it' ? 'Lavoro' : 'Work') +
+        : (currentLocale !== 'en' ? 'Lavoro' : 'Work') +
           (org ? ` (${org})` : '')
     return `ADR;${label};TYPE=${type}:;;${street};${city};${region};${postCode};${country}\r\n`
   }
@@ -341,10 +343,10 @@ class VCard {
   private getURL(type: commonTypeValue, url: string): string {
     let LABEL =
       type === 'home'
-        ? currentLocale === 'it'
+        ? currentLocale !== 'en'
           ? 'Personale'
           : 'Personal'
-        : currentLocale === 'it'
+        : currentLocale !== 'en'
           ? 'Lavoro'
           : 'Work'
     return `URL;${LABEL};TYPE=${type}:${url}\r\n`
