@@ -24,6 +24,12 @@ export const getProjects = async (locale: Locale) => {
     for (const path in projectModules) {
       const project: Project = projectModules[path] as Project
 
+      // Map "tecnologie" (Italian key in JSON) to "technologies"
+      const raw = project.default as any
+      if (!raw.technologies && raw.tecnologie) {
+        raw.technologies = raw.tecnologie
+      }
+
       // Build the expected markdown path
       const mdPath = path.replace('.json', `.${locale}.md`)
 
