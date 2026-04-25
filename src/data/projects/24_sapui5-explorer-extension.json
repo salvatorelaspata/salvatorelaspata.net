@@ -1,0 +1,11 @@
+{
+  "id": 24,
+  "slug": "sapui5-explorer-extension",
+  "title": "SAPUI5 Explorer",
+  "subtitle": "Chrome Extension",
+  "img": "logo-code.svg",
+  "description": "Estensione Chrome per analizzare applicazioni SAPUI5/OpenUI5 nel browser. Estrae informazioni tecniche su componenti, modelli, binding, viste, controller e configurazione runtime. Supporta UI5 1.x e 2.x.",
+  "technologies": "JavaScript, Chrome Extension MV3, SAPUI5, OpenUI5",
+  "github": "https://github.com/salvatorelaspata/sapui5-explorer-extension",
+  "demo": "https://chromewebstore.google.com/detail/sapui5-explorer/kkfpfahpmnekpbjkljnbhbofjbimpcfn"
+}

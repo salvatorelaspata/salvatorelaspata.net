@@ -1,0 +1,11 @@
+{
+  "id": 25,
+  "slug": "my-annotation-extension",
+  "title": "Personal Annotation",
+  "subtitle": "Chrome Extension",
+  "img": "developer.png",
+  "description": "Estensione Chrome per annotare contenuti web con storage locale persistente. Permette di evidenziare testo, disegnare forme geometriche, personalizzare colori e gestire annotazioni per pagina.",
+  "technologies": "JavaScript, CSS, Chrome Extensions API",
+  "github": "https://github.com/salvatorelaspata/my-annotation-extension",
+  "demo": "https://chromewebstore.google.com/detail/personal-annotation/jcfcndknemifbpngmkicoeahmaemjcbk"
+}

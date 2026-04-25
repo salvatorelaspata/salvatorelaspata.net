@@ -1,0 +1,11 @@
+{
+  "id": 23,
+  "slug": "cap-plugin-adobe-forms",
+  "title": "CAP Plugin Adobe Forms",
+  "subtitle": "npm Package",
+  "img": "logo-npm.svg",
+  "description": "Plugin riutilizzabile per SAP CAP che integra il servizio SAP Forms by Adobe su SAP BTP. Supporta due modalità di autenticazione, generazione PDF da template, serializzazione XML automatica e accesso via OData REST.",
+  "technologies": "SAP CAP, Node.js, Adobe Forms, OAuth2, XML",
+  "github": "https://github.com/salvatorelaspata/cap-plugin-adobe-forms",
+  "npm": "https://www.npmjs.com/package/@salvatorela/cap-plugin-adobe-forms"
+}
