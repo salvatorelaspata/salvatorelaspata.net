@@ -5,9 +5,6 @@ import Chip from '../components/Chip.astro'
 import type { Locale, About } from '../data/types'
 import { getAboutData } from '../data/util.ts'
 
-const yearsInRome = new Date().getFullYear() - 2016
-const yearsOfExperience = new Date().getFullYear() - 2014
-
 const icons = {
   location: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>`,
   code: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>`,
@@ -28,7 +25,7 @@ const aboutData: About = await getAboutData(currentLocale as Locale)
       {aboutData.description}
     </p>
 
-    <div class='grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8'>
+    <div class='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 lg:gap-8'>
       {
         aboutData.items.map(a => (
           <AboutCard title={a.title} icon={icons[a.icon as keyof typeof icons]}>
@@ -40,12 +37,15 @@ const aboutData: About = await getAboutData(currentLocale as Locale)
                 <img
                   src={a.footer.src}
                   alt={a.footer.alt}
+                  width='64'
+                  height='64'
                   class='w-16 h-16 opacity-60 group-hover:opacity-100 transition-opacity'
                 />
               )}
               {a.footer.type === 'textWithIcon' && (
                 <div class='flex items-center gap-2 text-sm opacity-60 justify-center align-bottom h-full'>
                   <svg
+                    aria-hidden='true'
                     class='w-4 h-4'
                     fill='none'
                     stroke='currentColor'

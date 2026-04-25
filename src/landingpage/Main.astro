@@ -7,27 +7,31 @@ import SocialLinks from "../components/SocialLinks.astro";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
   gsap.registerPlugin(ScrollTrigger);
 
-  const container = document.querySelector("#main");
-  const innerContainer = document.querySelector("#main > div");
-  if (container && innerContainer) {
-    gsap.to(container, {
-      padding: "0px",
-      scrollTrigger: {
-        trigger: container,
-        start: "top top",
-        end: "80% top",
-        scrub: true,
-      },
-    });
-    gsap.to(innerContainer, {
-      borderRadius: "0px",
-      scrollTrigger: {
-        trigger: container,
-        start: "top top",
-        end: "80% top",
-        scrub: true,
-      },
-    });
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!reducedMotion) {
+    const container = document.querySelector("#main");
+    const innerContainer = document.querySelector("#main > div");
+    if (container && innerContainer) {
+      gsap.to(container, {
+        padding: "0px",
+        scrollTrigger: {
+          trigger: container,
+          start: "top top",
+          end: "80% top",
+          scrub: true,
+        },
+      });
+      gsap.to(innerContainer, {
+        borderRadius: "0px",
+        scrollTrigger: {
+          trigger: container,
+          start: "top top",
+          end: "80% top",
+          scrub: true,
+        },
+      });
+    }
   }
 </script>
 

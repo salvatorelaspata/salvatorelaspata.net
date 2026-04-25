@@ -25,7 +25,7 @@ const technologies = getTechnologies(currentLocale as Locale)
         title={getCategoryTitle(category, currentLocale as Locale)}
         class={category}
       >
-        <div class='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-9 gap-4'>
+        <div class='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-9 gap-4'>
           {techs.map(({ default: tech }) => (
             <CardTech
               title={tech.title}
@@ -46,9 +46,14 @@ const technologies = getTechnologies(currentLocale as Locale)
   gsap.registerPlugin(ScrollTrigger)
 
   function animateCards() {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const cards = document.querySelectorAll('.tech-card')
 
     cards.forEach((card, index) => {
+      if (reducedMotion) {
+        (card as HTMLElement).style.opacity = '1'
+        return
+      }
       gsap.to(card, {
         opacity: 1,
         y: 0,
@@ -60,10 +65,10 @@ const technologies = getTechnologies(currentLocale as Locale)
           end: 'bottom top+=100px',
           toggleActions: 'play none none reverse',
         },
-        delay: index * 0.05, // Staggered delay for each card
+        delay: index * 0.05,
       })
     })
   }
 
-  document.addEventListener('DOMContentLoaded', animateCards)
+  document.addEventListener('astro:page-load', animateCards)
 </script>

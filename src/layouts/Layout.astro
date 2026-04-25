@@ -6,53 +6,90 @@ import BackToTop from "../components/ui/BackToTop.astro";
 import ToggleTheme from "../components/ui/ToggleTheme.astro";
 import LanguageToggle from "../components/ui/LanguageToggle.astro";
 import ClickSpark from "../components/ClickSpark.astro";
+
 interface Props {
   title: string;
   description?: string;
   keywords?: string;
+  ogImage?: string;
 }
 
 const {
   title,
-  description = "Salvatore La Spata website",
+  description = "Salvatore La Spata — Full-Stack Software Engineer & SAP BTP Practice Leader",
   keywords = "Salvatore La Spata, Salvatore, La Spata, Salvatore La Spata website, salvatorela, developer, software engineer, salvatorelaspata.net, salvatorelaspata.dev",
+  ogImage = "/sticker.webp",
 } = Astro.props;
+
+const { currentLocale } = Astro;
+const lang = currentLocale === "en" ? "en" : "it";
+const siteUrl = "https://salvatorelaspata.net";
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
+const altLang = lang === "en" ? "it" : "en";
+const altUrl = lang === "en"
+  ? new URL(Astro.url.pathname.replace(/^\/en/, "") || "/", siteUrl).toString()
+  : new URL("/en" + Astro.url.pathname, siteUrl).toString();
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <title>{title}</title>
-    <meta name="description" content={description} />
-
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- SEO -->
+    <meta name="description" content={description} />
     <meta name="author" content="Salvatore La Spata" />
     <meta name="keywords" content={keywords} />
     <meta name="robots" content="index, follow" />
-    <meta name="viewport" content="width=device-width" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang={lang} href={canonicalUrl} />
+    <link rel="alternate" hreflang={altLang} href={altUrl} />
+    <link rel="alternate" hreflang="x-default" href={siteUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, siteUrl).toString()} />
+    <meta property="og:locale" content={lang === "en" ? "en_US" : "it_IT"} />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(ogImage, siteUrl).toString()} />
+
     <link rel="icon" type="image/png" href="/sticker.webp" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="generator" content={Astro.generator} />
+
     <style is:global>
-      /* Improve Page speed */
-      /* https://css-tricks.com/almanac/properties/c/content-visibility/ */
       img {
         content-visibility: auto;
       }
     </style>
     <script is:inline>
-      // Apply theme immediately to prevent flash
       (function() {
         const theme = localStorage.getItem("theme") ||
           (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        const root = document.documentElement;
+        const themeColorMeta = document.querySelector('meta[name="theme-color"]');
         if (theme === "dark") {
-          document.documentElement.classList.add("dark");
+          root.classList.add("dark");
+          root.style.colorScheme = "dark";
+          if (themeColorMeta) themeColorMeta.setAttribute("content", "#1A1A1A");
         } else {
-          document.documentElement.classList.remove("dark");
+          root.classList.remove("dark");
+          root.style.colorScheme = "light";
+          if (themeColorMeta) themeColorMeta.setAttribute("content", "#F5F5F0");
         }
       })();
     </script>
+    <meta name="theme-color" content="#F5F5F0" />
     <ClientRouter />
   </head>
   <body class="w-full font-mono m-0 bg-bg text-text">

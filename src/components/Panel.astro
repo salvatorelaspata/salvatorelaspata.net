@@ -13,8 +13,7 @@ interface Props {
     cols?: T;
 }
 
-const { title, class: c, cols } = Astro.props;
-const col = cols || 2;
+const { title, class: c } = Astro.props;
 ---
 
 <div class=`${c} w-full text-start`>

@@ -1,0 +1,69 @@
+---
+import type { AstroComponentFactory } from 'astro/runtime/server/index.js'
+import Layout from '../layouts/Layout.astro'
+import BackButton from './ui/BackButton.astro'
+import ProjectLinks from './ProjectLinks.astro'
+
+interface Props {
+  title: string
+  subtitle: string
+  img: string
+  id: number
+  github?: string
+  npm?: string
+  demo?: string
+  slides?: string
+  description: string
+  Content: AstroComponentFactory
+}
+
+const { title, subtitle, img, id, github, npm, demo, slides, description, Content } =
+  Astro.props
+
+const keywords = [
+  'Salvatore La Spata',
+  'Salvatore',
+  'La Spata',
+  'Salvatore La Spata website',
+  'salvatorela',
+  'developer',
+  'software engineer',
+  'salvatorelaspata.net',
+  'salvatorelaspata.dev',
+  title,
+  subtitle,
+  description.replace(/,/g, ', '),
+].join(', ')
+---
+
+<Layout
+  title={`salvatorelaspata.net - ${title}`}
+  description={subtitle}
+  keywords={keywords}
+>
+  <BackButton />
+  <main class='min-h-screen max-w-4xl mx-auto p-5 bg-bg text-text flex flex-col'>
+    <p transition:name={`project-subtitle-${id}`}>{subtitle}</p>
+    <div class='flex flex-col items-center mb-6'>
+      <img
+        transition:name={`project-img-${id}`}
+        src={img.startsWith('/') ? img : `/${img}`}
+        alt={title}
+        class='w-1/2 h-auto mb-6 bg-palette1'
+      />
+    </div>
+    <h1 class='text-3xl font-bold mb-4' transition:name={`project-title-${id}`}>
+      {title}
+    </h1>
+    <p
+      class='h-full text-lg mb-6'
+      transition:name={`project-description-${id}`}
+    >
+      {description}
+    </p>
+
+    <Content />
+
+    <ProjectLinks id={id} github={github} demo={demo} npm={npm} slides={slides} />
+  </main>
+</Layout>

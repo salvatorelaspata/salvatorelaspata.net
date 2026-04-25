@@ -10,7 +10,7 @@ const { title, link, svg } = Astro.props;
 
 <div
     class={`relative rounded p-4 flex flex-col justify-center items-center 
-	transition-all
+	transition-[transform,box-shadow,border-color]
 	hover:translate-x-[-4px]
 	hover:translate-y-[-4px]
 	hover:shadow-text
@@ -20,6 +20,7 @@ const { title, link, svg } = Astro.props;
 >
     <a href={link} target="_blank" rel="noopener noreferrer" class="absolute inset-0 z-10" aria-label={`Vai alla pagina di ${title}`}></a>
     <div
+        aria-hidden='true'
         class={`w-10 h-10 inline-flex items-center justify-center rounded-full mb-3 flex-shrink-0 p-2`}
     >
         <Fragment set:html={svg} />

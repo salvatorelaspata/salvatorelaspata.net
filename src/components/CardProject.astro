@@ -40,7 +40,7 @@ const projectsUrl = getRelativeLocaleUrl(currentLocale || 'it', 'projects')
     border-border
     bg-palette1
     hover:bg-palette5
-    transition-all
+    transition-[transform,background-color,box-shadow]
     hover:translate-x-[-4px]
     hover:translate-y-[-4px]
     hover:shadow-shadow
@@ -59,7 +59,8 @@ const projectsUrl = getRelativeLocaleUrl(currentLocale || 'it', 'projects')
       transition:name={`project-img-${id}`}
       src={img.startsWith('/') ? img : `/${img}`}
       alt={title}
-      alt={title}
+      width='400'
+      height='192'
       class='h-48 object-cover'
     />
   </div>
@@ -72,6 +73,7 @@ const projectsUrl = getRelativeLocaleUrl(currentLocale || 'it', 'projects')
         class='text-sm text-text flex items-center'
       >
         <svg
+          aria-hidden='true'
           class='fill-current dark:text-gray-500 w-3 h-3 mr-2'
           xmlns='http://www.w3.org/2000/svg'
           viewBox='0 0 20 20'
@@ -94,7 +96,7 @@ const projectsUrl = getRelativeLocaleUrl(currentLocale || 'it', 'projects')
       >
         {
           description.length > 200
-            ? description.slice(0, 60) + '...'
+            ? description.slice(0, 60) + '…'
             : description
         }
       </p>

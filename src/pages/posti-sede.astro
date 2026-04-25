@@ -740,7 +740,6 @@
       document.querySelectorAll(".day-cell").forEach((cell) => {
         cell.addEventListener("click", function (this: HTMLElement) {
           const textContent = this.textContent || "";
-          const day = textContent.replace(/\d+/, "").trim();
           const dayNumber = textContent.match(/\d+/)?.[0] || "";
           alert(`Hai selezionato il giorno ${dayNumber} giugno 2025`);
         });

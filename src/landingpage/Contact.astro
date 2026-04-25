@@ -23,12 +23,13 @@ const { currentLocale } = Astro
         bg-palette1 text-white
         active:bg-palette4
         hover:bg-palette5
-        transition-all
+        transition-[transform,background-color,box-shadow]
         hover:translate-x-[-4px] hover:translate-y-[-4px]
         hover:shadow-shadow hover:shadow-[4px_4px_0px_rgba(0,0,0,1)]
         cursor-pointer'
     >
       <svg
+        aria-hidden='true'
         xmlns='http://www.w3.org/2000/svg'
         class='w-6 h-6'
         fill='none'
@@ -61,12 +62,13 @@ const { currentLocale } = Astro
         bg-palette3 text-white
         active:bg-palette4
         hover:bg-palette5
-        transition-all
+        transition-[transform,background-color,box-shadow]
         hover:translate-x-[-4px] hover:translate-y-[-4px]
         hover:shadow-shadow hover:shadow-[4px_4px_0px_rgba(0,0,0,1)]
         cursor-pointer'
     >
       <svg
+        aria-hidden='true'
         xmlns='http://www.w3.org/2000/svg'
         class='w-6 h-6'
         fill='none'
@@ -94,18 +96,20 @@ const { currentLocale } = Astro
   </div>
 </section>
 
-<!-- Cal.com embed script -->
+<!-- Cal.com embed script — third-party IIFE, uses `arguments` intentionally -->
+<!-- eslint-disable prefer-rest-params -->
 <script is:inline define:vars={{ currentLocale }}>
+  /* eslint-disable prefer-rest-params */
   ;(function (C, A, L) {
-    let p = function (a, ar) {
-      a.q.push(ar)
-    }
-    let d = C.document
+    const p = function (a, ar) {
+    a.q.push(ar)
+  }
+    const d = C.document
     C.Cal =
       C.Cal ||
       function () {
-        let cal = C.Cal
-        let ar = arguments
+        const cal = C.Cal
+        const ar = arguments
         if (!cal.loaded) {
           cal.ns = {}
           cal.q = cal.q || []

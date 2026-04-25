@@ -1,0 +1,52 @@
+---
+import Layout from '../layouts/Layout.astro'
+
+const { currentLocale } = Astro
+const isEn = currentLocale === 'en'
+
+const content = {
+  title: isEn ? 'Page not found' : 'Pagina non trovata',
+  heading: '404',
+  subheading: isEn ? 'Page not found' : 'Pagina non trovata',
+  description: isEn
+    ? "The page you're looking for doesn't exist or has been moved."
+    : 'La pagina che stai cercando non esiste o è stata spostata.',
+  cta: isEn ? 'Back to home' : 'Torna alla home',
+}
+---
+
+<Layout title={`${content.title} — salvatorelaspata.net`} description={content.description}>
+  <main
+    class='min-h-screen flex flex-col justify-center items-center gap-6 px-4 bg-bg text-text'
+  >
+    <div
+      class='flex flex-col items-center gap-4 border-2 border-border p-12
+      shadow-shadow shadow-[4px_4px_0px_rgba(0,0,0,1)]
+      bg-bg max-w-md w-full text-center'
+    >
+      <div class='w-full h-3 flex flex-row mb-4'>
+        <div class='w-1/5 h-full bg-palette1'></div>
+        <div class='w-1/5 h-full bg-palette2'></div>
+        <div class='w-1/5 h-full bg-palette3'></div>
+        <div class='w-1/5 h-full bg-palette4'></div>
+        <div class='w-1/5 h-full bg-palette5'></div>
+      </div>
+
+      <h1 class='text-8xl font-bold text-palette3'>{content.heading}</h1>
+      <h2 class='text-2xl font-bold text-text'>{content.subheading}</h2>
+      <p class='text-text opacity-75 leading-relaxed'>{content.description}</p>
+
+      <a
+        href={isEn ? '/en' : '/'}
+        class='mt-4 px-8 py-3 border-2 border-border
+          bg-palette1 text-white font-bold
+          transition-[transform,background-color,box-shadow]
+          hover:bg-palette5
+          hover:translate-x-[-4px] hover:translate-y-[-4px]
+          hover:shadow-shadow hover:shadow-[4px_4px_0px_rgba(0,0,0,1)]'
+      >
+        {content.cta}
+      </a>
+    </div>
+  </main>
+</Layout>

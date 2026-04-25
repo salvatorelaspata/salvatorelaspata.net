@@ -12,7 +12,7 @@
 	border-border
 	active:bg-palette4
 	hover:bg-palette5
-	transition-all
+	transition-[transform,background-color,box-shadow]
 	hover:translate-x-[-4px]
 	hover:translate-y-[-4px]
 	hover:shadow-shadow
@@ -38,6 +38,8 @@
 </button>
 
 <script>
+	import { navigate } from "astro:transitions/client";
+
 	const getCurrentLang = (): "it" | "en" => {
 		const path = window.location.pathname;
 		return path.startsWith("/en") ? "en" : "it";
@@ -51,13 +53,11 @@
 		if (!itIcon || !enIcon) return;
 
 		if (currentLang === "en") {
-			// On English page, show IT flag to switch to Italian
 			itIcon.classList.remove("hidden");
 			itIcon.classList.add("block");
 			enIcon.classList.remove("block");
 			enIcon.classList.add("hidden");
 		} else {
-			// On Italian page, show EN flag to switch to English
 			enIcon.classList.remove("hidden");
 			enIcon.classList.add("block");
 			itIcon.classList.remove("block");
@@ -65,35 +65,32 @@
 		}
 	};
 
+	let langController: AbortController | null = null;
+
 	const setupLanguageToggle = () => {
 		const button = document.getElementById("language-toggle") as HTMLButtonElement;
 		if (!button) return;
 
-		// Remove existing listeners by cloning
-		const newButton = button.cloneNode(true) as HTMLButtonElement;
-		button.parentNode?.replaceChild(newButton, button);
+		if (langController) langController.abort();
+		langController = new AbortController();
 
-		newButton.addEventListener("click", () => {
+		button.addEventListener("click", () => {
 			const currentLang = getCurrentLang();
 			const currentPath = window.location.pathname;
 
 			let newPath: string;
 			if (currentLang === "it") {
-				// Switch to English
 				newPath = "/en" + (currentPath === "/" ? "" : currentPath);
 			} else {
-				// Switch to Italian
 				newPath = currentPath.replace(/^\/en/, "") || "/";
 			}
 
-			window.location.href = newPath;
-		});
+			navigate(newPath);
+		}, { signal: langController.signal });
 
-		// Update icons
 		updateLanguageIcons();
 	};
 
-	// Setup on page load (including View Transitions)
 	document.addEventListener("astro:page-load", () => {
 		setupLanguageToggle();
 	});

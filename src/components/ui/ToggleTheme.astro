@@ -12,7 +12,7 @@
 	border-border
 	active:bg-palette4
 	hover:bg-palette5
-	transition-all
+	transition-[transform,background-color,box-shadow]
 	hover:translate-x-[-4px]
 	hover:translate-y-[-4px]
 	hover:shadow-shadow
@@ -60,27 +60,34 @@
 	};
 
 	const applyTheme = (theme: "dark" | "light") => {
+		const root = document.documentElement;
+		const themeColorMeta = document.querySelector('meta[name="theme-color"]') as HTMLMetaElement | null;
 		if (theme === "dark") {
-			document.documentElement.classList.add("dark");
+			root.classList.add("dark");
+			root.style.colorScheme = "dark";
+			if (themeColorMeta) themeColorMeta.content = "#1A1A1A";
 		} else {
-			document.documentElement.classList.remove("dark");
+			root.classList.remove("dark");
+			root.style.colorScheme = "light";
+			if (themeColorMeta) themeColorMeta.content = "#F5F5F0";
 		}
 	};
+
+	let themeController: AbortController | null = null;
 
 	const setupThemeToggle = () => {
 		const button = document.getElementById("theme-toggle") as HTMLButtonElement;
 		if (!button) return;
 
-		// Remove existing listeners by cloning
-		const newButton = button.cloneNode(true) as HTMLButtonElement;
-		button.parentNode?.replaceChild(newButton, button);
+		if (themeController) themeController.abort();
+		themeController = new AbortController();
 
-		newButton.addEventListener("click", () => {
+		button.addEventListener("click", () => {
 			const isDark = document.documentElement.classList.contains("dark");
 			const newTheme = isDark ? "light" : "dark";
 			localStorage.setItem("theme", newTheme);
 			applyTheme(newTheme);
-		});
+		}, { signal: themeController.signal });
 	};
 
 	// Apply theme and setup toggle on page load (including View Transitions)
