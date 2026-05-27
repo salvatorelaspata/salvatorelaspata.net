@@ -88,6 +88,7 @@ export const skills: Skill[] = [
   { name: 'Mobile Developer', icon: '📱' },
   { name: 'Software architect', icon: '🏗️' },
   { name: 'DevOps', icon: '🛠️' },
+  { name: 'Web Accessibility', icon: '♿' },
 ]
 
 // ============ Technologies ============

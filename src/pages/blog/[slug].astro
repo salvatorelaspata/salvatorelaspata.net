@@ -1,0 +1,70 @@
+---
+import { getCollection, render } from 'astro:content'
+import Layout from '../../layouts/Layout.astro'
+import BackButton from '../../components/ui/BackButton.astro'
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', e => e.data.lang === 'it' && !e.data.draft)
+  return posts.map(post => ({
+    params: { slug: post.data.urlSlug },
+    props: { post },
+  }))
+}
+
+const { post } = Astro.props
+const { Content } = await render(post)
+
+const formattedDate = post.data.pubDate.toLocaleDateString('it-IT', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+})
+
+const keywords = [
+  'Salvatore La Spata',
+  'salvatorelaspata.net',
+  ...post.data.tags,
+  post.data.title,
+].join(', ')
+---
+
+<Layout
+  title={`salvatorelaspata.net - ${post.data.title}`}
+  description={post.data.description}
+  keywords={keywords}
+  ogImage={post.data.cover}
+>
+  <BackButton />
+  <main class='min-h-screen max-w-4xl mx-auto px-5 py-12 bg-bg text-text'>
+    <header class='mb-10'>
+      <time datetime={post.data.pubDate.toISOString()} class='text-sm opacity-60'>
+        {formattedDate}
+      </time>
+      <h1 class='text-3xl font-bold mt-2 mb-4 leading-tight'>{post.data.title}</h1>
+      <p class='text-lg opacity-80 mb-4'>{post.data.description}</p>
+      <div class='flex flex-wrap gap-2'>
+        {post.data.tags.map(tag => (
+          <span class='text-xs border border-border px-2 py-0.5 rounded-full'>{tag}</span>
+        ))}
+      </div>
+    </header>
+
+    {post.data.cover && (
+      <img
+        src={post.data.cover.startsWith('/') ? post.data.cover : `/${post.data.cover}`}
+        alt={post.data.title}
+        class='w-full h-64 object-cover mb-10 border-2 border-border'
+      />
+    )}
+
+    <article class='prose prose-invert max-w-none
+      prose-headings:font-bold prose-headings:text-text
+      prose-p:text-text prose-p:leading-relaxed
+      prose-a:text-link prose-a:underline
+      prose-code:bg-palette1 prose-code:px-1 prose-code:rounded
+      prose-pre:bg-palette1 prose-pre:border-2 prose-pre:border-border
+      prose-li:text-text prose-strong:text-text'>
+      <Content />
+    </article>
+  </main>
+</Layout>

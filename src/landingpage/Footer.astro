@@ -2,6 +2,7 @@
 import SocialLinks from '../components/SocialLinks.astro'
 
 const currentYear = new Date().getFullYear()
+const { currentLocale } = Astro
 
 const navLinks = [
   { href: '#main', label: 'Home' },
@@ -11,6 +12,7 @@ const navLinks = [
   { href: '#project', label: 'Projects' },
   { href: '#experiences', label: 'Experiences' },
   { href: '#contact', label: 'Contact' },
+  { href: currentLocale === 'en' ? '/en/blog' : '/blog', label: 'Blog' },
 ]
 ---
 
