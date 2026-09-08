@@ -128,3 +128,17 @@ export const n8nDisclosures: Disclosure[] = [
     },
   },
 ]
+
+// Dicitura testuale richiesta da Google per la verifica OAuth: deve comparire
+// nella privacy policy ESATTAMENTE in questa forma (in inglese), perché i
+// controlli automatici la cercano come stringa. Non riformulare, non tradurre
+// al posto dell'originale: la traduzione italiana e' solo di accompagnamento.
+// Riferimento: https://developers.google.com/terms/api-services-user-data-policy
+export const GOOGLE_LIMITED_USE_DISCLOSURE_EN =
+  "The app's use and transfer of information received from Google APIs to any other app will adhere to Google API Services User Data Policy, including the Limited Use requirements."
+
+export const GOOGLE_LIMITED_USE_DISCLOSURE_IT =
+  "L'uso e il trasferimento da parte dell'app di informazioni ricevute dalle API di Google verso qualsiasi altra app rispetteranno le Norme sui dati utente dei servizi API di Google, inclusi i requisiti di Utilizzo limitato."
+
+export const GOOGLE_USER_DATA_POLICY_URL =
+  'https://developers.google.com/terms/api-services-user-data-policy'

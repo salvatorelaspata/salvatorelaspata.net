@@ -10,6 +10,8 @@ import {
   N8N_CONTACT_EMAIL,
   N8N_SITE_URL,
   N8N_LAST_UPDATED,
+  GOOGLE_LIMITED_USE_DISCLOSURE_EN,
+  GOOGLE_USER_DATA_POLICY_URL,
 } from '../../../data/privacy/n8n'
 
 const lastUpdated = new Date(N8N_LAST_UPDATED).toLocaleDateString('en-US', {
@@ -44,13 +46,23 @@ const link = 'text-link hover:underline font-semibold break-words'
       <a href="/privacy/n8n" class={link} hreflang="it">Leggi questa pagina in italiano</a>
     </div>
 
+    <aside
+      class="border-2 border-border bg-palette5 text-palette1 p-5 sm:p-6 mb-10 shadow-shadow shadow-[4px_4px_0px_rgba(0,0,0,1)]"
+    >
+      <h2 class="text-base sm:text-lg font-bold mb-3">Google API Limited Use Disclosure</h2>
+      <p
+        class="text-sm sm:text-base leading-relaxed font-semibold"
+        set:html={GOOGLE_LIMITED_USE_DISCLOSURE_EN}
+      />
+    </aside>
+
     <div class="space-y-8">
       <section class={card}>
         <h2 class={heading}>Summary of how Google user data is handled</h2>
         <p class="text-sm sm:text-base leading-relaxed mb-5">
-          The table below summarises how the <strong>{N8N_APP_NAME}</strong> application accesses,
-          uses, stores, shares, protects and deletes the Google user data it obtains through the
-          Google Drive and Google Sheets APIs. Each point is expanded in the sections that follow.
+          The table below summarises how the <strong>{N8N_APP_NAME}</strong> application accesses, uses,
+          stores, shares, protects and deletes the Google user data it obtains through the Google Drive
+          and Google Sheets APIs. Each point is expanded in the sections that follow.
         </p>
         <div class="space-y-3">
           {
@@ -173,16 +185,21 @@ const link = 'text-link hover:underline font-semibold break-words'
       </section>
 
       <section class={card}>
-        <h2 class={heading}>5. Limited Use of Google user data</h2>
+        <h2 class={heading}>5. Use of Google API Services and User Data (Limited Use)</h2>
+        <blockquote class="border-2 border-border bg-palette5 text-palette1 p-4 mb-4">
+          <p
+            class="text-sm sm:text-base leading-relaxed font-semibold"
+            set:html={GOOGLE_LIMITED_USE_DISCLOSURE_EN}
+          />
+        </blockquote>
         <p class="text-sm sm:text-base leading-relaxed mb-4">
-          This application's use and transfer of information received from Google APIs adheres to
-          the
+          The full text of the policy referenced above is available at
           <a
-            href="https://developers.google.com/terms/api-services-user-data-policy"
+            href={GOOGLE_USER_DATA_POLICY_URL}
             target="_blank"
             rel="noopener noreferrer"
             class={link}>Google API Services User Data Policy</a
-          >, including the <em>Limited Use</em> requirements. Specifically:
+          >. In practice this means that:
         </p>
         <ul class={list}>
           <li>

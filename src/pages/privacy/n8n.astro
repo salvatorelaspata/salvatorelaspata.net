@@ -10,6 +10,9 @@ import {
   N8N_CONTACT_EMAIL,
   N8N_SITE_URL,
   N8N_LAST_UPDATED,
+  GOOGLE_LIMITED_USE_DISCLOSURE_EN,
+  GOOGLE_LIMITED_USE_DISCLOSURE_IT,
+  GOOGLE_USER_DATA_POLICY_URL,
 } from '../../data/privacy/n8n'
 
 const lastUpdated = new Date(N8N_LAST_UPDATED).toLocaleDateString('it-IT', {
@@ -43,6 +46,20 @@ const link = 'text-link hover:underline font-semibold break-words'
       </span>
       <a href="/en/privacy/n8n" class={link} hreflang="en">Read this page in English</a>
     </div>
+
+    <aside
+      class="border-2 border-border bg-palette5 text-palette1 p-5 sm:p-6 mb-10 shadow-shadow shadow-[4px_4px_0px_rgba(0,0,0,1)]"
+    >
+      <h2 class="text-base sm:text-lg font-bold mb-3">Google API Limited Use Disclosure</h2>
+      <p
+        class="text-sm sm:text-base leading-relaxed font-semibold"
+        lang="en"
+        set:html={GOOGLE_LIMITED_USE_DISCLOSURE_EN}
+      />
+      <p class="text-sm sm:text-base leading-relaxed mt-3 italic">
+        {GOOGLE_LIMITED_USE_DISCLOSURE_IT}
+      </p>
+    </aside>
 
     <div class="space-y-8">
       <section class={card}>
@@ -80,8 +97,8 @@ const link = 'text-link hover:underline font-semibold break-words'
           </li>
           <li>
             <strong>Homepage dell'applicazione:</strong>
-            <a href={N8N_SITE_URL} class={link}>{N8N_SITE_URL}</a> — questa informativa è ospitata
-            sullo stesso dominio ed è raggiungibile dal footer della homepage.
+            <a href={N8N_SITE_URL} class={link}>{N8N_SITE_URL}</a> — questa informativa è ospitata sullo
+            stesso dominio ed è raggiungibile dal footer della homepage.
           </li>
         </ul>
       </section>
@@ -174,16 +191,25 @@ const link = 'text-link hover:underline font-semibold break-words'
       </section>
 
       <section class={card}>
-        <h2 class={heading}>5. Uso limitato dei dati Google (Limited Use)</h2>
+        <h2 class={heading}>5. Uso dei servizi API di Google e dei dati utente (Limited Use)</h2>
+        <blockquote class="border-2 border-border bg-palette5 text-palette1 p-4 mb-4">
+          <p
+            class="text-sm sm:text-base leading-relaxed font-semibold"
+            lang="en"
+            set:html={GOOGLE_LIMITED_USE_DISCLOSURE_EN}
+          />
+          <p class="text-sm sm:text-base leading-relaxed mt-3 italic">
+            {GOOGLE_LIMITED_USE_DISCLOSURE_IT}
+          </p>
+        </blockquote>
         <p class="text-sm sm:text-base leading-relaxed mb-4">
-          L'uso e il trasferimento, da parte di questa applicazione, delle informazioni ricevute
-          dalle API di Google aderiscono alla
+          Il testo integrale delle norme richiamate è consultabile alla pagina
           <a
-            href="https://developers.google.com/terms/api-services-user-data-policy"
+            href={GOOGLE_USER_DATA_POLICY_URL}
             target="_blank"
             rel="noopener noreferrer"
             class={link}>Google API Services User Data Policy</a
-          >, inclusi i requisiti di <em>Limited Use</em>. In particolare:
+          >. In concreto, questo significa che:
         </p>
         <ul class={list}>
           <li>
@@ -235,11 +261,14 @@ const link = 'text-link hover:underline font-semibold break-words'
       </section>
 
       <section class={card}>
-        <h2 class={heading}>7. Dove sono conservati i dati, per quanto tempo e come vengono cancellati</h2>
+        <h2 class={heading}>
+          7. Dove sono conservati i dati, per quanto tempo e come vengono cancellati
+        </h2>
         <p class="text-sm sm:text-base leading-relaxed mb-4">
           L'applicazione gira su un server privato controllato dal titolare e collocato nell'Unione
           Europea. Non esistono storage esterni, database di terze parti o backup dei contenuti
-          Google al di fuori di quel server. Di seguito che cosa viene conservato e per quanto tempo.
+          Google al di fuori di quel server. Di seguito che cosa viene conservato e per quanto
+          tempo.
         </p>
         <ul class={list}>
           <li>
