@@ -18,10 +18,11 @@ RUN addgroup -g 101 -S nginx 2>/dev/null || true && \
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 COPY --from=build --chown=nginx:nginx /app/dist /usr/share/nginx/html
 
-# Set proper permissions
+# Set proper permissions.
+# NB: nginx:*-alpine-slim non contiene /etc/nginx/conf.d (e nginx.conf non lo
+# include: la server block e' inline). Farci chown fa fallire la build.
 RUN chown -R nginx:nginx /var/cache/nginx && \
     chown -R nginx:nginx /var/log/nginx && \
-    chown -R nginx:nginx /etc/nginx/conf.d && \
     touch /var/run/nginx.pid && \
     chown -R nginx:nginx /var/run/nginx.pid && \
     chmod -R 755 /usr/share/nginx/html

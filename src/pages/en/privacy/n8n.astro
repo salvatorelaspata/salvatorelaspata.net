@@ -4,6 +4,7 @@ import HeaderSection from '../../../layouts/HeaderSection.astro'
 import BackButton from '../../../components/ui/BackButton.astro'
 import {
   n8nGoogleScopes,
+  n8nDisclosures,
   N8N_APP_NAME,
   N8N_OWNER,
   N8N_CONTACT_EMAIL,
@@ -45,6 +46,25 @@ const link = 'text-link hover:underline font-semibold break-words'
 
     <div class="space-y-8">
       <section class={card}>
+        <h2 class={heading}>Summary of how Google user data is handled</h2>
+        <p class="text-sm sm:text-base leading-relaxed mb-5">
+          The table below summarises how the <strong>{N8N_APP_NAME}</strong> application accesses,
+          uses, stores, shares, protects and deletes the Google user data it obtains through the
+          Google Drive and Google Sheets APIs. Each point is expanded in the sections that follow.
+        </p>
+        <div class="space-y-3">
+          {
+            n8nDisclosures.map((item) => (
+              <div class="border-2 border-border p-4">
+                <h3 class="font-bold text-base mb-1">{item.en.label}</h3>
+                <p class="text-sm leading-relaxed">{item.en.text}</p>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class={card}>
         <h2 class={heading}>1. Data controller and scope of this policy</h2>
         <p class="text-sm sm:text-base leading-relaxed mb-4">
           This policy describes how the <strong>{N8N_APP_NAME}</strong> application, registered by {
@@ -60,8 +80,9 @@ const link = 'text-link hover:underline font-semibold break-words'
             <a href={`mailto:${N8N_CONTACT_EMAIL}`} class={link}>{N8N_CONTACT_EMAIL}</a>
           </li>
           <li>
-            <strong>Website:</strong>
-            <a href={N8N_SITE_URL} class={link}>{N8N_SITE_URL}</a>
+            <strong>Application homepage:</strong>
+            <a href={N8N_SITE_URL} class={link}>{N8N_SITE_URL}</a> — this policy is hosted on the same
+            domain and is linked from the homepage footer.
           </li>
         </ul>
       </section>
@@ -211,7 +232,13 @@ const link = 'text-link hover:underline font-semibold break-words'
       </section>
 
       <section class={card}>
-        <h2 class={heading}>7. Data retention and deletion</h2>
+        <h2 class={heading}>7. Where the data is stored, for how long, and how it is deleted</h2>
+        <p class="text-sm sm:text-base leading-relaxed mb-4">
+          The application runs on a private server controlled by the data controller and located in
+          the European Union. There is no external storage bucket, no third-party database and no
+          backup of Google content outside that server. What is kept, and for how long, is set out
+          below.
+        </p>
         <ul class={list}>
           <li>
             <strong>OAuth tokens:</strong> stored encrypted (AES-256) in the n8n instance database, protected

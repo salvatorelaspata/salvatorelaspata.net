@@ -92,9 +92,16 @@ const navLinks = [
 
     <!-- Bottom Bar -->
     <div class='flex flex-col md:flex-row justify-between items-center gap-4'>
-      <p class='text-sm text-text'>
-        © {currentYear} Salvatore La Spata. All rights reserved.
-      </p>
+      <div class='flex flex-wrap items-center justify-center gap-2 text-sm text-text'>
+        <p>© {currentYear} Salvatore La Spata. All rights reserved.</p>
+        <span>•</span>
+        <a
+          href={currentLocale === 'en' ? '/en/privacy/n8n' : '/privacy/n8n'}
+          class='text-link hover:underline'
+        >
+          Privacy Policy (n8n)
+        </a>
+      </div>
       <div class='flex items-center gap-2 text-sm text-text'>
         <span>Built with</span>
         <span class='text-red-500 motion-safe:animate-pulse'>♥</span>

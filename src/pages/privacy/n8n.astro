@@ -4,6 +4,7 @@ import HeaderSection from '../../layouts/HeaderSection.astro'
 import BackButton from '../../components/ui/BackButton.astro'
 import {
   n8nGoogleScopes,
+  n8nDisclosures,
   N8N_APP_NAME,
   N8N_OWNER,
   N8N_CONTACT_EMAIL,
@@ -45,6 +46,25 @@ const link = 'text-link hover:underline font-semibold break-words'
 
     <div class="space-y-8">
       <section class={card}>
+        <h2 class={heading}>Sintesi del trattamento dei dati utente Google</h2>
+        <p class="text-sm sm:text-base leading-relaxed mb-5">
+          Il riepilogo che segue descrive come l'applicazione <strong>{N8N_APP_NAME}</strong> accede,
+          utilizza, conserva, condivide, protegge ed elimina i dati utente Google ottenuti tramite le
+          API di Google Drive e Google Sheets. Ogni punto è approfondito nelle sezioni successive.
+        </p>
+        <div class="space-y-3">
+          {
+            n8nDisclosures.map((item) => (
+              <div class="border-2 border-border p-4">
+                <h3 class="font-bold text-base mb-1">{item.it.label}</h3>
+                <p class="text-sm leading-relaxed">{item.it.text}</p>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class={card}>
         <h2 class={heading}>1. Titolare e ambito di questa informativa</h2>
         <p class="text-sm sm:text-base leading-relaxed mb-4">
           Questa informativa descrive come l'applicazione <strong>{N8N_APP_NAME}</strong>,
@@ -59,8 +79,9 @@ const link = 'text-link hover:underline font-semibold break-words'
             <a href={`mailto:${N8N_CONTACT_EMAIL}`} class={link}>{N8N_CONTACT_EMAIL}</a>
           </li>
           <li>
-            <strong>Sito web:</strong>
-            <a href={N8N_SITE_URL} class={link}>{N8N_SITE_URL}</a>
+            <strong>Homepage dell'applicazione:</strong>
+            <a href={N8N_SITE_URL} class={link}>{N8N_SITE_URL}</a> — questa informativa è ospitata
+            sullo stesso dominio ed è raggiungibile dal footer della homepage.
           </li>
         </ul>
       </section>
@@ -214,7 +235,12 @@ const link = 'text-link hover:underline font-semibold break-words'
       </section>
 
       <section class={card}>
-        <h2 class={heading}>7. Conservazione e cancellazione dei dati</h2>
+        <h2 class={heading}>7. Dove sono conservati i dati, per quanto tempo e come vengono cancellati</h2>
+        <p class="text-sm sm:text-base leading-relaxed mb-4">
+          L'applicazione gira su un server privato controllato dal titolare e collocato nell'Unione
+          Europea. Non esistono storage esterni, database di terze parti o backup dei contenuti
+          Google al di fuori di quel server. Di seguito che cosa viene conservato e per quanto tempo.
+        </p>
         <ul class={list}>
           <li>
             <strong>Token OAuth:</strong> conservati in forma cifrata (AES-256) nel database dell'istanza
