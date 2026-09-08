@@ -1,0 +1,323 @@
+---
+import Layout from '../../../layouts/Layout.astro'
+import HeaderSection from '../../../layouts/HeaderSection.astro'
+import BackButton from '../../../components/ui/BackButton.astro'
+import {
+  n8nGoogleScopes,
+  N8N_APP_NAME,
+  N8N_OWNER,
+  N8N_CONTACT_EMAIL,
+  N8N_SITE_URL,
+  N8N_LAST_UPDATED,
+} from '../../../data/privacy/n8n'
+
+const lastUpdated = new Date(N8N_LAST_UPDATED).toLocaleDateString('en-US', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+})
+
+const card =
+  'bg-bg border-2 border-border p-5 sm:p-6 shadow-shadow shadow-[4px_4px_0px_rgba(0,0,0,1)]'
+const heading = 'text-xl sm:text-2xl font-bold text-text border-b-2 border-border pb-2 mb-4'
+const list = 'list-disc pl-5 space-y-2 text-sm sm:text-base leading-relaxed'
+const link = 'text-link hover:underline font-semibold break-words'
+---
+
+<Layout
+  title={`Privacy Policy - ${N8N_APP_NAME} | ${N8N_OWNER}`}
+  description={`Privacy policy for the ${N8N_APP_NAME} application by ${N8N_OWNER}: which Google Drive and Google Sheets data is accessed through OAuth, and how it is used, stored, protected and deleted.`}
+  keywords="privacy policy, n8n, Google OAuth, Google Drive, Google Sheets, Limited Use, Salvatore La Spata"
+>
+  <BackButton />
+  <main class="min-h-screen max-w-4xl mx-auto px-5 py-12 bg-bg text-text">
+    <HeaderSection
+      title="Privacy Policy"
+      description={`"${N8N_APP_NAME}" application - access to Google Drive and Google Sheets via OAuth 2.0`}
+    />
+
+    <div class="flex flex-col sm:flex-row sm:items-center gap-3 mb-10 text-sm">
+      <span class="border-2 border-border bg-palette5 text-palette1 px-3 py-1 font-bold w-fit">
+        Last updated: {lastUpdated}
+      </span>
+      <a href="/privacy/n8n" class={link} hreflang="it">Leggi questa pagina in italiano</a>
+    </div>
+
+    <div class="space-y-8">
+      <section class={card}>
+        <h2 class={heading}>1. Data controller and scope of this policy</h2>
+        <p class="text-sm sm:text-base leading-relaxed mb-4">
+          This policy describes how the <strong>{N8N_APP_NAME}</strong> application, registered by {
+            N8N_OWNER
+          } in the Google Cloud Console and shown on Google's OAuth consent screen, handles the data of
+          the Google account that authorises it. It covers this application only, and no other service
+          or website.
+        </p>
+        <ul class={list}>
+          <li><strong>Data controller:</strong> {N8N_OWNER}</li>
+          <li>
+            <strong>Contact:</strong>
+            <a href={`mailto:${N8N_CONTACT_EMAIL}`} class={link}>{N8N_CONTACT_EMAIL}</a>
+          </li>
+          <li>
+            <strong>Website:</strong>
+            <a href={N8N_SITE_URL} class={link}>{N8N_SITE_URL}</a>
+          </li>
+        </ul>
+      </section>
+
+      <section class={card}>
+        <h2 class={heading}>2. What the application is</h2>
+        <p class="text-sm sm:text-base leading-relaxed mb-4">
+          <a href="https://n8n.io" target="_blank" rel="noopener noreferrer" class={link}>n8n</a> is an
+          open source workflow automation platform. The instance this policy refers to is <strong
+            >private and self-hosted</strong
+          >: it runs on infrastructure controlled by the data controller and is used solely to
+          automate the controller's own personal tasks.
+        </p>
+        <ul class={list}>
+          <li>
+            It is not a service offered to the public: there is no sign-up, no third-party users and
+            no functionality exposed to external visitors.
+          </li>
+          <li>
+            The only Google accounts that can authorise the application are the controller's own
+            account and any account explicitly added as a test user in the Google Cloud Console.
+          </li>
+          <li>
+            Google data is accessed only when a workflow — started manually by the controller or by
+            a schedule they defined — requires it.
+          </li>
+        </ul>
+      </section>
+
+      <section class={card}>
+        <h2 class={heading}>3. What Google account data is accessed</h2>
+        <p class="text-sm sm:text-base leading-relaxed mb-5">
+          During authorisation the application requests, via OAuth 2.0, the scopes listed below.
+          These are the default scopes of n8n's Google Drive and Google Sheets nodes and match
+          exactly the ones declared on the consent screen.
+        </p>
+        <div class="space-y-4">
+          {
+            n8nGoogleScopes.map((item) => (
+              <div class="border-2 border-border p-4">
+                <div class="flex flex-wrap items-center gap-2 mb-2">
+                  <span class="border-2 border-border bg-palette4 text-white px-2 py-0.5 text-xs font-bold">
+                    {item.api}
+                  </span>
+                  <code class="font-mono text-xs sm:text-sm break-all">{item.scope}</code>
+                </div>
+                <p class="text-sm leading-relaxed">{item.en}</p>
+              </div>
+            ))
+          }
+        </div>
+        <p class="text-sm sm:text-base leading-relaxed mt-5">
+          Once authorisation is complete, Google also issues the application an <strong
+            >OAuth 2.0 token</strong
+          > (access token and refresh token) representing the permission granted. The application does
+          <strong>not</strong> request and does not receive access to Gmail, Contacts, Calendar, Google
+          Photos, YouTube, location history or any Google service other than Drive and Sheets.
+        </p>
+      </section>
+
+      <section class={card}>
+        <h2 class={heading}>4. How the data is used</h2>
+        <p class="text-sm sm:text-base leading-relaxed mb-4">
+          Data obtained through the Google APIs is used <strong>exclusively</strong> to run the automations
+          configured by the controller, namely to:
+        </p>
+        <ul class={list}>
+          <li>read rows from a Google Sheets spreadsheet and process them to produce a result;</li>
+          <li>
+            write, update or delete rows in a Google Sheets spreadsheet created or specified by the
+            controller;
+          </li>
+          <li>
+            read, upload, rename, move or delete Google Drive files explicitly referenced in a
+            workflow;
+          </li>
+          <li>
+            locate a file or spreadsheet by name, ID or folder so that it can be selected within a
+            workflow.
+          </li>
+        </ul>
+        <p class="text-sm sm:text-base leading-relaxed mt-4">
+          Processing happens in transit, inside the controller's own n8n instance. The data is <strong
+            >not</strong
+          > used for profiling, advertising, retargeting, behavioural analysis, creditworthiness assessment
+          or any purpose other than executing the workflow that requested it.
+        </p>
+      </section>
+
+      <section class={card}>
+        <h2 class={heading}>5. Limited Use of Google user data</h2>
+        <p class="text-sm sm:text-base leading-relaxed mb-4">
+          This application's use and transfer of information received from Google APIs adheres to
+          the
+          <a
+            href="https://developers.google.com/terms/api-services-user-data-policy"
+            target="_blank"
+            rel="noopener noreferrer"
+            class={link}>Google API Services User Data Policy</a
+          >, including the <em>Limited Use</em> requirements. Specifically:
+        </p>
+        <ul class={list}>
+          <li>
+            data obtained from Google APIs is used <strong>only</strong> to provide or improve user-facing
+            features within the workflows that request it;
+          </li>
+          <li>
+            the data is <strong>not</strong> transferred to third parties, except as necessary to provide
+            or improve those features, to comply with applicable law, or as part of a merger or acquisition
+            with the user's explicit prior consent;
+          </li>
+          <li>
+            the data is <strong>not</strong> sold or transferred to data brokers, advertising networks,
+            information resellers, or to any party that would use it for advertising, retargeting or creditworthiness
+            assessment;
+          </li>
+          <li>
+            data obtained through Google Workspace APIs is <strong>not</strong> used to develop, improve
+            or train generalised or non-personalised artificial intelligence or machine learning models;
+          </li>
+          <li>
+            no humans read the user's Google data, except with the user's explicit prior consent,
+            for security purposes (such as investigating abuse), to comply with applicable law, or
+            where the data is aggregated and anonymised for internal operations.
+          </li>
+        </ul>
+      </section>
+
+      <section class={card}>
+        <h2 class={heading}>6. Sharing with third parties</h2>
+        <p class="text-sm sm:text-base leading-relaxed mb-4">
+          No data obtained from the Google APIs is shared with third parties. The only communication
+          is the direct, HTTPS/TLS-encrypted exchange between the controller's n8n instance and
+          Google's servers.
+        </p>
+        <ul class={list}>
+          <li>
+            There are no analytics, advertising-tracking or profiling systems receiving data from
+            the Google APIs.
+          </li>
+          <li>No Google data is sent to external vendors or third-party services.</li>
+          <li>
+            Disclosure to an authority may occur only where the controller is under a legal
+            obligation to comply.
+          </li>
+        </ul>
+      </section>
+
+      <section class={card}>
+        <h2 class={heading}>7. Data retention and deletion</h2>
+        <ul class={list}>
+          <li>
+            <strong>OAuth tokens:</strong> stored encrypted (AES-256) in the n8n instance database, protected
+            by the instance encryption key. They remain valid until the user revokes the authorisation.
+          </li>
+          <li>
+            <strong>Drive and Sheets content:</strong> processed in transit and not stored permanently.
+            No copy of Google files is created outside the controller's n8n instance.
+          </li>
+          <li>
+            <strong>Workflow execution logs:</strong> may temporarily contain the processed data; they
+            are kept only as long as needed to verify correct operation, and in any case no longer than
+            30 days, after which they are deleted automatically.
+          </li>
+        </ul>
+        <h3 class="text-lg font-bold mt-6 mb-3">How to revoke access and request deletion</h3>
+        <ol class="list-decimal pl-5 space-y-2 text-sm sm:text-base leading-relaxed">
+          <li>
+            Revoke the authorisation at
+            <a
+              href="https://myaccount.google.com/permissions"
+              target="_blank"
+              rel="noopener noreferrer"
+              class={link}>myaccount.google.com/permissions</a
+            >: from that moment the application loses all access to the account's data.
+          </li>
+          <li>
+            Alternatively, or in addition, write to
+            <a href={`mailto:${N8N_CONTACT_EMAIL}`} class={link}>{N8N_CONTACT_EMAIL}</a>: the stored
+            credentials and the associated execution logs will be deleted within 30 days of the
+            request.
+          </li>
+        </ol>
+      </section>
+
+      <section class={card}>
+        <h2 class={heading}>8. Security</h2>
+        <ul class={list}>
+          <li>All calls to the Google APIs are made over an encrypted HTTPS/TLS channel.</li>
+          <li>
+            OAuth credentials are encrypted at rest in the n8n database using the instance
+            encryption key.
+          </li>
+          <li>
+            Access to the n8n interface is protected by authentication and restricted to the
+            controller alone.
+          </li>
+          <li>The instance is kept up to date with supported n8n releases.</li>
+          <li>No collaborator or third-party vendor has access to the Google data processed.</li>
+        </ul>
+      </section>
+
+      <section class={card}>
+        <h2 class={heading}>9. Legal basis and data subject rights (GDPR)</h2>
+        <p class="text-sm sm:text-base leading-relaxed mb-4">
+          Processing is based on the consent given at the time of OAuth authorisation (Article
+          6(1)(a) of Regulation (EU) 2016/679), which can be withdrawn at any time as described in
+          section 7. As this is a personal-use application, the data processed is the controller's
+          own.
+        </p>
+        <p class="text-sm sm:text-base leading-relaxed">
+          Anyone authorising the application may exercise their rights of access, rectification,
+          erasure, restriction, portability and objection (Articles 15-22 GDPR) by writing to
+          <a href={`mailto:${N8N_CONTACT_EMAIL}`} class={link}>{N8N_CONTACT_EMAIL}</a>, and has the
+          right to lodge a complaint with the
+          <a
+            href="https://www.garanteprivacy.it"
+            target="_blank"
+            rel="noopener noreferrer"
+            class={link}>Italian Data Protection Authority</a
+          >.
+        </p>
+      </section>
+
+      <section class={card}>
+        <h2 class={heading}>10. Children</h2>
+        <p class="text-sm sm:text-base leading-relaxed">
+          The application is not directed at children under 16 and does not knowingly collect their
+          data.
+        </p>
+      </section>
+
+      <section class={card}>
+        <h2 class={heading}>11. Changes to this policy</h2>
+        <p class="text-sm sm:text-base leading-relaxed">
+          Any changes are published on this page, with the date at the top updated accordingly.
+          Material changes to how Google data is handled will be reflected here before they take
+          effect.
+        </p>
+      </section>
+
+      <section class={card}>
+        <h2 class={heading}>12. Contact</h2>
+        <p class="text-sm sm:text-base leading-relaxed">
+          For any question about this policy or about how Google data is handled:
+        </p>
+        <ul class={`${list} mt-3`}>
+          <li>{N8N_OWNER}</li>
+          <li>
+            <a href={`mailto:${N8N_CONTACT_EMAIL}`} class={link}>{N8N_CONTACT_EMAIL}</a>
+          </li>
+          <li>
+            <a href={N8N_SITE_URL} class={link}>{N8N_SITE_URL}</a>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </main>
+</Layout>

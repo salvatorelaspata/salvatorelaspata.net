@@ -1,0 +1,329 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import HeaderSection from '../../layouts/HeaderSection.astro'
+import BackButton from '../../components/ui/BackButton.astro'
+import {
+  n8nGoogleScopes,
+  N8N_APP_NAME,
+  N8N_OWNER,
+  N8N_CONTACT_EMAIL,
+  N8N_SITE_URL,
+  N8N_LAST_UPDATED,
+} from '../../data/privacy/n8n'
+
+const lastUpdated = new Date(N8N_LAST_UPDATED).toLocaleDateString('it-IT', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+})
+
+const card =
+  'bg-bg border-2 border-border p-5 sm:p-6 shadow-shadow shadow-[4px_4px_0px_rgba(0,0,0,1)]'
+const heading = 'text-xl sm:text-2xl font-bold text-text border-b-2 border-border pb-2 mb-4'
+const list = 'list-disc pl-5 space-y-2 text-sm sm:text-base leading-relaxed'
+const link = 'text-link hover:underline font-semibold break-words'
+---
+
+<Layout
+  title={`Privacy Policy - ${N8N_APP_NAME} | ${N8N_OWNER}`}
+  description={`Informativa sulla privacy dell'applicazione ${N8N_APP_NAME} di ${N8N_OWNER}: quali dati di Google Drive e Google Sheets vengono consultati tramite OAuth, come vengono usati, conservati, protetti ed eliminati.`}
+  keywords="privacy policy, n8n, Google OAuth, Google Drive, Google Sheets, Limited Use, Salvatore La Spata"
+>
+  <BackButton />
+  <main class="min-h-screen max-w-4xl mx-auto px-5 py-12 bg-bg text-text">
+    <HeaderSection
+      title="Privacy Policy"
+      description={`Applicazione "${N8N_APP_NAME}" - accesso a Google Drive e Google Sheets tramite OAuth 2.0`}
+    />
+
+    <div class="flex flex-col sm:flex-row sm:items-center gap-3 mb-10 text-sm">
+      <span class="border-2 border-border bg-palette5 text-palette1 px-3 py-1 font-bold w-fit">
+        Ultimo aggiornamento: {lastUpdated}
+      </span>
+      <a href="/en/privacy/n8n" class={link} hreflang="en">Read this page in English</a>
+    </div>
+
+    <div class="space-y-8">
+      <section class={card}>
+        <h2 class={heading}>1. Titolare e ambito di questa informativa</h2>
+        <p class="text-sm sm:text-base leading-relaxed mb-4">
+          Questa informativa descrive come l'applicazione <strong>{N8N_APP_NAME}</strong>,
+          registrata da {N8N_OWNER} nella Google Cloud Console e presentata nella schermata di consenso
+          OAuth di Google, tratta i dati dell'account Google che ne autorizza l'accesso. Riguarda esclusivamente
+          questa applicazione e non altri servizi o siti.
+        </p>
+        <ul class={list}>
+          <li><strong>Titolare del trattamento:</strong> {N8N_OWNER}</li>
+          <li>
+            <strong>Contatto:</strong>
+            <a href={`mailto:${N8N_CONTACT_EMAIL}`} class={link}>{N8N_CONTACT_EMAIL}</a>
+          </li>
+          <li>
+            <strong>Sito web:</strong>
+            <a href={N8N_SITE_URL} class={link}>{N8N_SITE_URL}</a>
+          </li>
+        </ul>
+      </section>
+
+      <section class={card}>
+        <h2 class={heading}>2. Che cos'è l'applicazione</h2>
+        <p class="text-sm sm:text-base leading-relaxed mb-4">
+          <a href="https://n8n.io" target="_blank" rel="noopener noreferrer" class={link}>n8n</a> è una
+          piattaforma open source di automazione dei workflow. L'istanza a cui si riferisce questa informativa
+          è <strong>privata e self-hosted</strong>: viene eseguita su infrastruttura controllata dal
+          titolare ed è usata unicamente per automatizzare attività personali del titolare stesso.
+        </p>
+        <ul class={list}>
+          <li>
+            Non è un servizio offerto al pubblico: non prevede registrazione, non ha utenti terzi e
+            non espone funzionalità a visitatori esterni.
+          </li>
+          <li>
+            Gli unici account Google che possono autorizzare l'applicazione sono quello del titolare
+            ed eventuali account aggiunti esplicitamente come utenti di test nella Google Cloud
+            Console.
+          </li>
+          <li>
+            L'accesso ai dati Google avviene solo quando un workflow, avviato manualmente dal
+            titolare o da una pianificazione da lui definita, lo richiede.
+          </li>
+        </ul>
+      </section>
+
+      <section class={card}>
+        <h2 class={heading}>3. Quali dati del tuo account Google vengono consultati</h2>
+        <p class="text-sm sm:text-base leading-relaxed mb-5">
+          Al momento dell'autorizzazione l'applicazione richiede, tramite OAuth 2.0, gli ambiti
+          (scope) elencati qui sotto. Sono gli scope predefiniti dei nodi Google Drive e Google
+          Sheets di n8n e corrispondono esattamente a quelli dichiarati nella schermata di consenso.
+        </p>
+        <div class="space-y-4">
+          {
+            n8nGoogleScopes.map((item) => (
+              <div class="border-2 border-border p-4">
+                <div class="flex flex-wrap items-center gap-2 mb-2">
+                  <span class="border-2 border-border bg-palette4 text-white px-2 py-0.5 text-xs font-bold">
+                    {item.api}
+                  </span>
+                  <code class="font-mono text-xs sm:text-sm break-all">{item.scope}</code>
+                </div>
+                <p class="text-sm leading-relaxed">{item.it}</p>
+              </div>
+            ))
+          }
+        </div>
+        <p class="text-sm sm:text-base leading-relaxed mt-5">
+          Completata l'autorizzazione, Google rilascia inoltre all'applicazione un <strong
+            >token OAuth 2.0</strong
+          > (access token e refresh token) che rappresenta il permesso concesso. L'applicazione <strong
+            >non</strong
+          > richiede e non riceve accesso a Gmail, Contatti, Calendar, Google Photos, YouTube, cronologia
+          delle posizioni o a qualsiasi altro servizio Google diverso da Drive e Sheets.
+        </p>
+      </section>
+
+      <section class={card}>
+        <h2 class={heading}>4. Come vengono utilizzati i dati</h2>
+        <p class="text-sm sm:text-base leading-relaxed mb-4">
+          I dati ottenuti tramite le API di Google sono usati <strong>esclusivamente</strong> per eseguire
+          le automazioni configurate dal titolare, ovvero per:
+        </p>
+        <ul class={list}>
+          <li>leggere righe da un foglio Google Sheets ed elaborarle per produrre un risultato;</li>
+          <li>
+            scrivere, aggiornare o eliminare righe in un foglio Google Sheets creato o indicato dal
+            titolare;
+          </li>
+          <li>
+            leggere, caricare, rinominare, spostare o eliminare file di Google Drive esplicitamente
+            indicati in un workflow;
+          </li>
+          <li>
+            individuare un file o un foglio tramite nome, ID o cartella, per poterlo selezionare
+            all'interno di un workflow.
+          </li>
+        </ul>
+        <p class="text-sm sm:text-base leading-relaxed mt-4">
+          L'elaborazione avviene in transito, all'interno dell'istanza n8n del titolare. I dati <strong
+            >non</strong
+          > vengono usati per profilazione, pubblicità, retargeting, analisi comportamentali, valutazione
+          del merito creditizio né per alcuna finalità diversa dall'esecuzione del workflow che li ha
+          richiesti.
+        </p>
+      </section>
+
+      <section class={card}>
+        <h2 class={heading}>5. Uso limitato dei dati Google (Limited Use)</h2>
+        <p class="text-sm sm:text-base leading-relaxed mb-4">
+          L'uso e il trasferimento, da parte di questa applicazione, delle informazioni ricevute
+          dalle API di Google aderiscono alla
+          <a
+            href="https://developers.google.com/terms/api-services-user-data-policy"
+            target="_blank"
+            rel="noopener noreferrer"
+            class={link}>Google API Services User Data Policy</a
+          >, inclusi i requisiti di <em>Limited Use</em>. In particolare:
+        </p>
+        <ul class={list}>
+          <li>
+            i dati ottenuti dalle API di Google sono usati <strong>solo</strong> per fornire e migliorare
+            le funzionalità visibili all'utente all'interno dei workflow che li richiedono;
+          </li>
+          <li>
+            i dati <strong>non</strong> vengono trasferiti a terzi, salvo quando strettamente necessario
+            per fornire o migliorare tali funzionalità, per adempiere a un obbligo di legge o nell'ambito
+            di una fusione o acquisizione previo consenso esplicito dell'utente;
+          </li>
+          <li>
+            i dati <strong>non</strong> vengono venduti né ceduti a data broker, reti pubblicitarie, information
+            reseller o a soggetti che li utilizzino per pubblicità, retargeting o valutazione del merito
+            creditizio;
+          </li>
+          <li>
+            i dati ottenuti tramite le Google Workspace API <strong>non</strong> vengono utilizzati per
+            sviluppare, migliorare o addestrare modelli di intelligenza artificiale o di machine learning
+            generalizzati o non personalizzati;
+          </li>
+          <li>
+            nessuna persona legge i dati Google dell'utente, salvo previo consenso esplicito
+            dell'utente, per motivi di sicurezza (ad esempio l'indagine su un abuso), per adempiere
+            a un obbligo di legge, oppure quando i dati siano aggregati e resi anonimi per
+            operazioni interne.
+          </li>
+        </ul>
+      </section>
+
+      <section class={card}>
+        <h2 class={heading}>6. Condivisione con terze parti</h2>
+        <p class="text-sm sm:text-base leading-relaxed mb-4">
+          Nessun dato ottenuto dalle API di Google viene condiviso con terze parti. Le uniche
+          comunicazioni sono quelle dirette, cifrate in HTTPS/TLS, fra l'istanza n8n del titolare e
+          i server di Google.
+        </p>
+        <ul class={list}>
+          <li>
+            Non sono presenti sistemi di analytics, tracciamento pubblicitario o profilazione che
+            ricevano dati provenienti dalle API di Google.
+          </li>
+          <li>Nessun dato Google viene inviato a fornitori esterni o a servizi di terze parti.</li>
+          <li>
+            La comunicazione a un'autorità potrà avvenire soltanto in presenza di un obbligo di
+            legge al quale il titolare sia tenuto ad adempiere.
+          </li>
+        </ul>
+      </section>
+
+      <section class={card}>
+        <h2 class={heading}>7. Conservazione e cancellazione dei dati</h2>
+        <ul class={list}>
+          <li>
+            <strong>Token OAuth:</strong> conservati in forma cifrata (AES-256) nel database dell'istanza
+            n8n, protetti dalla chiave di cifratura dell'istanza. Restano validi finché l'utente non revoca
+            l'autorizzazione.
+          </li>
+          <li>
+            <strong>Contenuti di Drive e Sheets:</strong> elaborati in transito e non archiviati in modo
+            permanente. Nessuna copia dei file Google viene creata al di fuori dell'istanza n8n del titolare.
+          </li>
+          <li>
+            <strong>Log di esecuzione dei workflow:</strong> possono contenere temporaneamente i dati
+            elaborati; sono conservati per il tempo strettamente necessario a verificare il corretto funzionamento
+            e comunque non oltre 30 giorni, dopodiché vengono eliminati automaticamente.
+          </li>
+        </ul>
+        <h3 class="text-lg font-bold mt-6 mb-3">
+          Come revocare l'accesso e ottenere la cancellazione
+        </h3>
+        <ol class="list-decimal pl-5 space-y-2 text-sm sm:text-base leading-relaxed">
+          <li>
+            Revoca l'autorizzazione dalla pagina
+            <a
+              href="https://myaccount.google.com/permissions"
+              target="_blank"
+              rel="noopener noreferrer"
+              class={link}>myaccount.google.com/permissions</a
+            >: da quel momento l'applicazione perde ogni accesso ai dati dell'account.
+          </li>
+          <li>
+            In alternativa, o in aggiunta, scrivi a
+            <a href={`mailto:${N8N_CONTACT_EMAIL}`} class={link}>{N8N_CONTACT_EMAIL}</a>: le
+            credenziali memorizzate e i log di esecuzione associati verranno eliminati entro 30
+            giorni dalla richiesta.
+          </li>
+        </ol>
+      </section>
+
+      <section class={card}>
+        <h2 class={heading}>8. Sicurezza</h2>
+        <ul class={list}>
+          <li>Tutte le chiamate alle API di Google avvengono su canale cifrato HTTPS/TLS.</li>
+          <li>
+            Le credenziali OAuth sono cifrate a riposo nel database di n8n tramite la chiave di
+            cifratura dell'istanza.
+          </li>
+          <li>
+            L'accesso all'interfaccia di n8n è protetto da autenticazione ed è riservato al solo
+            titolare.
+          </li>
+          <li>L'istanza viene mantenuta aggiornata alle versioni supportate di n8n.</li>
+          <li>Nessun collaboratore o fornitore terzo ha accesso ai dati Google trattati.</li>
+        </ul>
+      </section>
+
+      <section class={card}>
+        <h2 class={heading}>9. Base giuridica e diritti dell'interessato (GDPR)</h2>
+        <p class="text-sm sm:text-base leading-relaxed mb-4">
+          Il trattamento si fonda sul consenso espresso al momento dell'autorizzazione OAuth (art.
+          6, par. 1, lett. a del Regolamento UE 2016/679), revocabile in qualsiasi momento con le
+          modalità descritte al punto 7. Trattandosi di un'applicazione a uso personale, i dati
+          trattati sono quelli del titolare stesso.
+        </p>
+        <p class="text-sm sm:text-base leading-relaxed">
+          Chiunque autorizzi l'applicazione può esercitare i diritti di accesso, rettifica,
+          cancellazione, limitazione, portabilità e opposizione (artt. 15-22 GDPR) scrivendo a
+          <a href={`mailto:${N8N_CONTACT_EMAIL}`} class={link}>{N8N_CONTACT_EMAIL}</a>, e ha diritto
+          di proporre reclamo al
+          <a
+            href="https://www.garanteprivacy.it"
+            target="_blank"
+            rel="noopener noreferrer"
+            class={link}>Garante per la protezione dei dati personali</a
+          >.
+        </p>
+      </section>
+
+      <section class={card}>
+        <h2 class={heading}>10. Minori</h2>
+        <p class="text-sm sm:text-base leading-relaxed">
+          L'applicazione non è destinata a minori di 16 anni e non ne raccoglie consapevolmente i
+          dati.
+        </p>
+      </section>
+
+      <section class={card}>
+        <h2 class={heading}>11. Modifiche a questa informativa</h2>
+        <p class="text-sm sm:text-base leading-relaxed">
+          Eventuali modifiche vengono pubblicate su questa pagina, con aggiornamento della data
+          indicata in alto. Le modifiche sostanziali alle modalità di trattamento dei dati Google
+          saranno riflesse qui prima di essere applicate.
+        </p>
+      </section>
+
+      <section class={card}>
+        <h2 class={heading}>12. Contatti</h2>
+        <p class="text-sm sm:text-base leading-relaxed">
+          Per qualsiasi domanda su questa informativa o sul trattamento dei dati Google:
+        </p>
+        <ul class={`${list} mt-3`}>
+          <li>{N8N_OWNER}</li>
+          <li>
+            <a href={`mailto:${N8N_CONTACT_EMAIL}`} class={link}>{N8N_CONTACT_EMAIL}</a>
+          </li>
+          <li>
+            <a href={N8N_SITE_URL} class={link}>{N8N_SITE_URL}</a>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </main>
+</Layout>
