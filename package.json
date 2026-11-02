@@ -16,7 +16,9 @@
     "cf:types": "wrangler types worker/worker-configuration.d.ts",
     "cf:check": "npm run cf:types && tsc -p worker",
     "cf:dev": "astro build && wrangler dev",
-    "cf:deploy": "npm run build && wrangler deploy"
+    "cf:deploy": "npm run build && wrangler deploy",
+    "test": "node --test 'scripts/**/*.test.mjs'",
+    "check:contrast": "node scripts/contrast-check.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.6",

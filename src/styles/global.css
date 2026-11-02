@@ -26,6 +26,11 @@
   .callout-body > * + * {
     margin-top: 0.75em;
   }
+  /* Sul chip attivo il conteggio resta a piena opacità: allo 0.75 di tokens.css
+     scende sotto 4.5:1 in tema scuro (testo #002B39 su #5EB2C2) */
+  .chip[aria-pressed='true'] .chip-count {
+    opacity: 1;
+  }
   .code-block pre:focus-visible,
   .table-scroll:focus-visible {
     outline-offset: -3px;
