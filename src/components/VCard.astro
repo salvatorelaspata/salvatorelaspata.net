@@ -18,7 +18,7 @@ import type {
 
 const { currentLocale } = Astro
 
-class VCard {
+class VCardBuilder {
   name: string
   surname: string
   additionalNames: string
@@ -413,7 +413,7 @@ class VCard {
     return `REV:${this.rev.toISOString()}\r\n`
   }
 }
-const vcard = new VCard()
+const vcard = new VCardBuilder()
 const vcardContent = vcard.generate()
 const vcardDataUri = `data:text/vcard;charset=utf-8,${encodeURIComponent(vcardContent)}`
 const qrSvg = await QRCode.toString(vcardContent, {
