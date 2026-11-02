@@ -1,0 +1,24 @@
+---
+import Icon from './Icon.astro'
+import { useT } from '../i18n'
+
+const t = useT(Astro.currentLocale)
+---
+
+<button type='button' class='to-top btn btn-icon' aria-label={t.common.toTop}>
+  <Icon name='arrow-up' />
+</button>
+
+<script>
+  const toTop = document.querySelector<HTMLButtonElement>('.to-top')
+  if (toTop) {
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)')
+    const onScroll = () => toTop.setAttribute('data-visible', String(window.scrollY > window.innerHeight * 1.2))
+    window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
+    toTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: reduce.matches ? 'auto' : 'smooth' })
+      document.getElementById('main')?.focus({ preventScroll: true })
+    })
+  }
+</script>

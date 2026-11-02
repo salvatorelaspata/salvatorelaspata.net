@@ -1,0 +1,56 @@
+---
+import Icon from './Icon.astro'
+import { useT } from '../i18n'
+
+const t = useT(Astro.currentLocale)
+---
+
+<button type='button' class='btn btn-ghost btn-icon' data-theme-toggle aria-pressed='false' aria-label={t.common.themeDark}>
+  <Icon name='moon' class='dark:hidden' />
+  <Icon name='sun' class='hidden dark:block' />
+</button>
+
+<script>
+  const root = document.documentElement
+  const store = {
+    get: (k: string) => {
+      try {
+        return localStorage.getItem(k)
+      } catch {
+        return null
+      }
+    },
+    set: (k: string, v: string) => {
+      try {
+        localStorage.setItem(k, v)
+      } catch {
+        /* storage bloccato */
+      }
+    },
+  }
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]')
+  const sync = () => {
+    const dark = root.classList.contains('dark')
+    buttons.forEach(b => b.setAttribute('aria-pressed', String(dark)))
+  }
+  const apply = (theme: string) => {
+    root.classList.toggle('dark', theme === 'dark')
+    sync()
+  }
+  buttons.forEach(b =>
+    b.addEventListener('click', () => {
+      const next = root.classList.contains('dark') ? 'light' : 'dark'
+      apply(next)
+      store.set('theme', next)
+    }),
+  )
+  // altre schede aperte sul sito
+  window.addEventListener('storage', e => {
+    if (e.key === 'theme' && e.newValue) apply(e.newValue)
+  })
+  // senza una scelta esplicita segue il sistema anche a pagina aperta
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    if (!store.get('theme')) apply(e.matches ? 'dark' : 'light')
+  })
+  sync()
+</script>

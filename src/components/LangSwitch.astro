@@ -1,0 +1,29 @@
+---
+import { useT, toLang, withBase, localePath, LANGS } from '../i18n'
+import type { Alternates } from '../layouts/BaseLayout.astro'
+
+interface Props {
+  alternates: Alternates
+  class?: string
+}
+
+const { alternates, class: className = '' } = Astro.props
+const lang = toLang(Astro.currentLocale)
+const t = useT(lang)
+---
+
+<div class={`lang-switch ${className}`} role='group' aria-label={t.common.langLabel}>
+  {
+    LANGS.map(l => (
+      <a
+        href={withBase(alternates[l] ?? localePath('/', l))}
+        lang={l}
+        hreflang={l}
+        aria-current={l === lang ? 'true' : undefined}
+      >
+        <span class='sr-only'>{t.common.langName[l]}, </span>
+        {l.toUpperCase()}
+      </a>
+    ))
+  }
+</div>

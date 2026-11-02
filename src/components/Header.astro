@@ -1,0 +1,73 @@
+---
+import Icon from './Icon.astro'
+import Logo from './Logo.astro'
+import ThemeToggle from './ThemeToggle.astro'
+import LangSwitch from './LangSwitch.astro'
+import MobileNav from './MobileNav.astro'
+import { useT, toLang, href, sectionHref, mainNav, stripLocale } from '../i18n'
+import { profile } from '../data/profile'
+import type { Alternates } from '../layouts/BaseLayout.astro'
+
+interface Props {
+  alternates: Alternates
+}
+
+const { alternates } = Astro.props
+const lang = toLang(Astro.currentLocale)
+const t = useT(lang)
+const nav = mainNav(lang)
+const onBlog = stripLocale(Astro.url.pathname).startsWith('/blog')
+---
+
+<header class='site-header'>
+  <div class='container-site flex h-header items-center justify-between gap-3'>
+    <a href={href('/', lang)} class='flex min-h-[44px] items-center gap-3 rounded-sm text-ink no-underline'>
+      <Logo />
+      <span class='flex flex-col leading-tight'>
+        <span class='font-semibold'>{profile.fullName}</span>
+        <span class='hidden font-mono text-step--1 text-muted sm:block'>{t.common.tagline}</span>
+      </span>
+    </a>
+    <nav aria-label={t.nav.label} class='hidden lg:block'>
+      <ul class='flex items-center'>
+        {
+          nav.map(item => (
+            <li>
+              <a class='nav-link' href={item.href} aria-current={item.key === 'blog' && onBlog ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <div class='flex items-center gap-2'>
+      <LangSwitch alternates={alternates} class='hidden sm:inline-flex' />
+      <ThemeToggle />
+      <a class='btn btn-primary hidden lg:inline-flex' href={sectionHref('contact', lang)}>
+        <Icon name='calendar' size={18} />{t.common.book}
+      </a>
+      <button
+        type='button'
+        class='btn btn-icon lg:hidden'
+        data-menu-toggle
+        aria-controls='mobile-menu'
+        aria-expanded='false'
+        aria-label={t.nav.menuOpen}
+        data-label-open={t.nav.menuOpen}
+        data-label-close={t.nav.menuClose}
+      >
+        <span data-icon-open><Icon name='menu' /></span><span data-icon-close hidden><Icon name='close' /></span>
+      </button>
+    </div>
+  </div>
+  <MobileNav alternates={alternates} />
+</header>
+
+<script>
+  // Bordo pieno sotto l'header dopo i primi pixel di scroll
+  const header = document.querySelector<HTMLElement>('.site-header')
+  const onScroll = () => header?.setAttribute('data-scrolled', String(window.scrollY > 8))
+  window.addEventListener('scroll', onScroll, { passive: true })
+  onScroll()
+</script>

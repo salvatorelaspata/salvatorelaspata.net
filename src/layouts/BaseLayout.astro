@@ -1,0 +1,105 @@
+---
+import '../styles/global.css'
+import sansLatin from '@fontsource-variable/schibsted-grotesk/files/schibsted-grotesk-latin-wght-normal.woff2?url'
+import monoLatin from '@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2?url'
+
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import BackToTop from '../components/BackToTop.astro'
+import Spark from '../components/Spark.astro'
+import { useT, toLang, stripLocale, localePath, withBase, type Lang } from '../i18n'
+
+export type Alternates = Partial<Record<Lang, string>>
+
+interface Props {
+  title?: string
+  description?: string
+  ogImage?: string
+  type?: 'website' | 'article'
+  /** Percorsi (senza base) della pagina nelle due lingue. Default: stesso percorso con/senza /en. */
+  alternates?: Alternates
+  noindex?: boolean
+  jsonLd?: Record<string, unknown>
+}
+
+const lang = toLang(Astro.currentLocale)
+const t = useT(lang)
+const site = Astro.site ?? new URL('https://salvatorelaspata.net')
+
+const {
+  title = t.meta.title,
+  description = t.meta.description,
+  ogImage = '/sticker.webp',
+  type = 'website',
+  noindex = false,
+  jsonLd,
+} = Astro.props
+
+const neutralPath = stripLocale(Astro.url.pathname)
+const alternates: Alternates = Astro.props.alternates ?? {
+  it: localePath(neutralPath, 'it'),
+  en: localePath(neutralPath, 'en'),
+}
+const abs = (path: string) => new URL(withBase(path), site).toString()
+const canonical = new URL(Astro.url.pathname, site).toString()
+const ogImageUrl = abs(ogImage)
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset='utf-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1, viewport-fit=cover' />
+    <title>{title}</title>
+    <meta name='description' content={description} />
+    <meta name='author' content='Salvatore La Spata' />
+    {noindex ? <meta name='robots' content='noindex' /> : <meta name='robots' content='index, follow' />}
+    <link rel='canonical' href={canonical} />
+    {
+      (Object.entries(alternates) as [Lang, string][]).map(([l, path]) => (
+        <link rel='alternate' hreflang={l} href={abs(path)} />
+      ))
+    }
+    {alternates.it && <link rel='alternate' hreflang='x-default' href={abs(alternates.it)} />}
+
+    <meta property='og:type' content={type} />
+    <meta property='og:url' content={canonical} />
+    <meta property='og:title' content={title} />
+    <meta property='og:description' content={description} />
+    <meta property='og:image' content={ogImageUrl} />
+    <meta property='og:locale' content={t.meta.locale} />
+    <meta name='twitter:card' content='summary_large_image' />
+    <meta name='twitter:title' content={title} />
+    <meta name='twitter:description' content={description} />
+    <meta name='twitter:image' content={ogImageUrl} />
+
+    <meta name='theme-color' content='#F5F5F0' media='(prefers-color-scheme: light)' />
+    <meta name='theme-color' content='#0E1416' media='(prefers-color-scheme: dark)' />
+    <link rel='icon' type='image/webp' href={withBase('/sticker.webp')} />
+    <link rel='sitemap' href={withBase('/sitemap-index.xml')} />
+    <link rel='alternate' type='application/rss+xml' title='Salvatore La Spata · Blog' href={withBase(localePath('/rss.xml', lang))} />
+
+    <!-- Font self-hosted: solo il subset latin dei due variabili -->
+    <link rel='preload' href={sansLatin} as='font' type='font/woff2' crossorigin />
+    <style is:inline set:html={`
+@font-face{font-family:'Schibsted Grotesk Variable';font-style:normal;font-display:swap;font-weight:400 900;src:url(${sansLatin}) format('woff2-variations');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'JetBrains Mono Variable';font-style:normal;font-display:swap;font-weight:100 800;src:url(${monoLatin}) format('woff2-variations');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}`} />
+
+    <!-- Anti-FOUC: applica il tema prima del primo paint -->
+    <script is:inline>(()=>{let t=null;try{t=localStorage.getItem('theme')}catch(e){}const h=document.documentElement,a=h.dataset.theme;const d=t?t==='dark':a?a==='dark':matchMedia('(prefers-color-scheme: dark)').matches;h.classList.toggle('dark',d)})()</script>
+
+    {jsonLd && <script is:inline type='application/ld+json' set:html={JSON.stringify(jsonLd)} />}
+    <meta name='generator' content={Astro.generator} />
+    <slot name='head' />
+  </head>
+  <body class='bg-bg font-sans text-ink antialiased'>
+    <a class='skip-link' href='#main'>{t.common.skip}</a>
+    <Header alternates={alternates} />
+    <main id='main' tabindex='-1'>
+      <slot />
+    </main>
+    <Footer alternates={alternates} />
+    <BackToTop />
+    <Spark />
+  </body>
+</html>
