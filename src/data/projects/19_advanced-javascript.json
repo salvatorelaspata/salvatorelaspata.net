@@ -3,8 +3,20 @@
   "slug": "advanced-javascript",
   "title": "Advanced JavaScript",
   "subtitle": "slides",
-  "img": "logo-slides.svg",
+  "kind": "slide",
+  "featured": false,
+  "filters": [
+    "slide"
+  ],
   "description": "Un corso di approfondimento su Javascript",
-  "tecnologie": "Javascript",
-  "slides": "https://cloudflare-google-api.salvatore-la-spata.workers.dev/advanced-javascript"
+  "summary": "Corso di JavaScript avanzato.",
+  "technologies": [
+    "JavaScript"
+  ],
+  "slides": "https://cloudflare-google-api.salvatore-la-spata.workers.dev/advanced-javascript",
+  "en": {
+    "subtitle": "Slides",
+    "summary": "An advanced JavaScript course.",
+    "description": "An in-depth JavaScript course."
+  }
 }

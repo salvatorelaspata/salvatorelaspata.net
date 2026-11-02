@@ -3,9 +3,23 @@
   "slug": "minesweeper",
   "title": "Minesweeper",
   "subtitle": "Project",
-  "img": "logo-code.svg",
+  "kind": "project",
+  "featured": false,
+  "filters": [
+    "altro"
+  ],
   "description": "Non sopportavo le pubblicità del mio giochino preferito..",
-  "tecnologie": "Vite, React, Socke Supply (wip)",
+  "summary": "Il prato fiorito del mio gioco preferito, senza pubblicità.",
+  "technologies": [
+    "Vite",
+    "React",
+    "Socket Supply"
+  ],
+  "github": "https://github.com/salvatorelaspata/tree-project",
   "demo": "https://comforting-sunflower-ea6732.netlify.app/",
-  "github": "https://github.com/salvatorelaspata/tree-project"
+  "en": {
+    "subtitle": "Project",
+    "summary": "Minesweeper, my favourite little game, without the ads.",
+    "description": "I could not stand the ads in my favourite little game…"
+  }
 }

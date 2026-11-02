@@ -7,6 +7,7 @@ import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
 import BackToTop from '../components/BackToTop.astro'
 import Spark from '../components/Spark.astro'
+import Motion from '../components/Motion.astro'
 import { useT, toLang, stripLocale, localePath, withBase, type Lang } from '../i18n'
 
 export type Alternates = Partial<Record<Lang, string>>
@@ -101,5 +102,6 @@ const ogImageUrl = abs(ogImage)
     <Footer alternates={alternates} />
     <BackToTop />
     <Spark />
+    <Motion />
   </body>
 </html>

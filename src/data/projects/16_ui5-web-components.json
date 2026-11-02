@@ -3,8 +3,21 @@
   "slug": "ui5-web-components",
   "title": "UI5 Web Component",
   "subtitle": "slides",
-  "img": "logo-slides.svg",
+  "kind": "slide",
+  "featured": false,
+  "filters": [
+    "slide",
+    "sap"
+  ],
   "description": "Un corso di approfondimento su Javascript",
-  "tecnologie": "Javascript",
-  "slides": "https://cloudflare-google-api.salvatore-la-spata.workers.dev/ui5-web-component"
+  "summary": "Presentazione sulle UI5 Web Components.",
+  "technologies": [
+    "JavaScript"
+  ],
+  "slides": "https://cloudflare-google-api.salvatore-la-spata.workers.dev/ui5-web-component",
+  "en": {
+    "subtitle": "Slides",
+    "summary": "A talk on UI5 Web Components.",
+    "description": "An in-depth JavaScript course."
+  }
 }

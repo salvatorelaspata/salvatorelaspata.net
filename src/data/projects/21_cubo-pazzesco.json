@@ -3,9 +3,23 @@
   "slug": "cubo-pazzesco",
   "title": "Cubo Pazzesco",
   "subtitle": "Prototype",
-  "img": "logo-code.svg",
+  "kind": "prototype",
+  "featured": false,
+  "filters": [
+    "3d",
+    "altro"
+  ],
   "description": "Un cubo pazzesco in 3D",
-  "tecnologie": "Javascript, ThreeJS",
+  "summary": "Un cubo 3D. Niente di più, niente di meno.",
+  "technologies": [
+    "JavaScript",
+    "Three.js"
+  ],
   "github": "https://github.com/salvatorelaspata/cubo-pazzesco",
-  "demo": "https://salvatorelaspata.github.io/cubo-pazzesco/"
+  "demo": "https://salvatorelaspata.github.io/cubo-pazzesco/",
+  "en": {
+    "subtitle": "Prototype",
+    "summary": "A 3D cube. Nothing more, nothing less.",
+    "description": "A crazy cube in 3D."
+  }
 }

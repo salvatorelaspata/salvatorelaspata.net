@@ -3,9 +3,23 @@
   "slug": "distinta-ante",
   "title": "Distinta ante",
   "subtitle": "Project",
-  "img": "logo-code.svg",
+  "kind": "project",
+  "featured": false,
+  "filters": [
+    "altro"
+  ],
   "description": "Ad un amico serviva un calcolatore di lunghezze per la costruzione di Ante. Ho approfittato per approfondire concetti come currying function.",
-  "tecnologie": "React js, material-ui, FaunaDB",
+  "summary": "Calcolatore di lunghezze per telai, scusa perfetta per esplorare il currying.",
+  "technologies": [
+    "React",
+    "Material UI",
+    "FaunaDB"
+  ],
+  "github": "https://github.com/salvatorelaspata/distinta-ante",
   "demo": "https://silly-banach-e807b9.netlify.app/",
-  "github": "https://github.com/salvatorelaspata/distinta-ante"
+  "en": {
+    "subtitle": "Project",
+    "summary": "A length calculator for door frames, the perfect excuse to explore currying.",
+    "description": "A friend needed a length calculator to build cabinet doors. I took the chance to dig into concepts like curried functions."
+  }
 }

@@ -3,9 +3,24 @@
   "slug": "reinventing-minecraft-soil-generator",
   "title": "Reinventing Minecraft Soil Generator",
   "subtitle": "Project",
-  "img": "logo-code.svg",
+  "kind": "project",
+  "featured": false,
+  "filters": [
+    "3d",
+    "altro"
+  ],
   "description": "Ispirato da un video youtube di Henrik Kniberg ho dovuto provare con mano la generazione del terreno di minecraft.",
-  "tecnologie": "Vanilla JS, React, ThreeJS",
+  "summary": "Generazione di terreni stile Minecraft, ispirata a un video di Henrik Kniberg.",
+  "technologies": [
+    "JavaScript",
+    "React",
+    "Three.js"
+  ],
+  "github": "https://github.com/salvatorelaspata/tree-project",
   "demo": "https://sweet-mermaid-c9a9f0.netlify.app/",
-  "github": "https://github.com/salvatorelaspata/tree-project"
+  "en": {
+    "subtitle": "Project",
+    "summary": "Minecraft-style terrain generation, inspired by a video by Henrik Kniberg.",
+    "description": "Inspired by a YouTube video by Henrik Kniberg, I had to try Minecraft terrain generation first-hand."
+  }
 }

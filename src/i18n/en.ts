@@ -150,6 +150,7 @@ const en: Dict = {
       learning: 'Learning',
       altro: 'Other',
     },
+    kinds: { npm: 'npm package', chrome: 'Chrome Extension', slide: 'Slides', docker: 'Docker collection', bot: 'Telegram bot', prototype: 'Prototype', project: 'Project', learning: 'Learning' },
     links: { github: 'GitHub', demo: 'Demo', npm: 'npm', slides: 'Slides' },
   },
   experience: {
@@ -159,6 +160,7 @@ const en: Dict = {
     details: 'Role details',
   },
   blog: {
+    tags: { 'SAP BTP': 'SAP BTP', CAP: 'CAP', Accessibilità: 'Accessibility', Frontend: 'Frontend', Strumenti: 'Tools', Carriera: 'Career' },
     homeTitle: 'From the blog',
     allPosts: 'All articles',
   },

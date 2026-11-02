@@ -3,8 +3,20 @@
   "slug": "hello-rust",
   "title": "Hello Rust",
   "subtitle": "Learning",
-  "img": "logo-learn.svg",
+  "kind": "learning",
+  "featured": false,
+  "filters": [
+    "learning"
+  ],
   "description": "Ho voglia di approfondire un linguaggio di basso livello..",
-  "tecnologie": "Rust",
-  "github": "https://github.com/salvatorelaspata/hello-rust"
+  "summary": "Primi passi con Rust.",
+  "technologies": [
+    "Rust"
+  ],
+  "github": "https://github.com/salvatorelaspata/hello-rust",
+  "en": {
+    "subtitle": "Learning",
+    "summary": "First steps with Rust.",
+    "description": "I felt like digging into a low-level language…"
+  }
 }

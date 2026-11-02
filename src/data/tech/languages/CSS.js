@@ -1,6 +1,6 @@
 export default {
   id: 2,
-  title: "CSS 3",
+  title: "CSS3",
   link: "https://developer.mozilla.org/en-US/docs/Web/CSS",
   subtitle: "Cascading Style Sheets",
   description:

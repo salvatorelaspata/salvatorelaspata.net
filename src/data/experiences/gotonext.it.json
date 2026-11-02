@@ -1,14 +1,23 @@
 {
   "index": 4,
-  "title": "Practice Leader - SME | SAP BTP Architect, Senior SAP Full Stack Technical Consultant, Team Leader",
-  "subtitle": "GOTONEXT SRL",
-  "date": "01/2023 - Presente",
+  "title": "Practice Leader SAP BTP",
+  "company": "GOTONEXT S.r.l.",
+  "location": "Roma",
+  "start": "01/2023",
+  "end": null,
   "current": true,
-  "descriptions": [
-    "Come Practice Leader specializzato in SAP BTP (Business Technology Platform), mi dedico a guidare e orchestrare iniziative di consulenza tecnica SAP di alto livello. Con una vasta esperienza come SAP BTP Architect e Senior SAP Full Stack Technical Consultant, il mio ruolo è di massimizzare il valore delle soluzioni SAP attraverso un approccio completo, dalla progettazione e sviluppo al deployment.",
-    "In qualità di Team Leader, assumo la responsabilità di guidare un team altamente qualificato verso l'eccellenza. Coordinando le risorse, distribuendo i compiti e fornendo direzione strategica, cerco di massimizzare il potenziale del team, promuovendo al contempo un ambiente di lavoro collaborativo e stimolante.",
-    "La mia competenza tecnica abbraccia l'intero stack SAP, consentendomi di offrire soluzioni complete e integrate. Sono dedicato a garantire che ogni progetto sia implementato con le migliori pratiche, soddisfacendo le esigenze uniche dei clienti e contribuendo al successo a lungo termine delle iniziative aziendali.",
-    "In sintesi, come Practice Leader - SME (Subject Matter Expert), SAP BTP Architect, Senior SAP Full Stack Technical Consultant e Team Leader, cerco di unire competenza tecnica, leadership e una visione strategica per guidare progetti SAP di successo e trasformare le sfide aziendali in opportunità di crescita e innovazione.",
-    "Parallelamente, mi occupo della realizzazione di applicazioni web accessibili, con particolare attenzione alle esigenze di utenti ipovedenti e non vedenti. Applico le linee guida WCAG, utilizzo attributi ARIA e adotto le best practice di accessibilità per garantire che le interfacce siano fruibili con screen reader e tecnologie assistive, contribuendo a un web più inclusivo."
+  "summary": "Guido la practice SAP BTP e un team di 16 persone su architetture cloud e on-premise, dalla consulenza tecnica allo sviluppo full-stack.",
+  "tags": [
+    "SAP BTP",
+    "CAP",
+    "RAP",
+    "Integration Suite",
+    "Leadership"
+  ],
+  "details": [
+    "Ruoli: Practice Leader (SME), SAP BTP Architect, Senior SAP Full Stack Technical Consultant, Team Leader.",
+    "Disegno architetture SAP BTP per clienti enterprise e ne seguo la messa in produzione.",
+    "Coordino un team di 16 persone tra consulenti e sviluppatori: crescita, revisione del codice, scelte tecniche.",
+    "Sviluppo applicazioni web accessibili secondo le linee guida WCAG e ARIA."
   ]
 }

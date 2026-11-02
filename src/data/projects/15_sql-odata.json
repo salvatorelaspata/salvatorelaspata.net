@@ -3,8 +3,23 @@
   "slug": "sql-odata",
   "title": "sql-odata",
   "subtitle": "Prototype",
-  "img": "logo-odata.svg",
+  "kind": "prototype",
+  "featured": false,
+  "filters": [
+    "sap",
+    "altro"
+  ],
   "description": "Idea di realizzare un plugin fastify o una possibile integrazione Platformatic che permette di esporre con il protocollo oData v2, utilizzato come standard dalle applicazioni SAP Fiori, le entità di un database relazionale",
-  "tecnologie": "Node js, Fastify, Platformatic",
-  "github": "https://github.com/salvatorelaspata/sql-odata"
+  "summary": "Idea di plugin Fastify per esporre OData sopra SQL.",
+  "technologies": [
+    "Node.js",
+    "Fastify",
+    "Platformatic"
+  ],
+  "github": "https://github.com/salvatorelaspata/sql-odata",
+  "en": {
+    "subtitle": "Prototype",
+    "summary": "A Fastify plugin idea to expose OData on top of SQL.",
+    "description": "The idea of a Fastify plugin, or a possible Platformatic integration, that exposes the entities of a relational database through the OData v2 protocol, the standard used by SAP Fiori applications."
+  }
 }

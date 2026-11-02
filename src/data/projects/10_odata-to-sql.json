@@ -3,9 +3,22 @@
   "slug": "odata-to-sql",
   "title": "odata-to-sql",
   "subtitle": "npm package",
-  "img": "logo-npm.svg",
+  "kind": "npm",
+  "featured": false,
+  "filters": [
+    "npm",
+    "sap"
+  ],
   "description": "Un semplicissimo oData v2 url parser.",
-  "tecnologie": "Javascript",
+  "summary": "Parser essenziale per URL OData v2.",
+  "technologies": [
+    "JavaScript"
+  ],
+  "github": "https://github.com/salvatorelaspata/odatav2-to-sql",
   "npm": "https://www.npmjs.com/package/odatav2-to-sql",
-  "github": "https://github.com/salvatorelaspata/odatav2-to-sql"
+  "en": {
+    "subtitle": "npm package",
+    "summary": "A minimal parser for OData v2 URLs.",
+    "description": "A very simple OData v2 URL parser."
+  }
 }

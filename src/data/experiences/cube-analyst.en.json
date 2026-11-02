@@ -1,10 +1,14 @@
 {
   "index": 2,
   "title": "Programmer Analyst",
-  "subtitle": "Cube Consultants",
-  "date": "07/2016 - 01/2017",
+  "company": "Cube Consultants",
+  "location": "Rome",
+  "start": "07/2016",
+  "end": "01/2017",
   "current": false,
-  "descriptions": [
-    "Internship and analysis and implementation activities for a Java solution for equipment logistics management."
-  ]
+  "summary": "Internship: analysis and development of a Java solution for equipment logistics.",
+  "tags": [
+    "Java"
+  ],
+  "details": []
 }

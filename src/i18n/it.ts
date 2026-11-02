@@ -148,6 +148,7 @@ const it = {
       learning: 'Learning',
       altro: 'Altro',
     },
+    kinds: { npm: 'npm package', chrome: 'Chrome Extension', slide: 'Slide', docker: 'Docker collection', bot: 'Telegram bot', prototype: 'Prototipo', project: 'Progetto', learning: 'Learning' },
     links: { github: 'GitHub', demo: 'Demo', npm: 'npm', slides: 'Slide' },
   },
   experience: {
@@ -157,6 +158,7 @@ const it = {
     details: 'Dettagli del ruolo',
   },
   blog: {
+    tags: { 'SAP BTP': 'SAP BTP', CAP: 'CAP', Accessibilità: 'Accessibilità', Frontend: 'Frontend', Strumenti: 'Strumenti', Carriera: 'Carriera' },
     homeTitle: 'Dal blog',
     allPosts: 'Tutti gli articoli',
   },

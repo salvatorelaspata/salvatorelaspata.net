@@ -1,10 +1,24 @@
 {
   "id": 12,
   "slug": "config-reality-process",
-  "title": "Config Realiy Process",
+  "title": "Config Reality Process",
   "subtitle": "Project",
-  "img": "logo-code.svg",
+  "kind": "project",
+  "featured": false,
+  "filters": [
+    "3d"
+  ],
   "description": "From images to 3d models.",
-  "tecnologie": "Node JS, Supabase, Apple Reality Kit",
-  "github": "https://github.com/ConfigReality/process"
+  "summary": "Converte immagini in modelli 3D.",
+  "technologies": [
+    "Node.js",
+    "Supabase",
+    "RealityKit"
+  ],
+  "github": "https://github.com/ConfigReality/process",
+  "en": {
+    "subtitle": "Project",
+    "summary": "Turns images into 3D models.",
+    "description": "From images to 3D models."
+  }
 }
