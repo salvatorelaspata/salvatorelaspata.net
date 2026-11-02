@@ -1,8 +1,3 @@
-# SAP Docker Labs 🐳
-
-**Category:** Shady Projects
-**Technologies:** Docker, SAP NetWeaver ABAP, SAP WebIDE, SAP Cloud Connector, Linux
-
 ## What is it
 
 A collection of experiments to containerize SAP environments that normally require entire days of setup, enterprise licenses, and a considerable amount of patience.

@@ -1,0 +1,36 @@
+---
+import { useT } from '../i18n'
+
+interface Props {
+  /** voci intermedie; l'ultima voce è la pagina corrente */
+  items: { label: string; href?: string }[]
+}
+
+const { items } = Astro.props
+const t = useT(Astro.currentLocale)
+---
+
+<nav aria-label={t.common.breadcrumb} class='font-mono text-step--1'>
+  <ol class='flex flex-wrap items-center gap-x-2'>
+    {
+      items.map((item, i) => (
+        <li class:list={['flex items-center gap-2', !item.href && 'min-w-0']}>
+          {i > 0 && (
+            <span class='text-muted' aria-hidden='true'>
+              /
+            </span>
+          )}
+          {item.href ? (
+            <a class='link inline-flex min-h-[44px] items-center' href={item.href}>
+              {item.label}
+            </a>
+          ) : (
+            <span aria-current='page' class='truncate text-ink'>
+              {item.label}
+            </span>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>

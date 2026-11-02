@@ -8,15 +8,15 @@
   "filters": [
     "slide"
   ],
-  "description": "Un corso di approfondimento su Javascript",
+  "description": "Un corso di approfondimento su Git.",
   "summary": "Come funziona Git internamente: oggetti, alberi, commit.",
   "technologies": [
-    "JavaScript"
+    "Git"
   ],
   "slides": "https://cloudflare-google-api.salvatore-la-spata.workers.dev/git-sotto-al-cofano",
   "en": {
     "subtitle": "Slides",
     "summary": "How Git works internally: objects, trees, commits.",
-    "description": "An in-depth JavaScript course."
+    "description": "An in-depth course on Git."
   }
 }

@@ -13,3 +13,21 @@
     navigation: auto;
   }
 }
+
+@layer components {
+  /* Tabelle Markdown: contenitore scrollabile e focalizzabile (rehypeTables) */
+  .table-scroll {
+    overflow-x: auto;
+    border-radius: var(--radius-sm);
+  }
+  .callout > svg {
+    margin-top: 0.2em;
+  }
+  .callout-body > * + * {
+    margin-top: 0.75em;
+  }
+  .code-block pre:focus-visible,
+  .table-scroll:focus-visible {
+    outline-offset: -3px;
+  }
+}

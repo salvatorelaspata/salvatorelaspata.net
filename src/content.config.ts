@@ -1,14 +1,7 @@
 import { defineCollection, z } from 'astro:content'
 import { glob } from 'astro/loaders'
+import { BLOG_TAGS } from './data/blogTags'
 
-export const BLOG_TAGS = [
-  'SAP BTP',
-  'CAP',
-  'Accessibilità',
-  'Frontend',
-  'Strumenti',
-  'Carriera',
-] as const
 
 const blog = defineCollection({
   loader: glob({ base: './src/content/blog', pattern: '**/*.md' }),

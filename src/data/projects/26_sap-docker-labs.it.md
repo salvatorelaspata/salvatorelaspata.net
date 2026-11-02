@@ -1,8 +1,3 @@
-# SAP Docker Labs 🐳
-
-**Categoria:** Progetti loschi
-**Tecnologie:** Docker, SAP NetWeaver ABAP, SAP WebIDE, SAP Cloud Connector, Linux
-
 ## Di cosa si tratta
 
 Collezione di esperimenti per containerizzare ambienti SAP che normalmente richiedono giornate intere di setup, licenze enterprise e una discreta quantità di pazienza.

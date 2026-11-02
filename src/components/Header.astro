@@ -24,8 +24,8 @@ const onBlog = stripLocale(Astro.url.pathname).startsWith('/blog')
     <a href={href('/', lang)} class='flex min-h-[44px] items-center gap-3 rounded-sm text-ink no-underline'>
       <Logo />
       <span class='flex flex-col leading-tight'>
-        <span class='font-semibold'>{profile.fullName}</span>
-        <span class='hidden font-mono text-step--1 text-muted sm:block'>{t.common.tagline}</span>
+        <span class='whitespace-nowrap font-semibold'>{profile.fullName}</span>
+        <span class='hidden whitespace-nowrap font-mono text-step--1 text-muted sm:block'>{t.common.tagline}</span>
       </span>
     </a>
     <nav aria-label={t.nav.label} class='hidden lg:block'>
@@ -33,7 +33,7 @@ const onBlog = stripLocale(Astro.url.pathname).startsWith('/blog')
         {
           nav.map(item => (
             <li>
-              <a class='nav-link' href={item.href} aria-current={item.key === 'blog' && onBlog ? 'page' : undefined}>
+              <a class='nav-link whitespace-nowrap' href={item.href} aria-current={item.key === 'blog' && onBlog ? 'page' : undefined}>
                 {item.label}
               </a>
             </li>
@@ -44,7 +44,7 @@ const onBlog = stripLocale(Astro.url.pathname).startsWith('/blog')
     <div class='flex items-center gap-2'>
       <LangSwitch alternates={alternates} class='hidden sm:inline-flex' />
       <ThemeToggle />
-      <a class='btn btn-primary hidden lg:inline-flex' href={sectionHref('contact', lang)}>
+      <a class='btn btn-primary hidden xl:inline-flex' href={sectionHref('contact', lang)}>
         <Icon name='calendar' size={18} />{t.common.book}
       </a>
       <button
