@@ -2,10 +2,13 @@
 title: "Accessible web applications for visually impaired and blind users"
 description: "How to apply WCAG, ARIA and best practices to make interfaces fully usable with screen readers and assistive technologies"
 pubDate: 2026-05-27
-tags: ["accessibility", "wcag", "aria", "web", "screen reader"]
+tags: ["Accessibilità", "Frontend"]
 draft: false
 lang: en
+translationKey: web-accessibility
 urlSlug: web-accessibility-wcag
+cover:
+  icon: access
 ---
 
 Web accessibility is not optional: it is an ethical requirement and, in many contexts, a legal one. Building interfaces usable by visually impaired or blind people means ensuring every feature is reachable and understandable through screen readers and assistive technologies.

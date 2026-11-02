@@ -6,7 +6,8 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   site: 'https://salvatorelaspata.net',
   base: process.env.BASE_PATH || '/',
-  integrations: [tailwind(), sitemap()],
+  // applyBaseStyles: false → il base di Tailwind arriva da src/styles/global.css
+  integrations: [tailwind({ applyBaseStyles: false }), sitemap()],
   i18n: {
     defaultLocale: 'it',
     locales: ['it', 'en'],
