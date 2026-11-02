@@ -1,4 +1,7 @@
-FROM node:lts-alpine AS build
+# Lo stage di build gira sempre sull'architettura nativa del builder ($BUILDPLATFORM):
+# dist/ è statico e identico per ogni piattaforma, e il compilatore WASM di Astro
+# va in crash sotto emulazione QEMU (build linux/arm64 su runner amd64).
+FROM --platform=$BUILDPLATFORM node:lts-alpine AS build
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci --only=production
