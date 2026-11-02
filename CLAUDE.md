@@ -26,6 +26,23 @@ This is a personal portfolio website for salvatorelaspata.net, built with Astro,
 - The Docker build creates a multi-stage build: Node.js for building, nginx for serving
 - Exposed port: 4321
 
+### Cloudflare Workers
+
+- `npm run cf:dev` - Build the site and run the Worker locally (`wrangler dev`, port 8787)
+- `npm run cf:deploy` - Build and deploy with `wrangler deploy`
+- `npm run cf:types` - Regenerate `worker/worker-configuration.d.ts` (gitignored) after changing `wrangler.jsonc`
+- `npm run cf:check` - Regenerate types and type-check the Worker (`tsc -p worker`)
+
+## Deployment Targets
+
+The same static build (`dist/`) is deployed to three targets, all kept on purpose:
+
+- **Cloudflare Workers** (production, salvatorelaspata.net): [wrangler.jsonc](wrangler.jsonc) serves `dist/` as static assets. The Worker script in [worker/index.ts](worker/index.ts) only runs for the routes in `assets.run_worker_first` (currently `/api/*`); everything else is served without invoking it. Static asset headers (CSP etc.) live in [public/_headers](public/_headers).
+- **GitHub Pages**: [.github/workflows/deploy.yml](.github/workflows/deploy.yml), built with `BASE_PATH=/salvatorelaspata.net`.
+- **Docker/nginx**: [.github/workflows/publish.yml](.github/workflows/publish.yml) pushes the image; headers are in [nginx/nginx.conf](nginx/nginx.conf).
+
+Keep the Astro build fully static (no Cloudflare adapter/SSR) so GitHub Pages and nginx keep working. Worker-only features go under `/api/*` in `worker/`, and the frontend must degrade gracefully when those endpoints are missing. The Worker has its own [worker/tsconfig.json](worker/tsconfig.json); wrangler requires Node >= 22 (see `.node-version`).
+
 ## Architecture
 
 ### Page Structure
@@ -121,7 +138,7 @@ Basic i18n setup in [src/i18n/](src/i18n/) but currently minimal:
 
 - Site URL: `https://salvatorelaspata.net`
 - Integrations: Tailwind CSS, Sitemap
-- No SSR - purely static site generation
+- No SSR - purely static site generation (dynamic endpoints live in the Cloudflare Worker, see Deployment Targets)
 
 ### Tailwind Config ([tailwind.config.mjs](tailwind.config.mjs))
 

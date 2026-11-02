@@ -20,3 +20,7 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 .claude
+# cloudflare workers
+.wrangler/
+.dev.vars*
+worker/worker-configuration.d.ts

@@ -1,0 +1,18 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "salvatorelaspata-net",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-11-01",
+  // Il sito resta statico (dist/ generato da Astro) e viene servito direttamente
+  // da Cloudflare senza invocare il Worker. Il codice in worker/ gira solo per
+  // le rotte in run_worker_first: così GitHub Pages e Docker restano invariati.
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*"]
+  },
+  "observability": {
+    "enabled": true
+  }
+}

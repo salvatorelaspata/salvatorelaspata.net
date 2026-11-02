@@ -12,7 +12,11 @@
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "format": "prettier --write src",
-    "format:check": "prettier --check src"
+    "format:check": "prettier --check src",
+    "cf:types": "wrangler types worker/worker-configuration.d.ts",
+    "cf:check": "npm run cf:types && tsc -p worker",
+    "cf:dev": "astro build && wrangler dev",
+    "cf:deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.6",
@@ -32,6 +36,7 @@
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
     "typescript-eslint": "^8.59.0",
+    "wrangler": "^4.156.1",
     "zod": "^3.25.76"
   }
 }
