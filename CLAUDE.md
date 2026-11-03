@@ -127,7 +127,7 @@ A terminal: every section is a command and its output, every page is a "window" 
 
 ## Adding Content
 
-All in `packages/content/src/`; every app picks it up on its next build.
+All in `packages/content/src/`; every app picks it up on its next build. The maintainer's guide is [packages/content/README.md](packages/content/README.md) (Italian): where each piece lives, post and project templates, facts repeated in prose (role, team size, years), what the build catches and what it doesn't. Keep it in sync when the content structure changes.
 
 - **Technology:** new `.js` file in the right `tech/` folder exporting `id`, `title`, `link`, `svg`.
 - **Project:** `projects/NN_slug.json` (schema above, with `kind`, `filters`, `summary` and the `en` block) plus `NN_slug.it.md` and `NN_slug.en.md` without H1. Higher IDs appear first.
