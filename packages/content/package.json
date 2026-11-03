@@ -1,0 +1,24 @@
+{
+  "name": "@salvatorelaspata/content",
+  "private": true,
+  "type": "module",
+  "version": "0.0.1",
+  "description": "Contenuti condivisi dai siti salvatorelaspata.net e salvatorelaspata.dev: profilo, bio, progetti, esperienze, tecnologie e blog.",
+  "exports": {
+    "./*": "./src/*.ts"
+  },
+  "scripts": {
+    "check": "tsc --noEmit",
+    "test": "node --test 'test/**/*.test.mjs'"
+  },
+  "dependencies": {
+    "zod": "^3.25.76"
+  },
+  "peerDependencies": {
+    "astro": "^5.16.6"
+  },
+  "devDependencies": {
+    "qrcode": "^1.5.4",
+    "typescript": "^5.9.3"
+  }
+}

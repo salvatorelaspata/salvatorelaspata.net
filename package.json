@@ -1,37 +1,23 @@
 {
-  "name": "salvatorelaspata-net",
+  "name": "salvatorelaspata",
+  "private": true,
   "type": "module",
-  "version": "0.0.1",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
   "scripts": {
-    "dev": "astro dev",
-    "dev:host": "astro dev --host",
-    "start": "astro dev",
-    "build": "astro check && astro build",
-    "preview": "astro preview",
-    "astro": "astro",
-    "lint": "eslint src",
-    "lint:fix": "eslint src --fix",
-    "format": "prettier --write src",
-    "format:check": "prettier --check src",
-    "cf:types": "wrangler types worker/worker-configuration.d.ts",
-    "cf:check": "npm run cf:types && tsc -p worker",
-    "cf:dev": "astro build && wrangler dev",
-    "cf:deploy": "npm run build && wrangler deploy",
-    "test": "node --test 'scripts/**/*.test.mjs'",
-    "check:contrast": "node scripts/contrast-check.mjs"
-  },
-  "dependencies": {
-    "@astrojs/check": "^0.9.6",
-    "@astrojs/sitemap": "^3.6.0",
-    "@astrojs/tailwind": "^6.0.2",
-    "@fontsource-variable/jetbrains-mono": "^5.3.0",
-    "@fontsource-variable/schibsted-grotesk": "^5.3.0",
-    "@types/qrcode": "^1.5.6",
-    "astro": "^5.16.6",
-    "gsap": "^3.12.5",
-    "qrcode": "^1.5.4",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5.9.3"
+    "dev": "npm run dev -w @salvatorelaspata/net",
+    "dev:host": "npm run dev:host -w @salvatorelaspata/net",
+    "start": "npm run dev",
+    "build": "npm run check -w @salvatorelaspata/content && npm run build --workspaces --if-present",
+    "build:net": "npm run build -w @salvatorelaspata/net",
+    "test": "npm test --workspaces --if-present",
+    "check:contrast": "npm run check:contrast --workspaces --if-present",
+    "lint": "eslint apps/*/src packages/*/src",
+    "lint:fix": "eslint apps/*/src packages/*/src --fix",
+    "format": "prettier --write apps/*/src packages/*/src",
+    "format:check": "prettier --check apps/*/src packages/*/src"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -39,8 +25,7 @@
     "eslint-plugin-astro": "^1.7.0",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
-    "typescript-eslint": "^8.59.0",
-    "wrangler": "^4.156.1",
-    "zod": "^3.25.76"
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.59.0"
   }
 }

@@ -1,0 +1,36 @@
+{
+  "name": "@salvatorelaspata/net",
+  "private": true,
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "dev:host": "astro dev --host",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "cf:types": "wrangler types worker/worker-configuration.d.ts",
+    "cf:check": "npm run cf:types && tsc -p worker",
+    "cf:dev": "astro build && wrangler dev",
+    "cf:deploy": "npm run build && wrangler deploy",
+    "check:contrast": "node scripts/contrast-check.mjs"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.6",
+    "@astrojs/sitemap": "^3.6.0",
+    "@astrojs/tailwind": "^6.0.2",
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "@fontsource-variable/schibsted-grotesk": "^5.3.0",
+    "@salvatorelaspata/content": "*",
+    "@types/qrcode": "^1.5.6",
+    "astro": "^5.16.6",
+    "gsap": "^3.12.5",
+    "qrcode": "^1.5.4",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "wrangler": "^4.156.1"
+  }
+}

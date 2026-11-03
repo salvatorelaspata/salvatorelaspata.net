@@ -1,0 +1,38 @@
+---
+import ProjectCover from './ProjectCover.astro'
+import ProjectLinks from './ProjectLinks.astro'
+import { useT, toLang, href } from '../i18n'
+import type { Project } from '@salvatorelaspata/content/types'
+
+interface Props {
+  project: Project
+  /** livello del titolo: h4 sotto "In evidenza" (h3) in home, h3 altrove */
+  headingLevel?: 3 | 4
+}
+
+const { project, headingLevel = 4 } = Astro.props
+const lang = toLang(Astro.currentLocale)
+const t = useT(lang)
+const Heading = `h${headingLevel}` as 'h3' | 'h4'
+---
+
+<li class='card-interactive flex flex-col overflow-hidden'>
+  <ProjectCover slug={project.slug} icon={project.icon} img={project.img} class='aspect-[16/7] border-b-2 border-line' />
+  <div class='flex grow flex-col gap-3 p-5 sm:p-6'>
+    <p class='font-mono text-step--1 text-muted'>{t.projects.kinds[project.kind]}</p>
+    <Heading class='t-h3'><a class='stretched-link' href={href(`/projects/${project.slug}`, lang)}>{project.title}</a></Heading>
+    <p class='text-muted'>{project.summary}</p>
+    <div class='mt-auto flex flex-col gap-4 pt-2'>
+      {
+        project.technologies.length > 0 && (
+          <ul class='flex flex-wrap gap-1.5' aria-label={t.common.technologies}>
+            {project.technologies.map(tech => (
+              <li class='tag'>{tech}</li>
+            ))}
+          </ul>
+        )
+      }
+      <ProjectLinks project={project} aboveLink />
+    </div>
+  </div>
+</li>
