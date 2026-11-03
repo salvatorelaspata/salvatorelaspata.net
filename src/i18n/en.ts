@@ -27,7 +27,6 @@ const en: Dict = {
     toTop: 'Back to top',
     book: 'Book a call',
     email: 'Email',
-    tagline: 'SAP BTP Architect',
     technologies: 'Technologies',
     topics: 'Topics',
     skills: 'Skills',
@@ -50,7 +49,6 @@ const en: Dict = {
     menuClose: 'Close menu',
   },
   footer: {
-    about: 'SAP cloud architectures, modern code and a soft spot for accessibility. From Rome, with a Sicilian accent.',
     sections: 'Sections',
     more: 'More',
     profiles: 'Profiles',
@@ -60,21 +58,11 @@ const en: Dict = {
     source: 'source code',
   },
   hero: {
-    kicker: 'Rome · SAP BTP Practice Leader @ GOTONEXT',
-    titleBefore: 'A SAP BTP architect who still writes ',
-    titleCode: 'code',
-    titleAfter: '.',
-    lead: 'For more than 12 years I have been designing enterprise solutions on SAP, from on-premise ABAP to BTP, CAP and Integration Suite. I lead a 16-person team at GOTONEXT and, in my spare time, I experiment with React, Three.js and Rust.',
     ctaProjects: 'See the projects',
     profiles: 'Profiles',
     stackFile: 'stack.cds',
     stackMeta: '3 layers · {years} years',
     stackCaption: 'Read the stack from the bottom up: from the ABAP core to the cloud, up to the side projects.',
-    layers: [
-      { id: 'L3', name: 'Side projects', note: 'evenings and weekends', items: 'React · TypeScript · Three.js · Rust' },
-      { id: 'L2', name: 'SAP BTP', note: 'cloud', items: 'CAP · RAP · Integration Suite · Event Mesh' },
-      { id: 'L1', name: 'SAP on-premise', note: 'the foundations', items: 'ABAP · NetWeaver · HANA · OData' },
-    ],
     stats: {
       years: 'years of experience',
       team: 'people in the BTP team',
@@ -83,39 +71,7 @@ const en: Dict = {
     },
   },
   about: {
-    title: 'Enterprise by day, creative coding by night.',
-    lead: 'Full-stack developer with more than 12 years of experience, focused on SAP enterprise architectures and modern web development. I like problems with real constraints: performance, integrations, people.',
-    cards: [
-      { icon: 'pin', title: 'Origins', text: 'Born in Sicily, in Rome since 2016. I brought the pragmatism with me.', tags: [] },
-      { icon: 'users', title: 'Current role', text: 'SAP BTP Practice Leader at GOTONEXT: I lead 16 people on cloud and on-premise architectures.', tags: ['Leadership', 'Architecture'] },
-      { icon: 'code', title: 'Background', text: 'Started with Java, now specialised in the BTP ecosystem. React, Node.js and TypeScript in my side projects.', tags: ['SAP', 'React', 'Node.js', 'TypeScript'] },
-      { icon: 'access', title: 'Accessibility', text: 'Every interface I sign works with a keyboard and a screen reader. This one included.', tags: ['WCAG 2.2', 'ARIA'] },
-    ],
     skillsTitle: 'What I do',
-    skillGroups: [
-      {
-        title: 'Architecture',
-        items: [
-          { icon: 'blocks', name: 'Software Architect', text: 'Cloud and hybrid SAP solutions on BTP, CAP, RAP and Integration Suite.' },
-          { icon: 'refresh', name: 'DevOps', text: 'CI/CD pipelines, Cloud Foundry, Docker and Kubernetes.' },
-        ],
-      },
-      {
-        title: 'Development',
-        items: [
-          { icon: 'browser', name: 'Web App', text: 'SAPUI5 and Fiori at work, React and Astro in my side projects.' },
-          { icon: 'server', name: 'Back-end', text: 'Node.js, CAP, ABAP, Fastify and PostgreSQL.' },
-          { icon: 'phone', name: 'Mobile', text: 'React Native apps, from the first screen to the store.' },
-        ],
-      },
-      {
-        title: 'User experience',
-        items: [
-          { icon: 'pen', name: 'Webdesign', text: 'Clear interfaces, design systems and prototypes.' },
-          { icon: 'access', name: 'Web Accessibility', text: 'WCAG 2.2, ARIA and real tests with screen readers.' },
-        ],
-      },
-    ],
   },
   stack: {
     title: 'Technologies',
@@ -212,22 +168,6 @@ const en: Dict = {
     title: "Let's talk about your project.",
     lead: 'Whether it is a BTP architecture to set up or a question about CAP, pick the right format. The call is free and takes two clicks to book.',
     bookOn: 'Book on Cal.com',
-    bookings: [
-      {
-        key: 'coffee',
-        audience: 'For developers',
-        duration: '30 min',
-        title: 'SAP Dev Coffee Chat',
-        text: 'Questions about BTP, CAP or your career, a review of an idea, a chat between developers.',
-      },
-      {
-        key: 'roundtable',
-        audience: 'For teams and companies',
-        duration: '60 min',
-        title: 'Modern SAP Dev Roundtable',
-        text: 'Architecture, cloud migration, choosing between CAP and RAP, team roadmap. We start from your context.',
-      },
-    ],
     vcardTitle: 'Save the contact',
     vcardText: 'Scan the QR code or download the vCard: name, role, email and profiles in one file.',
     vcardDownload: 'Download vCard',

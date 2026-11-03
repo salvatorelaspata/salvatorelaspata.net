@@ -6,6 +6,7 @@ import LangSwitch from './LangSwitch.astro'
 import MobileNav from './MobileNav.astro'
 import { useT, toLang, href, sectionHref, mainNav, stripLocale } from '../i18n'
 import { profile } from '../data/profile'
+import { getBio } from '../data/bio'
 import type { Alternates } from '../layouts/BaseLayout.astro'
 
 interface Props {
@@ -15,6 +16,7 @@ interface Props {
 const { alternates } = Astro.props
 const lang = toLang(Astro.currentLocale)
 const t = useT(lang)
+const bio = getBio(lang)
 const nav = mainNav(lang)
 const onBlog = stripLocale(Astro.url.pathname).startsWith('/blog')
 ---
@@ -25,7 +27,7 @@ const onBlog = stripLocale(Astro.url.pathname).startsWith('/blog')
       <Logo />
       <span class='flex flex-col leading-tight'>
         <span class='whitespace-nowrap font-semibold'>{profile.fullName}</span>
-        <span class='hidden whitespace-nowrap font-mono text-step--1 text-muted sm:block'>{t.common.tagline}</span>
+        <span class='hidden whitespace-nowrap font-mono text-step--1 text-muted sm:block'>{bio.tagline}</span>
       </span>
     </a>
     <nav aria-label={t.nav.label} class='hidden lg:block'>

@@ -66,11 +66,13 @@ Every page goes through [BaseLayout.astro](src/layouts/BaseLayout.astro): meta, 
 
 - Astro routing: Italian without prefix, English under `/en/`.
 - All UI strings are in [src/i18n/it.ts](src/i18n/it.ts) and [src/i18n/en.ts](src/i18n/en.ts) (same shape, typed by `Dict`). No hard-coded text in components.
+- UI strings are labels, section titles/intros, CTAs and accessibility text for this design. Text about Salvatore (bio, skills, booking formats) is content and goes in `src/data/`, so another site with a different design (salvatorelaspata.dev) can reuse it.
 - Helpers in [src/i18n/index.ts](src/i18n/index.ts): `useT`, `fmt`, `href`/`withBase` (respect `BASE_PATH` for GitHub Pages), `sectionHref`, `mainNav`, `formatDate`.
 
 ### Data
 
 - [src/data/profile.ts](src/data/profile.ts): single source for personal data (header, footer, hero, JSON-LD, vCard, Cal.com links).
+- [src/data/bio.ts](src/data/bio.ts): bio texts in both languages via `getBio(locale)`: tagline, kicker, headline, short/intro/summary bios, motto, about facts, skills, the layered stack and the booking formats (keys match `profile.cal`).
 - Projects: [src/data/projects/](src/data/projects/) `NN_slug.json` + `NN_slug.{it,en}.md`, loaded and validated (Zod) in [src/data/util.ts](src/data/util.ts). Fields: `id`, `slug`, `title`, `subtitle`, `kind`, `featured`, `filters`, `description`, `summary`, `technologies[]`, optional `github`/`demo`/`npm`/`slides`/`img`/`icon`, and `en: { subtitle, summary, description }`. Without `img`, [ProjectCover.astro](src/components/ProjectCover.astro) generates a deterministic SVG cover from the slug hash. Filter counts are computed at build time.
 - Technologies: [src/data/tech/](src/data/tech/) (`sap`, `languages`, `frameworks`, `nonsap`, `inf`, `other`); a title ending in `(learning)` is shown as "in studio". Logos are rendered monochrome at 20px.
 - Experiences: [src/data/experiences/](src/data/experiences/) `*.{it,en}.json`.

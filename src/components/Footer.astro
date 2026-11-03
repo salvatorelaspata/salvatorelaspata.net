@@ -4,6 +4,7 @@ import Logo from './Logo.astro'
 import LangSwitch from './LangSwitch.astro'
 import { useT, toLang, href, sectionHref, mainNav } from '../i18n'
 import { profile, mailto } from '../data/profile'
+import { getBio } from '../data/bio'
 import type { Alternates } from '../layouts/BaseLayout.astro'
 
 interface Props {
@@ -13,6 +14,7 @@ interface Props {
 const { alternates } = Astro.props
 const lang = toLang(Astro.currentLocale)
 const t = useT(lang)
+const bio = getBio(lang)
 const sections = mainNav(lang).filter(item => item.key !== 'blog')
 const year = new Date().getFullYear()
 const linkClass = 'link inline-flex min-h-[44px] items-center no-underline hover:underline'
@@ -25,7 +27,7 @@ const linkClass = 'link inline-flex min-h-[44px] items-center no-underline hover
       <a href={href('/', lang)} class='inline-flex min-h-[44px] items-center gap-3 rounded-sm text-ink no-underline'>
         <Logo /><span class='font-semibold'>{profile.fullName}</span>
       </a>
-      <p class='mt-4 max-w-sm text-muted'>{t.footer.about}</p>
+      <p class='mt-4 max-w-sm text-muted'>{bio.short}</p>
       <a class='btn btn-primary mt-6' href={sectionHref('contact', lang)}>
         <Icon name='calendar' size={18} />{t.common.book}
       </a>

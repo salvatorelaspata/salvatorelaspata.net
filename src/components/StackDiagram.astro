@@ -1,8 +1,10 @@
 ---
 import { useT, fmt } from '../i18n'
 import { profile } from '../data/profile'
+import { getBio } from '../data/bio'
 
 const t = useT(Astro.currentLocale)
+const bio = getBio(Astro.currentLocale)
 // Colori fissi (non seguono il tema): il diagramma è un'illustrazione della palette di brand
 const layerStyles = [
   'background:#5EB2C2;color:#002B39',
@@ -18,7 +20,7 @@ const layerStyles = [
     </div>
     <ol class='grid gap-2'>
       {
-        t.hero.layers.map((layer, i) => (
+        bio.stack.map((layer, i) => (
           <li data-layer class='rounded-sm px-4 py-3.5 sm:px-5' style={layerStyles[i]}>
             <div class='flex items-baseline justify-between gap-3 font-mono text-step--1'>
               <span>
