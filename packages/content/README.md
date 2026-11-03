@@ -23,7 +23,7 @@ Percorsi relativi a `packages/content/src/`.
 2. Controlla in locale con `npm run dev` (.net, porta 4321) e `npm run dev:dev` (.dev, porta 4322).
 3. Lancia `npm run build`, che verifica tipi, schemi e dizionari di entrambi i siti, e `npm test`.
 4. Apri la PR. Se su Cloudflare le build sui branch sono attive, ogni PR ha un URL di anteprima per tutti e due i Worker.
-5. Fai il merge: si aggiornano Cloudflare (.net e .dev), GitHub Pages e l'immagine Docker.
+5. Fai il merge: si aggiornano Cloudflare (.net e .dev), GitHub Pages (.net) e le immagini Docker dei due siti.
 
 ## Un articolo nuovo
 

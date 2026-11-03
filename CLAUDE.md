@@ -37,9 +37,11 @@ Run from the repo root (they delegate to the workspaces), or inside a workspace 
 
 ### Docker
 
-- Build (from the repo root, the context must include `packages/`): `docker build -f apps/net/Dockerfile -t salvatorela/salvatorelaspata.net .`
-- Run: `docker compose -f apps/net/docker-compose.yml up -d`
-- Multi-stage build: Node.js for building, nginx for serving. Exposed port: 4321
+One [Dockerfile](Dockerfile) for both sites, chosen with the `APP` build arg (`net` by default, or `dev`), and one shared [nginx/nginx.conf](nginx/nginx.conf). The context is the repo root (it must include `packages/`).
+
+- Build: `docker build -t salvatorela/salvatorelaspata.net .` and `docker build --build-arg APP=dev -t salvatorela/salvatorelaspata.dev .`
+- Run both: `docker compose up -d` ([docker-compose.yml](docker-compose.yml): .net on port 4321, .dev on 4322)
+- Multi-stage build: Node.js for building, nginx for serving. The container listens on port 4321
 
 ### Cloudflare Workers
 
@@ -54,11 +56,11 @@ Run inside `apps/net` (or with `-w @salvatorelaspata/net`):
 
 The static build of salvatorelaspata.net (`apps/net/dist/`) is deployed to three targets, all kept on purpose:
 
-- **Cloudflare Workers** (production): [apps/net/wrangler.jsonc](apps/net/wrangler.jsonc) serves `dist/` as static assets. The Worker script in [apps/net/worker/index.ts](apps/net/worker/index.ts) only runs for the routes in `assets.run_worker_first` (currently `/api/*`); everything else is served without invoking it. Static asset headers (CSP etc.) live in [apps/net/public/_headers](apps/net/public/_headers). Workers Builds settings: root directory `/`, build command `npm run build:net`, deploy command `npx wrangler deploy -c apps/net/wrangler.jsonc` (`npx wrangler versions upload -c apps/net/wrangler.jsonc` for non-production branches).
+- **Cloudflare Workers** (production): [apps/net/wrangler.jsonc](apps/net/wrangler.jsonc) serves `dist/` as static assets. The Worker script in [apps/net/worker/index.ts](apps/net/worker/index.ts) only runs for the routes in `assets.run_worker_first` (currently `/api/*`); everything else is served without invoking it. Static asset headers (CSP etc.) live in [apps/net/public/_headers](apps/net/public/_headers). Workers Builds settings: root directory `/`, build command `npm run build:net`, deploy command `npx wrangler deploy -c apps/net/wrangler.jsonc`; for non-production branches (previews) the same build command and `npx wrangler preview -c apps/net/wrangler.jsonc`. Without `-c` wrangler looks for a config in the repo root and fails.
 - **GitHub Pages**: [.github/workflows/deploy.yml](.github/workflows/deploy.yml), built with `BASE_PATH=/salvatorelaspata.net`.
-- **Docker/nginx**: [.github/workflows/publish.yml](.github/workflows/publish.yml) pushes the image built from [apps/net/Dockerfile](apps/net/Dockerfile); headers are in [apps/net/nginx/nginx.conf](apps/net/nginx/nginx.conf).
+- **Docker/nginx**: [.github/workflows/publish.yml](.github/workflows/publish.yml) builds the [Dockerfile](Dockerfile) once per site (matrix `net`, `dev`) and pushes `salvatorela/salvatorelaspata.net` and `salvatorela/salvatorelaspata.dev`; headers are in [nginx/nginx.conf](nginx/nginx.conf).
 
-salvatorelaspata.dev is deployed only to Cloudflare Workers, as a second Worker (`salvatorelaspata-dev`, assets only, no script): [apps/dev/wrangler.jsonc](apps/dev/wrangler.jsonc), headers in [apps/dev/public/_headers](apps/dev/public/_headers). Workers Builds settings: root directory `/`, build command `npm run build:dev`, deploy command `npx wrangler deploy -c apps/dev/wrangler.jsonc`, build watch paths `apps/dev/*` and `packages/content/*`. The domain is attached in the dashboard (Custom Domains).
+salvatorelaspata.dev is deployed to Cloudflare Workers and to Docker Hub (same workflow as above), not to GitHub Pages (one Pages site per repository). On Cloudflare it is a second Worker (`salvatorelaspata-dev`, assets only, no script): [apps/dev/wrangler.jsonc](apps/dev/wrangler.jsonc), headers in [apps/dev/public/_headers](apps/dev/public/_headers). Workers Builds settings: root directory `/`, build command `npm run build:dev`, deploy command `npx wrangler deploy -c apps/dev/wrangler.jsonc` (previews: `npx wrangler preview -c apps/dev/wrangler.jsonc`), build watch paths `apps/dev/*` and `packages/content/*`. The domain is attached in the dashboard (Custom Domains).
 
 Keep the Astro builds fully static (no Cloudflare adapter/SSR) so GitHub Pages and nginx keep working. Worker-only features go under `/api/*` in `worker/`, and the frontend must degrade gracefully when those endpoints are missing. The Worker has its own [apps/net/worker/tsconfig.json](apps/net/worker/tsconfig.json); wrangler requires Node >= 22 (see `.node-version`).
 
@@ -136,5 +138,5 @@ All in `packages/content/src/`; every app picks it up on its next build. The mai
 
 ## Technical Notes
 
-- The Cloudflare CSP is in [apps/net/public/_headers](apps/net/public/_headers) and must stay aligned with [apps/net/nginx/nginx.conf](apps/net/nginx/nginx.conf). There are no third-party scripts: Cal.com bookings are plain links.
+- The CSP is identical on both sites and lives in three places that must stay aligned: [apps/net/public/_headers](apps/net/public/_headers) and [apps/dev/public/_headers](apps/dev/public/_headers) (Cloudflare) and [nginx/nginx.conf](nginx/nginx.conf) (Docker). There are no third-party scripts: Cal.com bookings are plain links.
 - The contact QR code is generated at build time and points to the `.vcf` URL. The full vCard text would need a version 17 QR code (85 modules), which is unreadable at 144px.

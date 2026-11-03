@@ -1,4 +1,4 @@
-name: Publish Docker image
+name: Publish Docker images
 
 on:
   push:
@@ -7,7 +7,12 @@ on:
 
 jobs:
   push_to_registry:
+    # Un'immagine per sito, dallo stesso Dockerfile (build-arg APP)
+    name: Push salvatorelaspata.${{ matrix.app }}
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        app: [net, dev]
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
@@ -28,7 +33,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: apps/net/Dockerfile
+          build-args: APP=${{ matrix.app }}
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: salvatorela/salvatorelaspata.net:latest
+          tags: salvatorela/salvatorelaspata.${{ matrix.app }}:latest

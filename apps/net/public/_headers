@@ -1,5 +1,6 @@
 # Header per gli asset statici su Cloudflare (Workers static assets / Pages).
-# Allineati a nginx/nginx.conf. GitHub Pages e nginx non leggono questo file.
+# Allineati a apps/dev/public/_headers e a nginx/nginx.conf (immagini Docker).
+# GitHub Pages e nginx non leggono questo file.
 # Nessuno script di terze parti: le prenotazioni Cal.com sono link diretti.
 /*
   X-Frame-Options: SAMEORIGIN
