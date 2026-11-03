@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://salvatorelaspata.dev/sitemap-index.xml

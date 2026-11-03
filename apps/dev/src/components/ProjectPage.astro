@@ -1,0 +1,111 @@
+---
+// Scheda progetto: `cd ~/projects/<slug> && cat README.md`, con i metadati come package.json.
+// Il canonical punta alla stessa pagina su salvatorelaspata.net.
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { profile } from '@salvatorelaspata/content/profile'
+import type { Project } from '@salvatorelaspata/content/types'
+import { getProjects } from '@salvatorelaspata/content/util'
+import { useT, toLang, href, sectionHref, localePath } from '../i18n'
+
+interface Props {
+  project: Project
+}
+
+const { project } = Astro.props
+const lang = toLang(Astro.currentLocale)
+const t = useT(lang)
+const all = getProjects(lang)
+const index = all.findIndex((p) => p.slug === project.slug)
+const previous = all[index - 1]
+const next = all[index + 1]
+const canonical = new URL(localePath(`/projects/${project.slug}/`, lang), profile.site).toString()
+const { Content } = project
+
+const links = (['github', 'demo', 'npm', 'slides'] as const)
+  .filter((key) => project[key])
+  .map((key) => ({ key, label: t.projects.links[key], url: project[key] as string }))
+---
+
+<BaseLayout
+  title={`${project.title} · ~/dev`}
+  description={project.summary}
+  canonical={canonical}
+  window='projects'
+>
+  <article>
+    <p class='cmdline' aria-hidden='true'>
+      <span class='ps1'><span class='u'>salvatore@dev</span>:<span class='p'>~</span>$ </span><span
+        class='cmd'>cd ~/projects/{project.slug} &amp;&amp; cat README.md</span
+      >
+    </p>
+    <div class='out'>
+      <h1 class='title-md'>{project.title}</h1>
+      <p class='dim'>{project.subtitle}</p>
+      <div class='box frontmatter'>
+        <p aria-hidden='true'>{'{'}</p>
+        <dl class='json'>
+          <div>
+            <dt>kind</dt>
+            <dd>"{t.projects.kinds[project.kind]}"</dd>
+          </div>
+          <div>
+            <dt>tags</dt>
+            <dd>[{project.filters.map((f) => `"${t.projects.filters[f]}"`).join(', ')}]</dd>
+          </div>
+          {
+            project.technologies.length > 0 && (
+              <div>
+                <dt>stack</dt>
+                <dd>[{project.technologies.map((s) => `"${s}"`).join(', ')}]</dd>
+              </div>
+            )
+          }
+          {
+            links.length > 0 && (
+              <div>
+                <dt>links</dt>
+                <dd>{links.map((l, i) => [i > 0 ? ', ' : '', <a href={l.url}>{l.label}</a>])}</dd>
+              </div>
+            )
+          }
+        </dl>
+        <p aria-hidden='true'>{'}'}</p>
+      </div>
+      {
+        Content ? (
+          <div class='md'>
+            <Content />
+          </div>
+        ) : (
+          <p>{project.description}</p>
+        )
+      }
+    </div>
+
+    <nav class='out end' aria-label={t.projects.otherNav}>
+      <ul class='dash-list' role='list'>
+        {
+          previous && (
+            <li>
+              <span class='dim'>{t.projects.previous}:</span>{' '}
+              <a class='path' href={href(`/projects/${previous.slug}/`, lang)}>
+                cd ../{previous.slug}
+              </a>
+            </li>
+          )
+        }
+        {
+          next && (
+            <li>
+              <span class='dim'>{t.projects.next}:</span>{' '}
+              <a class='path' href={href(`/projects/${next.slug}/`, lang)}>
+                cd ../{next.slug}
+              </a>
+            </li>
+          )
+        }
+      </ul>
+      <p><a class='cta' href={sectionHref('projects', lang)}>{t.projects.back}</a></p>
+    </nav>
+  </article>
+</BaseLayout>

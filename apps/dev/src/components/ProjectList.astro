@@ -1,0 +1,30 @@
+---
+// `ls -l ~/projects`: una riga per progetto, il nome è il link alla pagina.
+import type { Project } from '@salvatorelaspata/content/types'
+import { useT, toLang, href } from '../i18n'
+
+interface Props {
+  projects: Project[]
+}
+
+const { projects } = Astro.props
+const lang = toLang(Astro.currentLocale)
+const t = useT(lang)
+---
+
+<ul class='ls-l' role='list'>
+  {
+    projects.map((p) => (
+      <li>
+        <span class='perm dim' aria-hidden='true'>
+          drwxr-xr-x
+        </span>
+        <span class='meta-2'>{t.projects.kinds[p.kind]}</span>
+        <a href={href(`/projects/${p.slug}/`, lang)} class='path'>
+          {p.slug}/
+        </a>
+        <span class='desc'>{p.summary}</span>
+      </li>
+    ))
+  }
+</ul>

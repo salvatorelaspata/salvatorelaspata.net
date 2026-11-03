@@ -1,0 +1,33 @@
+---
+// `ls -lt ~/blog`: data, titolo (link), tempo di lettura e tag.
+import { useT, toLang, fmt, isoDate } from '../i18n'
+import { postHref, readingTime, type Post } from '../lib/blog'
+
+interface Props {
+  posts: Post[]
+}
+
+const { posts } = Astro.props
+const lang = toLang(Astro.currentLocale)
+const t = useT(lang)
+---
+
+<ul class='ls-l' role='list'>
+  {
+    posts.map((post) => (
+      <li>
+        <span class='perm dim' aria-hidden='true'>
+          -rw-r--r--
+        </span>
+        <time class='meta-2' datetime={post.data.pubDate.toISOString()}>
+          {isoDate(post.data.pubDate)}
+        </time>
+        <a href={postHref(post)}>{post.data.title}</a>
+        <span class='desc'>
+          {fmt(t.common.minRead, { n: readingTime(post) })}
+          {post.data.tags.map((tag) => ` #${t.blog.tags[tag]}`).join('')}
+        </span>
+      </li>
+    ))
+  }
+</ul>

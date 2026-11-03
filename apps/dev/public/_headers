@@ -1,0 +1,15 @@
+# Header per gli asset statici su Cloudflare Workers. Nessuno script di terze parti:
+# lo script inline è solo l'anti-FOUC del tema, le prenotazioni Cal.com sono link diretti.
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'
+
+/salvatore-la-spata.vcf
+  Content-Type: text/vcard; charset=utf-8
+  Content-Disposition: attachment; filename="salvatore-la-spata.vcf"
+/en/salvatore-la-spata.vcf
+  Content-Type: text/vcard; charset=utf-8
+  Content-Disposition: attachment; filename="salvatore-la-spata.vcf"

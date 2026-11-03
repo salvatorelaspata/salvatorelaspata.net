@@ -1,0 +1,274 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Section from './Section.astro'
+import ProjectList from './ProjectList.astro'
+import PostList from './PostList.astro'
+import { profile, mailto, calUrl } from '@salvatorelaspata/content/profile'
+import { getBio } from '@salvatorelaspata/content/bio'
+import {
+  getProjects,
+  getTechnologies,
+  getExperiences,
+  TECH_CATEGORIES,
+} from '@salvatorelaspata/content/util'
+import { useT, toLang, fmt, href, withBase, localePath } from '../i18n'
+import { getPosts } from '../lib/blog'
+import { shortHash } from '../lib/hash'
+import { systemInfo } from '../lib/terminal-data'
+
+const lang = toLang(Astro.currentLocale)
+const t = useT(lang)
+const bio = getBio(lang)
+const projects = getProjects(lang)
+const tech = getTechnologies()
+const experiences = getExperiences(lang)
+const posts = await getPosts(lang)
+
+const login = new Date().toLocaleString(lang === 'en' ? 'en-GB' : 'it-IT', {
+  weekday: 'short',
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+  timeZone: 'Europe/Rome',
+})
+
+const system = systemInfo(lang, projects.length, posts.length)
+
+// Logo "SL" a blocchi, come un banner figlet. È un SVG (non testo) perché i caratteri
+// box-drawing non sono nel subset del font e il fallback di sistema li disallinea.
+const bitmap = [
+  '.######.##.....',
+  '##......##.....',
+  '.#####..##.....',
+  '.....##.##.....',
+  '######..#######',
+]
+// Una cella è larga 1 e alta 2, come un carattere monospace; righe orizzontali unite in un solo rect
+const runs = bitmap.flatMap((row, y) =>
+  [...row.matchAll(/#+/g)].map((m) => ({ x: m.index ?? 0, y: y * 2, w: m[0].length }))
+)
+
+const swatches = [
+  'var(--bg-2)',
+  'var(--err)',
+  'var(--accent)',
+  'var(--warn)',
+  'var(--path)',
+  'var(--dim)',
+  'var(--fg)',
+]
+const toolCount = TECH_CATEGORIES.reduce((n, c) => n + tech[c].length, 0)
+---
+
+<BaseLayout window='home'>
+  <p class='dim'>{fmt(t.home.lastLogin, { date: login })}</p>
+
+  <section aria-labelledby='nf-h'>
+    <p class='cmdline' aria-hidden='true'>
+      <span class='ps1'><span class='u'>salvatore@dev</span>:<span class='p'>~</span>$ </span><span
+        class='cmd'>neofetch</span
+      >
+    </p>
+    <div class='out neofetch'>
+      <svg
+        class='logo'
+        viewBox='0 0 15.6 11'
+        width='156'
+        height='110'
+        aria-hidden='true'
+        focusable='false'
+      >
+        {
+          runs.map((r) => (
+            <rect x={r.x + 0.5} y={r.y + 0.8} width={r.w} height='2' fill='var(--line)' />
+          ))
+        }
+        {runs.map((r) => <rect x={r.x} y={r.y} width={r.w} height='2' fill='currentColor' />)}
+      </svg>
+      <div>
+        <h1 id='nf-h'>{profile.fullName}</h1>
+        <p class='rule' aria-hidden='true'>{'-'.repeat(profile.fullName.length)}</p>
+        <dl class='kv'>
+          {
+            system.map(([k, v]) => (
+              <>
+                <dt>{k}</dt>
+                <dd>{v}</dd>
+              </>
+            ))
+          }
+        </dl>
+        <div class='swatches' aria-hidden='true'>
+          {swatches.map((c) => <span style={`background:${c}`} />)}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Section label={t.home.sections.intro} cmd='cat ~/.plan'>
+    <p class='title-md'>
+      {bio.headline.before}<span class='warn'>{bio.headline.code}</span>{bio.headline.after}
+    </p>
+    <p>{bio.intro}</p>
+  </Section>
+
+  <Section id={t.ids.about} label={t.home.sections.about} cmd='cat about.md'>
+    <p class='title-md'>{bio.motto}</p>
+    <p>{bio.summary}</p>
+    <ul class='dash-list' role='list'>
+      {
+        bio.facts.map((fact) => (
+          <li>
+            <strong class='accent'>{fact.title}</strong> — {fact.text}
+            {fact.tags.length > 0 && <span class='dim'> [{fact.tags.join(', ')}]</span>}
+          </li>
+        ))
+      }
+    </ul>
+    <Section label={t.home.sections.skills} cmd='tree ~/skills' level={3}>
+      <ul class='tree' role='list'>
+        <li>
+          <span class='dir'>skills/</span>
+          <ul role='list'>
+            {
+              bio.skills.map((group) => (
+                <li>
+                  <span class='dir'>{group.title.toLowerCase().replace(/\s+/g, '-')}/</span>
+                  <ul role='list'>
+                    {group.items.map((item) => (
+                      <li class='skill'>
+                        <span class='accent'>{item.name}</span>
+                        <span class='dim'>{item.text}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ))
+            }
+          </ul>
+        </li>
+      </ul>
+    </Section>
+  </Section>
+
+  <Section id={t.ids.stack} label={t.home.sections.stack} cmd='cat stack.txt'>
+    <ul class='layers' role='list'>
+      {
+        bio.stack.map((layer) => (
+          <li>
+            <span class='warn'>{layer.id}</span>
+            <strong class='accent'>{layer.name}</strong>
+            <span>
+              {layer.items} <span class='comment'>{layer.note}</span>
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+    <Section label={t.home.sections.tools} cmd='ls ~/.tools/*' level={3}>
+      {
+        TECH_CATEGORIES.filter((c) => tech[c].length > 0).map((category) => (
+          <div>
+            <p class='path'>~/.tools/{t.home.toolCategories[category]}:</p>
+            <ul class='cols' role='list'>
+              {tech[category].map((item) => (
+                <li
+                  class={item.learning ? 'learning' : undefined}
+                >{`${item.title}${item.learning ? '*' : ''}`}</li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+      <p class='dim'>{fmt(t.home.total, { n: toolCount })} · {t.home.toolsLegend}</p>
+    </Section>
+  </Section>
+
+  <Section id={t.ids.projects} label={t.home.sections.projects} cmd='ls -l ~/projects'>
+    <p class='dim'>{fmt(t.home.total, { n: projects.length })}</p>
+    <ProjectList projects={projects} />
+  </Section>
+
+  <Section id={t.ids.experience} label={t.home.sections.experience} cmd='git log --graph career'>
+    <ol class='gitlog' role='list'>
+      {
+        experiences.map((exp, i) => (
+          <li>
+            <details>
+              <summary>
+                <span class='hash'>{shortHash(`${exp.company}${exp.start}`)}</span>
+                {i === 0 && <span class='ref'> (HEAD -&gt; main)</span>}{' '}
+                <strong>{exp.title}</strong> @ {exp.company}{' '}
+                <span class='dim'>
+                  {exp.start} – {exp.end ?? t.home.now}
+                </span>{' '}
+                <span class='toggle' aria-hidden='true'>
+                  <span class='closed'>[+]</span>
+                  <span class='opened'>[-]</span>
+                </span>
+              </summary>
+              <div class='body'>
+                <p>{exp.summary}</p>
+                <ul class='dash-list' role='list'>
+                  {exp.details.map((d) => (
+                    <li>{d}</li>
+                  ))}
+                </ul>
+                <p class='dim'>
+                  {exp.location} ·{' '}
+                  {exp.tags.map((tag) => `#${tag.toLowerCase().replace(/\s+/g, '-')}`).join(' ')}
+                </p>
+              </div>
+            </details>
+          </li>
+        ))
+      }
+    </ol>
+  </Section>
+
+  <Section id={t.ids.blog} label={t.home.sections.blog} cmd='ls -lt ~/blog | head -3'>
+    <PostList posts={posts.slice(0, 3)} />
+    <p>
+      <a class='cta' href={href('/blog/', lang)}>{fmt(t.home.allPosts, { n: posts.length })}</a>
+    </p>
+  </Section>
+
+  <Section id={t.ids.contact} label={t.home.sections.contact} cmd='cat contact.txt'>
+    <p class='title-md'>{t.home.bookTitle}</p>
+    <ol class='dash-list bookings' role='list'>
+      {
+        bio.bookings.map((b, i) => (
+          <li>
+            <p>
+              <span class='warn'>[{i + 1}]</span> <strong class='accent'>{b.title}</strong>{' '}
+              <span class='dim'>
+                · {b.duration} · {b.audience}
+              </span>
+            </p>
+            <p>{b.text}</p>
+            <a class='cta' href={calUrl(b.key as 'coffee' | 'roundtable', lang)}>
+              {t.home.book}: {b.title}
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+    <p class='title-md'>{t.home.channels}</p>
+    <dl class='kv'>
+      <dt>email</dt>
+      <dd><a href={mailto()}>{profile.email}</a></dd>
+      <dt>github</dt>
+      <dd><a href={profile.github}>{profile.github.replace('https://', '')}</a></dd>
+      <dt>linkedin</dt>
+      <dd>
+        <a href={profile.linkedin}
+          >{profile.linkedin.replace('https://www.', '').replace(/\/$/, '')}</a
+        >
+      </dd>
+      <dt>vcard</dt>
+      <dd><a href={withBase(localePath(profile.vcardPath, lang))} download>{t.home.vcard}</a></dd>
+    </dl>
+  </Section>
+</BaseLayout>

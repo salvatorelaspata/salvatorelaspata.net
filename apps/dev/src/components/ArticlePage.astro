@@ -1,0 +1,108 @@
+---
+// Articolo aperto con `less`: frontmatter in testa, Markdown, (FINE) in coda.
+// Il canonical punta allo stesso articolo su salvatorelaspata.net.
+import { render } from 'astro:content'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { profile } from '@salvatorelaspata/content/profile'
+import { getProjects } from '@salvatorelaspata/content/util'
+import { useT, toLang, fmt, href, isoDate, localePath, type Lang } from '../i18n'
+import { getTranslation, readingTime, type Post } from '../lib/blog'
+
+interface Props {
+  post: Post
+}
+
+const { post } = Astro.props
+const lang = toLang(Astro.currentLocale)
+const t = useT(lang)
+const { Content } = await render(post)
+const translation = await getTranslation(post)
+const related = post.data.relatedProject
+  ? getProjects(lang).find((p) => p.slug === post.data.relatedProject)
+  : undefined
+const file = `~/blog/${post.data.urlSlug}.md`
+const path = `/blog/${post.data.urlSlug}/`
+const canonical = new URL(localePath(path, lang), profile.site).toString()
+const other: Lang = lang === 'it' ? 'en' : 'it'
+const alternates = {
+  [lang]: localePath(path, lang),
+  ...(translation ? { [other]: localePath(`/blog/${translation.data.urlSlug}/`, other) } : {}),
+}
+---
+
+<BaseLayout
+  title={`${post.data.title} · ~/dev`}
+  description={post.data.description}
+  type='article'
+  canonical={canonical}
+  alternates={alternates}
+  window='blog'
+>
+  <article>
+    <p class='cmdline' aria-hidden='true'>
+      <span class='ps1'><span class='u'>salvatore@dev</span>:<span class='p'>~</span>$ </span><span
+        class='cmd'>less {file}</span
+      >
+    </p>
+    <header class='out frontmatter'>
+      <p>---</p>
+      <h1>
+        <span aria-hidden='true'><span class='k'>title</span>: </span><span class='accent'
+          >{post.data.title}</span
+        >
+      </h1>
+      <p>
+        <span class='k'>date</span>: <time datetime={post.data.pubDate.toISOString()}
+          >{isoDate(post.data.pubDate)}</time
+        >
+        {
+          post.data.updatedDate && (
+            <>
+              {' '}
+              (<span class='k'>updated</span> {isoDate(post.data.updatedDate)})
+            </>
+          )
+        }
+      </p>
+      <p><span class='k'>read</span>: {fmt(t.common.minRead, { n: readingTime(post) })}</p>
+      <p>
+        <span class='k'>tags</span>: [{post.data.tags.map((tag) => t.blog.tags[tag]).join(', ')}]
+      </p>
+      <p><span class='k'>canonical</span>: <a href={canonical}>{t.blog.original}</a></p>
+      {
+        translation && (
+          <p>
+            <span class='k'>lang</span>:{' '}
+            <a
+              href={href(`/blog/${translation.data.urlSlug}/`, other)}
+              hreflang={other}
+              lang={other}
+            >
+              {t.blog.readOther}
+            </a>
+          </p>
+        )
+      }
+      <p>---</p>
+    </header>
+
+    <div class='md out'>
+      <Content />
+    </div>
+
+    <footer class='out end'>
+      {
+        related && (
+          <p>
+            <span class='dim'>{t.blog.relatedProject}:</span>{' '}
+            <a class='path' href={href(`/projects/${related.slug}/`, lang)}>
+              ~/projects/{related.slug}/
+            </a>
+          </p>
+        )
+      }
+      <p class='dim'>{t.blog.end}</p>
+      <p><a class='cta' href={href('/blog/', lang)}>{t.blog.quit}</a></p>
+    </footer>
+  </article>
+</BaseLayout>

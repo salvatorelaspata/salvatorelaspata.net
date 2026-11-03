@@ -1,0 +1,28 @@
+---
+// Una sezione è un comando digitato e il suo output. Il titolo letto dagli screen reader
+// è l'etichetta della sezione seguita dal comando; il prompt è solo decorativo.
+interface Props {
+  id?: string
+  /** Nome della sezione per le tecnologie assistive. */
+  label: string
+  cmd: string
+  level?: 1 | 2 | 3
+}
+
+const { id, label, cmd, level = 2 } = Astro.props
+const Tag = `h${level}` as 'h1' | 'h2' | 'h3'
+const headingId = `${id ?? cmd.replace(/[^\w]+/g, '-')}-h`
+---
+
+<section id={id} aria-labelledby={headingId}>
+  <Tag id={headingId} class='cmdline'>
+    <span class='sr-only'>{label}: </span>
+    <span class='ps1' aria-hidden='true'
+      ><span class='u'>salvatore@dev</span>:<span class='p'>~</span>$
+    </span>
+    <span class='cmd'>{cmd}</span>
+  </Tag>
+  <div class='out'>
+    <slot />
+  </div>
+</section>

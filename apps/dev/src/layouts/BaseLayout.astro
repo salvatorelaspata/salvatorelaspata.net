@@ -1,0 +1,137 @@
+---
+import '../styles/global.css'
+import monoLatin from '@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2?url'
+
+import StatusBar, { type Window } from '../components/StatusBar.astro'
+import Terminal from '../components/Terminal.astro'
+import { profile } from '@salvatorelaspata/content/profile'
+import { useT, toLang, stripLocale, localePath, withBase, shellPath, type Lang } from '../i18n'
+
+export type Alternates = Partial<Record<Lang, string>>
+
+interface Props {
+  title?: string
+  description?: string
+  type?: 'website' | 'article'
+  /** Percorsi (senza base) della pagina nelle due lingue. Default: stesso percorso con/senza /en. */
+  alternates?: Alternates
+  /** URL canonico assoluto: progetti e articoli puntano a salvatorelaspata.net. */
+  canonical?: string
+  noindex?: boolean
+  /** Finestra evidenziata nella barra di stato. */
+  window?: Window
+}
+
+const lang = toLang(Astro.currentLocale)
+const t = useT(lang)
+const site = Astro.site ?? new URL('https://salvatorelaspata.dev')
+
+const {
+  title = t.meta.title,
+  description = t.meta.description,
+  type = 'website',
+  noindex = false,
+  window,
+} = Astro.props
+
+const neutralPath = stripLocale(Astro.url.pathname)
+const alternates: Alternates = Astro.props.alternates ?? {
+  it: localePath(neutralPath, 'it'),
+  en: localePath(neutralPath, 'en'),
+}
+const abs = (path: string) => new URL(withBase(path), site).toString()
+const canonical = Astro.props.canonical ?? new URL(Astro.url.pathname, site).toString()
+const ogImageUrl = abs('/sticker.webp')
+const where = shellPath(Astro.url.pathname)
+const year = new Date().getFullYear()
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset='utf-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1, viewport-fit=cover' />
+    <title>{title}</title>
+    <meta name='description' content={description} />
+    <meta name='author' content={profile.fullName} />
+    {
+      noindex ? (
+        <meta name='robots' content='noindex' />
+      ) : (
+        <meta name='robots' content='index, follow' />
+      )
+    }
+    <link rel='canonical' href={canonical} />
+    {
+      (Object.entries(alternates) as [Lang, string][]).map(([l, path]) => (
+        <link rel='alternate' hreflang={l} href={abs(path)} />
+      ))
+    }
+    {alternates.it && <link rel='alternate' hreflang='x-default' href={abs(alternates.it)} />}
+
+    <meta property='og:type' content={type} />
+    <meta property='og:url' content={canonical} />
+    <meta property='og:title' content={title} />
+    <meta property='og:description' content={description} />
+    <meta property='og:image' content={ogImageUrl} />
+    <meta property='og:locale' content={t.meta.locale} />
+    <meta name='twitter:card' content='summary' />
+
+    <meta name='theme-color' content='#0b0f0c' />
+    <link rel='icon' type='image/svg+xml' href={withBase('/favicon.svg')} />
+    <link rel='sitemap' href={withBase('/sitemap-index.xml')} />
+
+    <!-- Font self-hosted: solo il subset latin; i caratteri box-drawing arrivano dal monospace di sistema -->
+    <link rel='preload' href={monoLatin} as='font' type='font/woff2' crossorigin />
+    <style
+      is:inline
+      set:html={`
+@font-face{font-family:'JetBrains Mono Variable';font-style:normal;font-display:swap;font-weight:100 800;src:url(${monoLatin}) format('woff2-variations');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}`}
+    ></style>
+
+    <!-- Anti-FOUC: applica il tema scelto con il comando `theme` prima del primo paint -->
+    <script is:inline>
+      ;(() => {
+        try {
+          const t = localStorage.getItem('term-theme')
+          if (t === 'amber' || t === 'mono') document.documentElement.dataset.theme = t
+        } catch {
+          // storage non disponibile: resta il tema predefinito
+        }
+      })()
+    </script>
+
+    <meta name='generator' content={Astro.generator} />
+  </head>
+  <body>
+    <a class='skip-link' href='#main'>{t.common.skip}</a>
+    <div class='titlebar' aria-hidden='true'>
+      <span class='dots'><span></span><span></span><span></span></span>
+      <span class='where'>{profile.firstName.toLowerCase()}@dev: {where} — zsh</span>
+    </div>
+    <div class='screen'>
+      <main id='main' tabindex='-1'>
+        <slot />
+      </main>
+      <Terminal />
+      <footer class='site-footer'>
+        <p class='comment'>salvatorelaspata.dev · © {year} {profile.fullName}</p>
+        <ul role='list'>
+          <li><a href={profile.site}>{t.footer.classic}: salvatorelaspata.net</a></li>
+          <li><a href={profile.sourceRepo}>{t.footer.source}</a></li>
+          <li>
+            <a href={new URL(localePath('/rss.xml', lang), profile.site).toString()}
+              >{t.footer.rss}</a
+            >
+          </li>
+          <li>
+            <a href={new URL(localePath('/privacy/n8n', lang), profile.site).toString()}
+              >{t.footer.privacy}</a
+            >
+          </li>
+        </ul>
+      </footer>
+    </div>
+    <StatusBar alternates={alternates} current={window} />
+  </body>
+</html>

@@ -1,0 +1,27 @@
+{
+  "name": "@salvatorelaspata/dev",
+  "private": true,
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev --port 4322",
+    "dev:host": "astro dev --port 4322 --host",
+    "build": "astro check && astro build",
+    "preview": "astro preview --port 4322",
+    "astro": "astro",
+    "cf:dev": "astro build && wrangler dev",
+    "cf:deploy": "npm run build && wrangler deploy",
+    "check:contrast": "node scripts/contrast-check.mjs"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.6",
+    "@astrojs/sitemap": "^3.6.0",
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "@salvatorelaspata/content": "*",
+    "astro": "^5.16.6",
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "wrangler": "^4.156.1"
+  }
+}

@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Section from './Section.astro'
+import PostList from './PostList.astro'
+import { useT, toLang, fmt } from '../i18n'
+import { getPosts } from '../lib/blog'
+
+const lang = toLang(Astro.currentLocale)
+const t = useT(lang)
+const posts = await getPosts(lang)
+---
+
+<BaseLayout title={`${t.blog.title} · ~/dev`} description={t.blog.lead} window='blog'>
+  <Section label={t.blog.title} cmd='ls -lt ~/blog' level={1}>
+    <p class='comment'>{t.blog.lead}</p>
+    <p class='dim'>{fmt(t.home.total, { n: posts.length })}</p>
+    <PostList posts={posts} />
+  </Section>
+</BaseLayout>

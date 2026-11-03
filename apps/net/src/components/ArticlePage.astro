@@ -1,0 +1,126 @@
+---
+// Pagina articolo, condivisa da /blog/[slug] e /en/blog/[slug].
+import { render } from 'astro:content'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Breadcrumb from './Breadcrumb.astro'
+import Toc from './Toc.astro'
+import BlogCard from './BlogCard.astro'
+import CodeCopy from './CodeCopy.astro'
+import Logo from './Logo.astro'
+import Icon from './Icon.astro'
+import { useT, toLang, fmt, href, sectionHref, formatDate, localePath, type Lang } from '../i18n'
+import { profile } from '@salvatorelaspata/content/profile'
+import { getPosts, getRelatedPosts, getTranslation, readingTime, type Post } from '../lib/blog'
+import type { Alternates } from '../layouts/BaseLayout.astro'
+
+interface Props {
+  post: Post
+}
+
+const { post } = Astro.props
+const lang = toLang(Astro.currentLocale)
+const t = useT(lang)
+const { Content, headings } = await render(post)
+const { title, description, pubDate, updatedDate, tags } = post.data
+
+const translation = await getTranslation(post)
+const otherLang: Lang = lang === 'it' ? 'en' : 'it'
+const alternates: Alternates = { [lang]: localePath(`/blog/${post.data.urlSlug}`, lang) }
+if (translation) alternates[otherLang] = localePath(`/blog/${translation.data.urlSlug}`, otherLang)
+
+const related = getRelatedPosts(post, await getPosts(lang))
+const toc = headings.filter(h => h.depth === 2)
+
+const articleJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  datePublished: pubDate.toISOString(),
+  ...(updatedDate && { dateModified: updatedDate.toISOString() }),
+  inLanguage: lang,
+  author: { '@type': 'Person', name: profile.fullName, url: profile.site },
+}
+---
+
+<BaseLayout title={`${title} · Salvatore La Spata`} description={description} type='article' alternates={alternates} jsonLd={articleJsonLd}>
+  <div
+    class='fixed inset-x-0 z-[51] h-[3px] origin-left bg-link'
+    style='top:calc(env(safe-area-inset-top,0px) + var(--header-h));transform:scaleX(0)'
+    data-reading-progress
+    aria-hidden='true'
+  >
+  </div>
+  <article data-article>
+    <header class='container-site pb-10 pt-6'>
+      <Breadcrumb
+        items={[
+          { label: t.common.home, href: href('/', lang) },
+          { label: t.nav.blog, href: href('/blog/', lang) },
+          { label: title },
+        ]}
+      />
+      <div class='mt-8 max-w-[52rem]'>
+        <ul class='flex flex-wrap gap-2' aria-label={t.common.topics}>
+          {tags.map(tag => <li class='tag tag-accent'>{t.blog.tags[tag]}</li>)}
+        </ul>
+        <h1 class='t-h1 mt-4'>{title}</h1>
+        <p class='t-lead mt-5'>{description}</p>
+        <p class='mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-step--1 text-muted'>
+          <span class='inline-flex items-center gap-2 text-ink'><Logo size='sm' />{profile.fullName}</span>
+          <span aria-hidden='true'>·</span>
+          <time datetime={pubDate.toISOString().slice(0, 10)}>{formatDate(pubDate, lang)}</time>
+          <span aria-hidden='true'>·</span>
+          <span>{fmt(t.blogPage.minRead, { n: readingTime(post) })}</span>
+          {
+            translation && (
+              <>
+                <span aria-hidden='true'>·</span>
+                <a class='link' href={href(`/blog/${translation.data.urlSlug}`, otherLang)} lang={otherLang} hreflang={otherLang}>
+                  {t.article.readOther}
+                </a>
+              </>
+            )
+          }
+        </p>
+      </div>
+    </header>
+
+    <div class='container-site grid gap-12 border-t border-line-subtle pt-10 lg:grid-cols-12'>
+      <Toc headings={toc} />
+      <div class='prose-site min-w-0 lg:col-span-8'>
+        <Content />
+      </div>
+    </div>
+
+    <footer class='container-site mt-16'>
+      <div class='grid gap-6 rounded-lg border-2 border-line bg-surface p-6 shadow-brut sm:grid-cols-[auto_1fr] sm:items-center sm:p-8'>
+        <span class='relative grid h-16 w-16 shrink-0 place-items-center overflow-hidden rounded-sm border-2 border-line bg-surface font-mono text-[0.8125rem] font-semibold shadow-brut-sm' aria-hidden='true'>
+          {profile.initials}
+          <span class='palette-stripe absolute inset-x-0 bottom-0 !h-[4px]'><span></span><span></span><span></span><span></span><span></span></span>
+        </span>
+        <div>
+          <p class='font-semibold'>{fmt(t.article.writtenBy, { name: profile.fullName })}</p>
+          <p class='mt-1 text-muted'>{t.article.authorText}</p>
+          <a class='btn btn-primary mt-4' href={sectionHref('contact', lang)}><Icon name='calendar' size={18} />{t.common.book}</a>
+        </div>
+      </div>
+    </footer>
+  </article>
+
+  {
+    related.length > 0 && (
+      <section class='container-site mt-16' aria-labelledby='rel-posts'>
+        <h2 id='rel-posts' class='t-h3'>
+          {t.article.keepReading}
+        </h2>
+        <ul class='mt-6 grid gap-6 md:grid-cols-3'>
+          {related.map(p => (
+            <BlogCard post={p} />
+          ))}
+        </ul>
+      </section>
+    )
+  }
+  <CodeCopy />
+</BaseLayout>
