@@ -1,0 +1,67 @@
+---
+// Motion del sito (GSAP + ScrollTrigger). Tutto dentro gsap.matchMedia: con
+// prefers-reduced-motion: reduce non viene creato nessun tween, e se l'utente cambia
+// preferenza a pagina aperta GSAP riporta gli elementi allo stato finale.
+// Nessun elemento parte nascosto nel markup: senza JS il contenuto è completo.
+---
+
+<script>
+  import { gsap } from 'gsap'
+  import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+  gsap.registerPlugin(ScrollTrigger)
+  const mm = gsap.matchMedia()
+
+  mm.add('(prefers-reduced-motion: no-preference)', () => {
+    const ease = 'power3.out'
+
+    // 1) Hero: l'unico momento orchestrato. Testo in entrata, poi lo stack si
+    //    costruisce dal basso (on-premise → cloud → side project).
+    //    Il titolo (LCP) si muove ma non parte mai trasparente.
+    const hero = document.querySelector('[data-hero]')
+    if (hero) {
+      const tl = gsap.timeline({ defaults: { ease, duration: 0.6 } })
+      tl.from(hero.querySelector('[data-hero-title]'), { y: 14 }, 0)
+        .from(hero.querySelectorAll('[data-hero-text]'), { y: 18, autoAlpha: 0, stagger: 0.08 }, 0)
+        .from(hero.querySelectorAll('[data-layer]'), { y: 24, autoAlpha: 0, stagger: { each: 0.12, from: 'end' }, duration: 0.5 }, '-=0.3')
+        .from(hero.querySelectorAll('[data-stat]'), { y: 10, autoAlpha: 0, stagger: 0.05, duration: 0.4 }, '-=0.2')
+    }
+
+    // 2) Reveal di sezione: piccolo, una volta sola
+    gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach(el => {
+      gsap.from(el, { y: 20, autoAlpha: 0, duration: 0.55, ease, scrollTrigger: { trigger: el, start: 'top 88%', once: true } })
+    })
+
+    // 3) Gruppi (card, righe): stagger breve
+    gsap.utils.toArray<HTMLElement>('[data-reveal-group]').forEach(group => {
+      gsap.from(group.children, {
+        y: 16,
+        autoAlpha: 0,
+        duration: 0.45,
+        ease,
+        stagger: 0.06,
+        scrollTrigger: { trigger: group, start: 'top 85%', once: true },
+      })
+    })
+
+    // 4) Timeline: la linea si disegna seguendo lo scroll
+    const prog = document.querySelector('.timeline-progress')
+    if (prog) {
+      gsap.fromTo(
+        prog,
+        { scaleY: 0 },
+        { scaleY: 1, ease: 'none', scrollTrigger: { trigger: '.timeline', start: 'top 70%', end: 'bottom 60%', scrub: 0.4 } },
+      )
+    }
+
+    // 5) Barra di lettura dell'articolo
+    const bar = document.querySelector('[data-reading-progress]')
+    if (bar) {
+      gsap.fromTo(
+        bar,
+        { scaleX: 0 },
+        { scaleX: 1, ease: 'none', scrollTrigger: { trigger: '[data-article]', start: 'top top', end: 'bottom bottom', scrub: true } },
+      )
+    }
+  })
+</script>

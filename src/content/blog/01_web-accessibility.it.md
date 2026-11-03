@@ -2,10 +2,13 @@
 title: "Applicazioni web accessibili per ipovedenti e non vedenti"
 description: "Come applicare WCAG, ARIA e best practice per rendere le interfacce fruibili con screen reader e tecnologie assistive"
 pubDate: 2026-05-27
-tags: ["accessibility", "wcag", "aria", "web", "screen reader"]
+tags: ["Accessibilità", "Frontend"]
 draft: false
 lang: it
+translationKey: web-accessibility
 urlSlug: web-accessibility-wcag
+cover:
+  icon: access
 ---
 
 L'accessibilità web non è un optional: è un requisito etico e, in molti contesti, legale. Realizzare interfacce utilizzabili da persone ipovedenti o non vedenti significa garantire che ogni funzionalità sia raggiungibile e comprensibile attraverso screen reader e tecnologie assistive.

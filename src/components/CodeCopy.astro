@@ -1,0 +1,27 @@
+---
+// Pulsanti "Copia" dei blocchi di codice generati da rehypeCodeBlocks (src/lib/markdown.mjs).
+// Senza JS il pulsante non fa nulla ma il codice resta selezionabile.
+---
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      // data-copy vuoto: copia il <pre> dello stesso .code-block
+      const target = btn.dataset.copy ?? ''
+      const source = target
+        ? document.querySelector<HTMLElement>(target)?.innerText
+        : btn.closest('.code-block')?.querySelector('pre')?.innerText
+      const label = btn.querySelector<HTMLElement>('[data-copy-label]')
+      const original = label?.textContent
+      try {
+        await navigator.clipboard.writeText(source ?? '')
+        if (label) label.textContent = btn.dataset.copied ?? 'OK'
+      } catch {
+        if (label) label.textContent = document.documentElement.lang === 'en' ? 'Select and copy' : 'Seleziona e copia'
+      }
+      setTimeout(() => {
+        if (label) label.textContent = original ?? ''
+      }, 1800)
+    })
+  })
+</script>

@@ -3,8 +3,21 @@
   "slug": "node-js-mastering",
   "title": "Node js Mastering",
   "subtitle": "Learning",
-  "img": "logo-learn.svg",
+  "kind": "learning",
+  "featured": false,
+  "filters": [
+    "learning"
+  ],
   "description": "Dal talk al codice...",
-  "tecnologie": "Javascript",
-  "github": "https://github.com/salvatorelaspata/nodejs-mastering"
+  "summary": "Dal talk al codice.",
+  "technologies": [
+    "JavaScript",
+    "Node.js"
+  ],
+  "github": "https://github.com/salvatorelaspata/nodejs-mastering",
+  "en": {
+    "subtitle": "Learning",
+    "summary": "From the talk to the code.",
+    "description": "From the talk to the code…"
+  }
 }

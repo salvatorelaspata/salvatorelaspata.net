@@ -3,8 +3,21 @@
   "slug": "edx-nodejs",
   "title": "Edx Node js",
   "subtitle": "Learning",
-  "img": "logo-learn.svg",
+  "kind": "learning",
+  "featured": false,
+  "filters": [
+    "learning"
+  ],
   "description": "Un corso seguito per approfondire concetti node js.",
-  "tecnologie": "Javascript",
-  "github": "https://github.com/salvatorelaspata/edx-nodejs"
+  "summary": "Il corso Node.js di edX, esercizi inclusi.",
+  "technologies": [
+    "JavaScript",
+    "Node.js"
+  ],
+  "github": "https://github.com/salvatorelaspata/edx-nodejs",
+  "en": {
+    "subtitle": "Learning",
+    "summary": "The edX Node.js course, exercises included.",
+    "description": "A course I took to dig deeper into Node.js concepts."
+  }
 }

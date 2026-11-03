@@ -3,8 +3,21 @@
   "slug": "langchain-and-stregatto",
   "title": "Lang Chain & Stregatto",
   "subtitle": "Learning",
-  "img": "logo-learn.svg",
+  "kind": "learning",
+  "featured": false,
+  "filters": [
+    "learning"
+  ],
   "description": "Tramite una Open API key ho studiato un pò questa tecnologia producendo documentazione ed esempi. Lo stregatto è un progetto opensource che mi è piaciuto seguire grazie alle conoscenze/competenze di Piero Savastano",
-  "tecnologie": "Javascript & Python",
-  "github": "https://github.com/salvatorelaspata/langchain-learn"
+  "summary": "Esplorazione di LangChain con le API di OpenAI.",
+  "technologies": [
+    "JavaScript",
+    "Python"
+  ],
+  "github": "https://github.com/salvatorelaspata/langchain-learn",
+  "en": {
+    "subtitle": "Learning",
+    "summary": "Exploring LangChain with the OpenAI API.",
+    "description": "With an OpenAI API key I studied this technology a bit, producing documentation and examples. Stregatto is an open-source project I enjoyed following thanks to the knowledge and skills of Piero Savastano."
+  }
 }

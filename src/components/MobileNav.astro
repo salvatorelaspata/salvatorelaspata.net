@@ -1,0 +1,70 @@
+---
+import Icon from './Icon.astro'
+import LangSwitch from './LangSwitch.astro'
+import { useT, toLang, mainNav, sectionHref } from '../i18n'
+import type { Alternates } from '../layouts/BaseLayout.astro'
+
+interface Props {
+  alternates: Alternates
+}
+
+const { alternates } = Astro.props
+const lang = toLang(Astro.currentLocale)
+const t = useT(lang)
+const nav = mainNav(lang)
+---
+
+<div id='mobile-menu' class='border-t border-line bg-bg lg:hidden' hidden>
+  <nav aria-label={t.nav.labelMobile} class='container-site pb-6 pt-2'>
+    <ul>
+      {
+        nav.map(item => (
+          <li>
+            <a
+              class='flex min-h-[52px] items-center justify-between border-b border-line-subtle text-step-1 font-semibold no-underline'
+              href={item.href}
+            >
+              {item.label}
+              <Icon name='arrow-right' size={18} class='text-muted' />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <div class='mt-6 flex flex-wrap items-center justify-between gap-4'>
+      <LangSwitch alternates={alternates} />
+      <a class='btn btn-primary btn-lg grow' href={sectionHref('contact', lang)}>
+        <Icon name='calendar' size={18} />{t.common.book}
+      </a>
+    </div>
+  </nav>
+</div>
+
+<script>
+  const menuBtn = document.querySelector<HTMLButtonElement>('[data-menu-toggle]')
+  const menu = menuBtn && document.getElementById(menuBtn.getAttribute('aria-controls') ?? '')
+  if (menuBtn && menu) {
+    const isOpen = () => menuBtn.getAttribute('aria-expanded') === 'true'
+    const setOpen = (open: boolean) => {
+      menuBtn.setAttribute('aria-expanded', String(open))
+      menuBtn.setAttribute('aria-label', (open ? menuBtn.dataset.labelClose : menuBtn.dataset.labelOpen) ?? '')
+      menu.hidden = !open
+      menuBtn.querySelector<HTMLElement>('[data-icon-open]')!.hidden = open
+      menuBtn.querySelector<HTMLElement>('[data-icon-close]')!.hidden = !open
+      if (open) menu.querySelector<HTMLElement>('a, button')?.focus()
+    }
+    menuBtn.addEventListener('click', () => setOpen(!isOpen()))
+    menu.addEventListener('click', e => {
+      if ((e.target as Element).closest('a')) setOpen(false)
+    })
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && isOpen()) {
+        setOpen(false)
+        menuBtn.focus()
+      }
+    })
+    matchMedia('(min-width: 1024px)').addEventListener('change', e => {
+      if (e.matches) setOpen(false)
+    })
+  }
+</script>

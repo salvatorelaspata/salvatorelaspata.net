@@ -1,25 +1,38 @@
-:root {
-    --palette1: #002B39;
-    --palette2: #004A58;
-    --palette3: #006B7A;
-    --palette4: #358E9D;
-    --palette5: #5EB2C2;
-    --bg: #F5F5F0;
-    --text: #1A1A1A;
-    --link: #006B7A;
-    --border: #1A1A1A;
-    --shadow: #1A1A1A;
+/* Ordine voluto: base di Tailwind → token e primitive → components → utilities.
+   Così le utility vincono sulle primitive di tokens.css.
+   Equivale a `@tailwind base; @import "./tokens.css"; …`, ma con @import ovunque
+   perché postcss-import accetta @import solo in testa al file. */
+@import 'tailwindcss/base';
+@import './tokens.css';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Transizioni tra pagine native del browser (nessun JS), solo se il motion è consentito */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
 }
 
-.dark {
-    --palette1: #5EB2C2;
-    --palette2: #358E9D;
-    --palette3: #006B7A;
-    --palette4: #004A58;
-    --palette5: #002B39;
-    --bg: #1A1A1A;
-    --text: #E0E0E0;
-    --link: #5EB2C2;
-    --border: #E0E0E0;
-    --shadow: #E0E0E0;
+@layer components {
+  /* Tabelle Markdown: contenitore scrollabile e focalizzabile (rehypeTables) */
+  .table-scroll {
+    overflow-x: auto;
+    border-radius: var(--radius-sm);
+  }
+  .callout > svg {
+    margin-top: 0.2em;
+  }
+  .callout-body > * + * {
+    margin-top: 0.75em;
+  }
+  /* Sul chip attivo il conteggio resta a piena opacità: allo 0.75 di tokens.css
+     scende sotto 4.5:1 in tema scuro (testo #002B39 su #5EB2C2) */
+  .chip[aria-pressed='true'] .chip-count {
+    opacity: 1;
+  }
+  .code-block pre:focus-visible,
+  .table-scroll:focus-visible {
+    outline-offset: -3px;
+  }
 }

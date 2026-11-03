@@ -3,7 +3,23 @@
   "slug": "sap-docker-labs",
   "title": "SAP Docker Labs",
   "subtitle": "Progetti loschi 🐳",
-  "img": "logo-code.svg",
+  "kind": "docker",
+  "featured": true,
+  "filters": [
+    "sap"
+  ],
   "description": "Collezione di esperimenti Docker per automatizzare setup SAP che normalmente richiedono ore di sofferenza: NetWeaver ABAP Developer Edition, SAP WebIDE e Cloud Connector containerizzati per ambienti di sviluppo locali.",
-  "technologies": "Docker, SAP NetWeaver ABAP, SAP WebIDE, SAP Cloud Connector, Linux"
+  "summary": "Esperimenti Docker per automatizzare il setup di sistemi SAP in locale.",
+  "technologies": [
+    "Docker",
+    "SAP NetWeaver ABAP",
+    "SAP WebIDE",
+    "SAP Cloud Connector",
+    "Linux"
+  ],
+  "en": {
+    "subtitle": "Shady projects 🐳",
+    "summary": "Docker experiments to automate the local setup of SAP systems.",
+    "description": "A collection of Docker experiments to automate SAP setups that normally take hours of suffering: NetWeaver ABAP Developer Edition, SAP WebIDE and Cloud Connector containerised for local development environments."
+  }
 }

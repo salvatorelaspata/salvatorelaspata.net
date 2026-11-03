@@ -1,0 +1,32 @@
+---
+// Effetto "spark" al click: solo con puntatore preciso e motion consentito. Nessun markup.
+---
+
+<script>
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)')
+  const fine = matchMedia('(pointer: fine)')
+  document.addEventListener('pointerdown', e => {
+    if (reduce.matches || !fine.matches || e.button !== 0) return
+    const s = document.createElement('div')
+    s.className = 'spark'
+    s.setAttribute('aria-hidden', 'true')
+    s.style.left = `${e.clientX}px`
+    s.style.top = `${e.clientY}px`
+    const n = 8
+    for (let i = 0; i < n; i++) {
+      const p = document.createElement('i')
+      const a = (360 / n) * i
+      p.style.transform = `rotate(${a}deg) translateY(4px)`
+      p.animate(
+        [
+          { transform: `rotate(${a}deg) translateY(4px) scaleY(1)`, opacity: 1 },
+          { transform: `rotate(${a}deg) translateY(18px) scaleY(0.2)`, opacity: 0 },
+        ],
+        { duration: 380, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'forwards' },
+      )
+      s.appendChild(p)
+    }
+    document.body.appendChild(s)
+    setTimeout(() => s.remove(), 420)
+  })
+</script>

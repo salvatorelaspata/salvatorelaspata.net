@@ -3,8 +3,22 @@
   "slug": "agenzia-viaggi",
   "title": "Agenzia Viaggi",
   "subtitle": "Project",
-  "img": "logo-code.svg",
+  "kind": "project",
+  "featured": false,
+  "filters": [
+    "altro"
+  ],
   "description": "Reingegnerizzazione del processo di gestione preventivi con una semplice anagrafica cliente. Da excel a web app.",
-  "tecnologie": "Next js, TS, Supabase",
-  "github": "https://github.com/salvatorelaspata/agenzia-viaggi--contratti"
+  "summary": "Da un preventivo su Excel a una web app con anagrafica clienti.",
+  "technologies": [
+    "Next.js",
+    "TypeScript",
+    "Supabase"
+  ],
+  "github": "https://github.com/salvatorelaspata/agenzia-viaggi--contratti",
+  "en": {
+    "subtitle": "Project",
+    "summary": "From an Excel quote to a web app with a customer registry.",
+    "description": "Re-engineering the quote management process with a simple customer registry. From Excel to a web app."
+  }
 }

@@ -1,11 +1,24 @@
 {
   "id": 13,
   "slug": "config-reality-project",
-  "title": "Config Realiy",
+  "title": "Config Reality",
   "subtitle": "Project",
-  "img": "logo-code.svg",
+  "kind": "project",
+  "featured": true,
+  "filters": [
+    "3d"
+  ],
   "description": "L'idea iniziale era di creare un configuratore di teste di moro (essendo di Caltagirone, città della ceramica) in 2D sovrapponendo le foto con i vari componenti.. poi ho conosciuto il magico mondo di Three js… ",
-  "tecnologie": "React JS, Three JS",
+  "summary": "Prima idea di un configuratore 3D, con demo pubblica.",
+  "technologies": [
+    "React",
+    "Three.js"
+  ],
+  "github": "https://github.com/salvatorelaspata/config-3d",
   "demo": "https://loquacious-palmier-d09bd4.netlify.app/",
-  "github": "https://github.com/salvatorelaspata/config-3d"
+  "en": {
+    "subtitle": "Project",
+    "summary": "The first idea of a 3D configurator, with a public demo.",
+    "description": "The original idea was a 2D configurator for teste di moro (I'm from Caltagirone, the city of ceramics), layering photos of the various parts… then I discovered the magical world of Three.js…"
+  }
 }

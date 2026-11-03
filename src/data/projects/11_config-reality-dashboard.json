@@ -1,10 +1,24 @@
 {
   "id": 11,
   "slug": "config-reality-dashboard",
-  "title": "Config Realiy Dashboard Web",
+  "title": "Config Reality Dashboard",
   "subtitle": "Project",
-  "img": "logo-code.svg",
+  "kind": "project",
+  "featured": false,
+  "filters": [
+    "3d"
+  ],
   "description": "From images to 3d models.",
-  "tecnologie": "Next JS, Tailwind CSS, Supabase",
-  "github": "https://github.com/ConfigReality/dashboard-web"
+  "summary": "Dashboard web per il processo immagine → 3D.",
+  "technologies": [
+    "Next.js",
+    "Tailwind CSS",
+    "Supabase"
+  ],
+  "github": "https://github.com/ConfigReality/dashboard-web",
+  "en": {
+    "subtitle": "Project",
+    "summary": "Web dashboard for the image → 3D process.",
+    "description": "From images to 3D models."
+  }
 }

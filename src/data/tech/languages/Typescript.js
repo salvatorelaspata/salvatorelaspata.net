@@ -1,6 +1,6 @@
 export default {
   id: 4,
-  title: "Typescript",
+  title: "TypeScript",
   link: "https://www.typescriptlang.org/",
   subtitle: "Typed JavaScript at Any Scale.",
   description:

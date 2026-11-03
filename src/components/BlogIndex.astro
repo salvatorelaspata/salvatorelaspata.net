@@ -1,0 +1,91 @@
+---
+// Indice del blog, condiviso da /blog/ e /en/blog/.
+import BaseLayout from '../layouts/BaseLayout.astro'
+import BlogCard from './BlogCard.astro'
+import Filter from './Filter.astro'
+import ProjectCover from './ProjectCover.astro'
+import { useT, toLang, fmt, formatDate } from '../i18n'
+import { BLOG_TAGS } from '../data/blogTags'
+import { getPosts, postHref, readingTime, tagSlug } from '../lib/blog'
+
+const lang = toLang(Astro.currentLocale)
+const t = useT(lang)
+const posts = await getPosts(lang)
+const [latest, ...rest] = posts
+
+const filterOptions = [
+  { value: 'all', label: t.blogPage.all },
+  ...BLOG_TAGS.filter(tag => rest.some(p => p.data.tags.includes(tag))).map(tag => ({
+    value: tagSlug(tag),
+    label: t.blog.tags[tag],
+  })),
+]
+---
+
+<BaseLayout title={t.blogPage.metaTitle} description={t.blogPage.lead}>
+  <header class='container-site pb-10 pt-12 lg:pt-16'>
+    <p class='eyebrow'>blog</p>
+    <h1 class='t-h1 mt-3'>{t.blogPage.title}</h1>
+    <p class='t-lead mt-4 max-w-2xl'>{t.blogPage.lead}</p>
+  </header>
+
+  {
+    latest && (
+      <section class='container-site' aria-labelledby='latest'>
+        <h2 id='latest' class='sr-only'>
+          {t.blogPage.latest}
+        </h2>
+        <article class='card-interactive grid overflow-hidden md:grid-cols-2'>
+          <ProjectCover
+            slug={latest.data.translationKey}
+            icon={latest.data.cover?.icon ?? 'code'}
+            class='aspect-[16/9] border-b-2 border-line md:aspect-auto md:border-b-0 md:border-r-2'
+          />
+          <div class='flex flex-col gap-4 p-6 sm:p-8'>
+            <p class='flex flex-wrap items-center gap-3 font-mono text-step--1 text-muted'>
+              <span class='tag tag-accent'>{t.blogPage.new}</span>
+              <time datetime={latest.data.pubDate.toISOString().slice(0, 10)}>{formatDate(latest.data.pubDate, lang)}</time>
+              <span aria-hidden='true'>·</span>
+              <span>{fmt(t.blogPage.minRead, { n: readingTime(latest) })}</span>
+            </p>
+            <h3 class='t-h2'>
+              <a class='stretched-link' href={postHref(latest)}>
+                {latest.data.title}
+              </a>
+            </h3>
+            <p class='t-lead'>{latest.data.description}</p>
+            <ul class='mt-auto flex flex-wrap gap-1.5 pt-2' aria-label={t.common.topics}>
+              {latest.data.tags.map(tag => (
+                <li class='tag'>{t.blog.tags[tag]}</li>
+              ))}
+            </ul>
+          </div>
+        </article>
+      </section>
+    )
+  }
+
+  {
+    rest.length > 0 && (
+      <section class='container-site mt-16' aria-labelledby='all-posts'>
+        <div class='flex flex-wrap items-baseline justify-between gap-3'>
+          <h2 id='all-posts' class='t-h3'>
+            {t.blog.allPosts}
+          </h2>
+          <p class='font-mono text-step--1 text-muted' data-filter-status='blog' data-template={t.blogPage.count} aria-live='polite'>
+            {fmt(t.blogPage.count, { n: rest.length })}
+          </p>
+        </div>
+        <Filter group='blog' label={t.blogPage.filterLabel} options={filterOptions} />
+        <ul class='mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
+          {rest.map(post => (
+            <BlogCard post={post} filterGroup='blog' />
+          ))}
+        </ul>
+        <p data-filter-empty='blog' hidden class='py-8 text-muted'>
+          {t.blogPage.empty}
+        </p>
+      </section>
+    )
+  }
+</BaseLayout>

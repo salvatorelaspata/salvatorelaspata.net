@@ -1,0 +1,50 @@
+---
+// Gruppo di chip filtro. Gli elementi filtrabili sono già nel DOM con
+// [data-filter-item="<group>"][data-tags="a b c"]: senza JS si vede tutto.
+// Il conteggio vive in [data-filter-status="<group>"] (aria-live) fuori da qui.
+interface Props {
+  group: string
+  label: string
+  options: { value: string; label: string; count?: number }[]
+}
+
+const { group, label, options } = Astro.props
+---
+
+<div
+  class='-mx-1 mt-5 flex gap-2 overflow-x-auto px-1 pb-2 sm:flex-wrap sm:overflow-visible'
+  role='group'
+  aria-label={label}
+  data-filter-group={group}
+>
+  {
+    options.map((o, i) => (
+      <button type='button' class='chip' data-filter={o.value} aria-pressed={i === 0 ? 'true' : 'false'}>
+        {o.label}
+        {o.count !== undefined && <span class='chip-count'>{o.count}</span>}
+      </button>
+    ))
+  }
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-filter-group]').forEach(group => {
+    const name = group.dataset.filterGroup
+    const items = document.querySelectorAll<HTMLElement>(`[data-filter-item="${name}"]`)
+    const status = document.querySelector<HTMLElement>(`[data-filter-status="${name}"]`)
+    const empty = document.querySelector<HTMLElement>(`[data-filter-empty="${name}"]`)
+    const buttons = group.querySelectorAll<HTMLButtonElement>('[data-filter]')
+    const apply = (value: string) => {
+      let n = 0
+      items.forEach(el => {
+        const show = value === 'all' || (el.dataset.tags ?? '').split(' ').includes(value)
+        el.hidden = !show
+        if (show) n++
+      })
+      buttons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.filter === value)))
+      if (status) status.textContent = (status.dataset.template ?? '{n}').replace('{n}', String(n))
+      if (empty) empty.hidden = n !== 0
+    }
+    buttons.forEach(b => b.addEventListener('click', () => apply(b.dataset.filter ?? 'all')))
+  })
+</script>

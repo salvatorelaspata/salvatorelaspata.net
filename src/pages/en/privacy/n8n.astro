@@ -1,7 +1,6 @@
 ---
-import Layout from '../../../layouts/Layout.astro'
-import HeaderSection from '../../../layouts/HeaderSection.astro'
-import BackButton from '../../../components/ui/BackButton.astro'
+import BaseLayout from '../../../layouts/BaseLayout.astro'
+import { href } from '../../../i18n'
 import {
   n8nGoogleScopes,
   n8nDisclosures,
@@ -20,34 +19,33 @@ const lastUpdated = new Date(N8N_LAST_UPDATED).toLocaleDateString('en-US', {
   year: 'numeric',
 })
 
-const card =
-  'bg-bg border-2 border-border p-5 sm:p-6 shadow-shadow shadow-[4px_4px_0px_rgba(0,0,0,1)]'
-const heading = 'text-xl sm:text-2xl font-bold text-text border-b-2 border-border pb-2 mb-4'
-const list = 'list-disc pl-5 space-y-2 text-sm sm:text-base leading-relaxed'
-const link = 'text-link hover:underline font-semibold break-words'
+const card = ''
+const heading = ''
+const list = ''
+const link = 'break-words'
 ---
 
-<Layout
+<BaseLayout
   title={`Privacy Policy - ${N8N_APP_NAME} | ${N8N_OWNER}`}
   description={`Privacy policy for the ${N8N_APP_NAME} application by ${N8N_OWNER}: which Google Drive and Google Sheets data is accessed through OAuth, and how it is used, stored, protected and deleted.`}
-  keywords="privacy policy, n8n, Google OAuth, Google Drive, Google Sheets, Limited Use, Salvatore La Spata"
 >
-  <BackButton />
-  <main class="min-h-screen max-w-4xl mx-auto px-5 py-12 bg-bg text-text">
-    <HeaderSection
-      title="Privacy Policy"
-      description={`"${N8N_APP_NAME}" application - access to Google Drive and Google Sheets via OAuth 2.0`}
-    />
+  <div class="container-site pb-8 pt-12 lg:pt-16">
+    <div class="prose-site max-w-[52rem]">
+    <header class="not-prose">
+      <p class="eyebrow">privacy</p>
+      <h1 class="t-h1 mt-3">Privacy Policy</h1>
+      <p class="t-lead mt-4">{`"${N8N_APP_NAME}" application - access to Google Drive and Google Sheets via OAuth 2.0`}</p>
+    </header>
 
     <div class="flex flex-col sm:flex-row sm:items-center gap-3 mb-10 text-sm">
-      <span class="border-2 border-border bg-palette5 text-palette1 px-3 py-1 font-bold w-fit">
+      <span class="border-2 border-line bg-accent-soft text-accent-ink px-3 py-1 font-bold w-fit">
         Last updated: {lastUpdated}
       </span>
-      <a href="/privacy/n8n" class={link} hreflang="it">Leggi questa pagina in italiano</a>
+      <a href={href('/privacy/n8n', 'it')} class={link} hreflang="it">Leggi questa pagina in italiano</a>
     </div>
 
     <aside
-      class="border-2 border-border bg-palette5 text-palette1 p-5 sm:p-6 mb-10 shadow-shadow shadow-[4px_4px_0px_rgba(0,0,0,1)]"
+      class="border-2 border-line bg-accent-soft text-accent-ink p-5 sm:p-6 mb-10 shadow-brut"
     >
       <h2 class="text-base sm:text-lg font-bold mb-3">Google API Limited Use Disclosure</h2>
       <p
@@ -67,7 +65,7 @@ const link = 'text-link hover:underline font-semibold break-words'
         <div class="space-y-3">
           {
             n8nDisclosures.map((item) => (
-              <div class="border-2 border-border p-4">
+              <div class="border-2 border-line p-4">
                 <h3 class="font-bold text-base mb-1">{item.en.label}</h3>
                 <p class="text-sm leading-relaxed">{item.en.text}</p>
               </div>
@@ -134,9 +132,9 @@ const link = 'text-link hover:underline font-semibold break-words'
         <div class="space-y-4">
           {
             n8nGoogleScopes.map((item) => (
-              <div class="border-2 border-border p-4">
+              <div class="border-2 border-line p-4">
                 <div class="flex flex-wrap items-center gap-2 mb-2">
-                  <span class="border-2 border-border bg-palette4 text-white px-2 py-0.5 text-xs font-bold">
+                  <span class="tag tag-accent font-semibold">
                     {item.api}
                   </span>
                   <code class="font-mono text-xs sm:text-sm break-all">{item.scope}</code>
@@ -186,7 +184,7 @@ const link = 'text-link hover:underline font-semibold break-words'
 
       <section class={card}>
         <h2 class={heading}>5. Use of Google API Services and User Data (Limited Use)</h2>
-        <blockquote class="border-2 border-border bg-palette5 text-palette1 p-4 mb-4">
+        <blockquote class="border-2 border-line bg-accent-soft text-accent-ink p-4 mb-4">
           <p
             class="text-sm sm:text-base leading-relaxed font-semibold"
             set:html={GOOGLE_LIMITED_USE_DISCLOSURE_EN}
@@ -363,5 +361,6 @@ const link = 'text-link hover:underline font-semibold break-words'
         </ul>
       </section>
     </div>
-  </main>
-</Layout>
+    </div>
+  </div>
+</BaseLayout>

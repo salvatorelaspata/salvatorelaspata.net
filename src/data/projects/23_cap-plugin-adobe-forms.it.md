@@ -1,8 +1,3 @@
-# CAP Plugin Adobe Forms
-
-**Categoria:** npm Package
-**Tecnologie:** SAP CAP, Node.js, Adobe Forms, OAuth2, XML
-
 ## Descrizione
 
 Plugin Node.js riutilizzabile per SAP CAP che integra il servizio **SAP Forms by Adobe** su SAP BTP. Permette di generare PDF da template Adobe Forms direttamente nelle applicazioni CAP, con supporto completo per autenticazione, localizzazione e accesso REST.
@@ -23,8 +18,3 @@ Plugin Node.js riutilizzabile per SAP CAP che integra il servizio **SAP Forms by
 ```bash
 npm install @salvatorela/cap-plugin-adobe-forms
 ```
-
-## Link
-
-- **npm:** [@salvatorela/cap-plugin-adobe-forms](https://www.npmjs.com/package/@salvatorela/cap-plugin-adobe-forms)
-- **GitHub:** [Repository](https://github.com/salvatorelaspata/cap-plugin-adobe-forms)

@@ -1,10 +1,23 @@
 {
   "id": 18,
   "slug": "http-like-restfull-vs-odata",
-  "title": "HTTP like RESTfull vs OData",
+  "title": "HTTP like RESTful vs OData",
   "subtitle": "slides",
-  "img": "logo-slides.svg",
+  "kind": "slide",
+  "featured": false,
+  "filters": [
+    "slide",
+    "sap"
+  ],
   "description": "SAP ed i suoi standard.. Restfull vs OData, un confronto tra due protocolli di comunicazione.",
-  "tecnologie": "Javascript",
-  "slides": "https://cloudflare-google-api.salvatore-la-spata.workers.dev/http-like-restfull-vs-odata"
+  "summary": "RESTful e OData a confronto nel mondo SAP.",
+  "technologies": [
+    "JavaScript"
+  ],
+  "slides": "https://cloudflare-google-api.salvatore-la-spata.workers.dev/http-like-restfull-vs-odata",
+  "en": {
+    "subtitle": "Slides",
+    "summary": "RESTful and OData compared in the SAP world.",
+    "description": "SAP and its standards… RESTful vs OData, a comparison between two communication protocols."
+  }
 }

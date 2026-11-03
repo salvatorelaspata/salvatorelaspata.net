@@ -3,9 +3,24 @@
   "slug": "viewer-3d-lit-loader",
   "title": "viewer-3d-lit-loader",
   "subtitle": "npm package",
-  "img": "logo-npm.svg",
+  "kind": "npm",
+  "featured": false,
+  "filters": [
+    "npm",
+    "3d"
+  ],
   "description": "Un loader per il viewer 3d.",
-  "tecnologie": "Lit Element, TS, Three js.",
+  "summary": "Loader per il viewer 3D basato su Lit.",
+  "technologies": [
+    "Lit",
+    "TypeScript",
+    "Three.js"
+  ],
+  "github": "https://github.com/salvatorelaspata/viewer-3d-loader",
   "npm": "https://www.npmjs.com/package/viewer-3d-lit-loader",
-  "github": "https://github.com/salvatorelaspata/viewer-3d-loader"
+  "en": {
+    "subtitle": "npm package",
+    "summary": "A loader for the Lit-based 3D viewer.",
+    "description": "A loader for the 3D viewer."
+  }
 }

@@ -14,5 +14,8 @@
   },
   "observability": {
     "enabled": true
-  }
+  },
+  // Richiesto da `wrangler preview`, il comando di deploy delle build Cloudflare
+  // sui branch diversi da main. Vuoto: le preview ereditano la configurazione sopra.
+  "previews": {}
 }

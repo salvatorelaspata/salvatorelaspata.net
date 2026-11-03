@@ -1,0 +1,76 @@
+---
+import { createHash } from 'node:crypto'
+import Icon from './Icon.astro'
+import type { IconName } from '../lib/icons'
+import { withBase } from '../i18n'
+
+// Copertina deterministica 320×180: griglia 8×4 di celle 40×45.
+// Ogni cella usa un byte dell'hash SHA-1 dello slug: vuota o no, colore (palette1…5,
+// segue il tema) e forma (quadrato, triangolo, cerchio, barra).
+interface Props {
+  slug: string
+  icon: string
+  img?: string
+  alt?: string
+  class?: string
+}
+
+const { slug, icon, img, alt = '', class: className = '' } = Astro.props
+
+const COLS = 8
+const ROWS = 4
+const W = 40
+const H = 45
+
+// 20 byte di SHA-1 non bastano per 32 celle: si concatena l'hash dell'hash
+const first = createHash('sha1').update(slug).digest('hex')
+const second = createHash('sha1').update(first).digest('hex')
+const bytes = (first + second).match(/../g)!.map(h => parseInt(h, 16))
+
+const shapes: string[] = []
+for (let i = 0; i < COLS * ROWS; i++) {
+  const b = bytes[i]
+  if (b % 10 < 3) continue // ~30% di celle vuote
+  const x = (i % COLS) * W
+  const y = Math.floor(i / COLS) * H
+  const fill = `style="fill:var(--palette${((b >> 2) % 5) + 1})"`
+  switch ((b >> 5) % 4) {
+    case 0:
+      shapes.push(`<rect x="${x}" y="${y}" width="${W}" height="${H}" ${fill}/>`)
+      break
+    case 1:
+      shapes.push(`<path d="M${x} ${y + H}L${x + W} ${y}V${y + H}Z" ${fill}/>`)
+      break
+    case 2:
+      shapes.push(`<circle cx="${x + W / 2}" cy="${y + H / 2}" r="14" ${fill}/>`)
+      break
+    default:
+      shapes.push(`<rect x="${x}" y="${y + 18}" width="${W}" height="9" ${fill}/>`)
+  }
+}
+---
+
+<div class={`relative overflow-hidden bg-surface-2 ${className}`}>
+  {
+    img ? (
+      <img src={withBase(img.startsWith('/') ? img : `/${img}`)} alt={alt} class='block h-full w-full object-cover' loading='lazy' decoding='async' />
+    ) : (
+      <>
+        <svg
+          viewBox='0 0 320 180'
+          preserveAspectRatio='xMidYMid slice'
+          class='block h-full w-full'
+          aria-hidden='true'
+          focusable='false'
+          set:html={shapes.join('')}
+        />
+        <span
+          class='absolute bottom-3 left-3 grid h-11 w-11 place-items-center rounded-sm border-2 border-line bg-surface text-ink shadow-brut-sm'
+          aria-hidden='true'
+        >
+          <Icon name={icon as IconName} />
+        </span>
+      </>
+    )
+  }
+</div>

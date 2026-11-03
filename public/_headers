@@ -1,11 +1,17 @@
 # Header per gli asset statici su Cloudflare (Workers static assets / Pages).
-# Allineati a nginx/nginx.conf, con la CSP aperta a Cal.com per l'embed di prenotazione.
-# GitHub Pages e nginx non lo interpretano (gli header di nginx sono in nginx/nginx.conf).
-# script-src include data: perché il ClientRouter di Astro inserisce uno script
-# `data:application/javascript,` per attendere gli script inline dopo la navigazione.
+# Allineati a nginx/nginx.conf. GitHub Pages e nginx non leggono questo file.
+# Nessuno script di terze parti: le prenotazioni Cal.com sono link diretti.
 /*
   X-Frame-Options: SAMEORIGIN
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=()
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' data: https://app.cal.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://app.cal.com; frame-src https://app.cal.com https://cal.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'
+
+# vCard scaricabile e inquadrabile dal QR code della sezione Contatti
+/salvatore-la-spata.vcf
+  Content-Type: text/vcard; charset=utf-8
+  Content-Disposition: attachment; filename="salvatore-la-spata.vcf"
+/en/salvatore-la-spata.vcf
+  Content-Type: text/vcard; charset=utf-8
+  Content-Disposition: attachment; filename="salvatore-la-spata.vcf"

@@ -3,9 +3,24 @@
   "slug": "viewer-3d-lit",
   "title": "viewer-3d-lit",
   "subtitle": "npm package",
-  "img": "logo-npm.svg",
+  "kind": "npm",
+  "featured": false,
+  "filters": [
+    "npm",
+    "3d"
+  ],
   "description": "Un viewer per oggetti 3d.",
-  "tecnologie": "Lit Element, TS, Three js.",
+  "summary": "Viewer di oggetti 3D come Web Component.",
+  "technologies": [
+    "Lit",
+    "TypeScript",
+    "Three.js"
+  ],
+  "github": "https://github.com/salvatorelaspata/viewer-3d-lit",
   "npm": "https://www.npmjs.com/package/viewer-3d-lit",
-  "github": "https://github.com/salvatorelaspata/viewer-3d-lit"
+  "en": {
+    "subtitle": "npm package",
+    "summary": "A 3D object viewer as a Web Component.",
+    "description": "A viewer for 3D objects."
+  }
 }

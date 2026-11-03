@@ -3,9 +3,21 @@
   "slug": "google-mediapipe",
   "title": "Google Mediapipe",
   "subtitle": "Project",
-  "img": "logo-code.svg",
+  "kind": "project",
+  "featured": false,
+  "filters": [
+    "altro"
+  ],
   "description": "Smanetting.",
-  "tecnologie": "Javascript",
+  "summary": "Esperimenti con Google Mediapipe.",
+  "technologies": [
+    "JavaScript"
+  ],
+  "github": "https://github.com/salvatorelaspata/mediapipe",
   "demo": "https://gracious-austin-c300be.netlify.app/",
-  "github": "https://github.com/salvatorelaspata/mediapipe"
+  "en": {
+    "subtitle": "Project",
+    "summary": "Experiments with Google Mediapipe.",
+    "description": "Tinkering."
+  }
 }

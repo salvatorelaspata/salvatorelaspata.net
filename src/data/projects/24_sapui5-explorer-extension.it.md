@@ -1,8 +1,3 @@
-# SAPUI5 Explorer
-
-**Categoria:** Chrome Extension
-**Tecnologie:** JavaScript, Chrome Extension Manifest V3, SAPUI5, OpenUI5
-
 ## Descrizione
 
 Estensione Chrome per analizzare in profondità applicazioni **SAPUI5/OpenUI5** in esecuzione nel browser. Pensata per sviluppatori SAP che necessitano di ispezionare la struttura runtime di un'applicazione UI5 senza accedere al codice sorgente.
@@ -22,8 +17,3 @@ Compatibile con **UI5 1.x** (dalla 1.90) e **UI5 2.x** con compatibility layer.
 - **Integrazione Fiori Launchpad:** info utente quando disponibile
 - **Analisi URL:** Fiori intents, parametri, flag tecnici
 - **Esportazione JSON:** copia dati completi negli appunti
-
-## Link
-
-- **Chrome Web Store:** [Installa l'estensione](https://chromewebstore.google.com/detail/sapui5-explorer/kkfpfahpmnekpbjkljnbhbofjbimpcfn)
-- **GitHub:** [Repository](https://github.com/salvatorelaspata/sapui5-explorer-extension)
