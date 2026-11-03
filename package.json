@@ -9,9 +9,11 @@
   "scripts": {
     "dev": "npm run dev -w @salvatorelaspata/net",
     "dev:host": "npm run dev:host -w @salvatorelaspata/net",
+    "dev:dev": "npm run dev -w @salvatorelaspata/dev",
     "start": "npm run dev",
     "build": "npm run check -w @salvatorelaspata/content && npm run build --workspaces --if-present",
     "build:net": "npm run build -w @salvatorelaspata/net",
+    "build:dev": "npm run build -w @salvatorelaspata/dev",
     "test": "npm test --workspaces --if-present",
     "check:contrast": "npm run check:contrast --workspaces --if-present",
     "lint": "eslint apps/*/src packages/*/src",

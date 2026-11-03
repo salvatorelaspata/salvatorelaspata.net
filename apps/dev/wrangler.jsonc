@@ -1,0 +1,17 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "salvatorelaspata-dev",
+  "compatibility_date": "2026-11-01",
+  // Solo asset statici (dist/ generato da Astro): nessuno script Worker.
+  // Il dominio salvatorelaspata.dev si collega dalla dashboard (Custom Domains).
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  },
+  "observability": {
+    "enabled": true
+  },
+  // Richiesto da `wrangler preview`, il comando di deploy delle build Cloudflare
+  // sui branch diversi da main. Vuoto: le preview ereditano la configurazione sopra.
+  "previews": {}
+}

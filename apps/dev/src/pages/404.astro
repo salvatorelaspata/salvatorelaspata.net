@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { useT, toLang, fmt, href } from '../i18n'
+
+// Una sola 404 (italiana) servita per ogni percorso mancante, come su salvatorelaspata.net
+const lang = toLang(Astro.currentLocale)
+const t = useT(lang)
+---
+
+<BaseLayout title={`404 · ~/dev`} noindex>
+  <h1 class='err'>
+    <span class='sr-only'>{t.notFound.title}: </span>
+    <span data-missing>{fmt(t.notFound.error, { path: '~/404' })}</span>
+  </h1>
+  <p class='out'>
+    {t.notFound.hint}: <a class='path' href={href('/', lang)}>cd ~</a> · <a
+      class='path'
+      href={href('/blog/', lang)}>cd ~/blog</a
+    > · help
+  </p>
+  <script>
+    // Mostra il percorso davvero richiesto al posto del segnaposto
+    const missing = document.querySelector('[data-missing]')
+    if (missing)
+      missing.textContent = missing.textContent!.replace(
+        '~/404',
+        `~${decodeURIComponent(location.pathname)}`
+      )
+  </script>
+</BaseLayout>

@@ -7,6 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 Monorepo (npm workspaces) for Salvatore La Spata's personal sites. Both are static Astro builds that share one content package:
 
 - [apps/net/](apps/net/) — salvatorelaspata.net, the portfolio (design "Petrolio Tecnico"), Astro + Tailwind CSS + GSAP.
+- [apps/dev/](apps/dev/) — salvatorelaspata.dev, the same content as a terminal (plain CSS, no framework on the client).
 - [packages/content/](packages/content/) — `@salvatorelaspata/content`: profile, bio, projects, experiences, technologies, blog posts and their loaders/schemas. No UI.
 
 The rule: what is true about Salvatore (facts, bio, skills, projects, posts) lives in `packages/content`; how a site shows it (labels, section copy, CTAs, layout, CSS, Markdown rendering) lives in that site's app. An app never imports from another app.
@@ -17,20 +18,21 @@ Run from the repo root (they delegate to the workspaces), or inside a workspace 
 
 ### Development
 
-- `npm run dev` - Start the salvatorelaspata.net dev server on localhost (`dev:host` to expose it on the network)
+- `npm run dev` - Start the salvatorelaspata.net dev server on localhost:4321 (`dev:host` to expose it on the network)
+- `npm run dev:dev` - Start the salvatorelaspata.dev dev server on localhost:4322
 - `npm start` - Alias for `npm run dev`
 
 ### Checks
 
 - `npm test` - vCard unit tests (`node:test`, `packages/content/test/*.test.mjs`)
-- `npm run check:contrast` - WCAG contrast of the colour tokens in light and dark
+- `npm run check:contrast` - WCAG contrast of the colour tokens (net: light and dark; dev: green, amber, mono)
 - `npm run lint` / `npm run format` - ESLint / Prettier over `apps/*/src` and `packages/*/src`
 - `npm run check -w @salvatorelaspata/content` - Type-check the content package (`tsc --noEmit`)
 
 ### Build & Preview
 
 - `npm run build` - Type-check the content package, then build every app (each runs `astro check && astro build`)
-- `npm run build:net` - Build salvatorelaspata.net only (output in `apps/net/dist/`)
+- `npm run build:net` / `npm run build:dev` - Build one site (output in `apps/<name>/dist/`)
 - `npm run preview -w @salvatorelaspata/net` - Preview the production build locally
 
 ### Docker
@@ -55,6 +57,8 @@ The static build of salvatorelaspata.net (`apps/net/dist/`) is deployed to three
 - **Cloudflare Workers** (production): [apps/net/wrangler.jsonc](apps/net/wrangler.jsonc) serves `dist/` as static assets. The Worker script in [apps/net/worker/index.ts](apps/net/worker/index.ts) only runs for the routes in `assets.run_worker_first` (currently `/api/*`); everything else is served without invoking it. Static asset headers (CSP etc.) live in [apps/net/public/_headers](apps/net/public/_headers). Workers Builds settings: root directory `/`, build command `npm run build:net`, deploy command `npx wrangler deploy -c apps/net/wrangler.jsonc` (`npx wrangler versions upload -c apps/net/wrangler.jsonc` for non-production branches).
 - **GitHub Pages**: [.github/workflows/deploy.yml](.github/workflows/deploy.yml), built with `BASE_PATH=/salvatorelaspata.net`.
 - **Docker/nginx**: [.github/workflows/publish.yml](.github/workflows/publish.yml) pushes the image built from [apps/net/Dockerfile](apps/net/Dockerfile); headers are in [apps/net/nginx/nginx.conf](apps/net/nginx/nginx.conf).
+
+salvatorelaspata.dev is deployed only to Cloudflare Workers, as a second Worker (`salvatorelaspata-dev`, assets only, no script): [apps/dev/wrangler.jsonc](apps/dev/wrangler.jsonc), headers in [apps/dev/public/_headers](apps/dev/public/_headers). Workers Builds settings: root directory `/`, build command `npm run build:dev`, deploy command `npx wrangler deploy -c apps/dev/wrangler.jsonc`, build watch paths `apps/dev/*` and `packages/content/*`. The domain is attached in the dashboard (Custom Domains).
 
 Keep the Astro builds fully static (no Cloudflare adapter/SSR) so GitHub Pages and nginx keep working. Worker-only features go under `/api/*` in `worker/`, and the frontend must degrade gracefully when those endpoints are missing. The Worker has its own [apps/net/worker/tsconfig.json](apps/net/worker/tsconfig.json); wrangler requires Node >= 22 (see `.node-version`).
 
@@ -108,6 +112,18 @@ Every page goes through [BaseLayout.astro](apps/net/src/layouts/BaseLayout.astro
 
 - [astro.config.mjs](apps/net/astro.config.mjs): site `https://salvatorelaspata.net`, Tailwind (`applyBaseStyles: false`, the base comes from global.css), Sitemap, Shiki theme and rehype plugins from `src/lib/markdown.mjs`, i18n routing. No SSR.
 - TypeScript: Astro's strict configuration (`astro/tsconfigs/strict`) in every workspace.
+
+## salvatorelaspata.dev (`apps/dev`)
+
+A terminal: every section is a command and its output, every page is a "window" of a tmux-like status bar. Paths below are relative to `apps/dev/`.
+
+- Pages: `/` and `/en/` ([HomePage.astro](apps/dev/src/components/HomePage.astro): `neofetch` with the H1, `cat ~/.plan`, `cat about.md` + `tree ~/skills`, `cat stack.txt` + `ls ~/.tools/*`, `ls -l ~/projects`, `git log` of the experiences, latest posts, `cat contact.txt`), `/blog/`, `/blog/[urlSlug]` (opened with `less`, frontmatter header), `/projects/[slug]` (metadata as package.json), 404, `.vcf`. Same URLs as salvatorelaspata.net, so internal links in the Markdown work on both sites.
+- SEO: project and article pages set `canonical` to the same URL on salvatorelaspata.net and are left out of the sitemap (filter in [astro.config.mjs](apps/dev/astro.config.mjs)); home and blog index are canonical on .dev. RSS and the n8n privacy policy are linked from the footer on .net.
+- Sections use [Section.astro](apps/dev/src/components/Section.astro): the heading is the section name (screen-reader only) plus the command; the `user@host:~$` prompt is `aria-hidden`.
+- Interactive prompt: [Terminal.astro](apps/dev/src/components/Terminal.astro) + [src/scripts/terminal.ts](apps/dev/src/scripts/terminal.ts). It starts `hidden` and the script reveals it, so without JS the page is plain links. Data comes from `/terminal.json` and `/en/terminal.json` ([src/lib/terminal-data.ts](apps/dev/src/lib/terminal-data.ts)), fetched when the browser is idle or on first focus. Output is built with DOM nodes, never `innerHTML`. Commands: `help`, `whoami`, `neofetch`, `about`, `skills`, `stack`, `ls`, `cd`, `cat`, `open`, `projects [filter]`, `blog`, `grep`, `experience`/`git log`, `contact`, `lang`, `theme`, `clear`, `history` and a few easter eggs (`sudo`, `rm`, `vim`, `make coffee`). Tab completes, ↑↓ history (sessionStorage), Ctrl+L clears.
+- i18n: same pattern as net ([src/i18n/](apps/dev/src/i18n/), `Dict`, no hard-coded text); command names stay in English in both languages, their help text is translated.
+- Styles: plain CSS in [src/styles/global.css](apps/dev/src/styles/global.css), tokens on `:root` (theme green) and `[data-theme='amber'|'mono']`, all dark. The `theme` command stores the choice in localStorage (`term-theme`), applied by an inline script before first paint. Run `npm run check:contrast` after changing tokens. Box-drawing glyphs are not in the font subset, so decorative art is SVG (the neofetch logo) or CSS (tree and git log lines).
+- Prettier: `.astro` files here are formatted with `--jsx-single-quote` to match net's single-quoted attributes. Keep links on one line or build them in an expression: Prettier line breaks inside an `<a>` become spaces.
 
 ## Adding Content
 

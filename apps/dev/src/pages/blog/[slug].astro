@@ -1,0 +1,15 @@
+---
+import ArticlePage from '../../components/ArticlePage.astro'
+import { getPosts } from '../../lib/blog'
+
+export async function getStaticPaths() {
+  return (await getPosts('it')).map((post) => ({
+    params: { slug: post.data.urlSlug },
+    props: { post },
+  }))
+}
+
+const { post } = Astro.props
+---
+
+<ArticlePage post={post} />

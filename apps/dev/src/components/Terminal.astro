@@ -1,0 +1,46 @@
+---
+// Prompt interattivo. Funziona solo con JavaScript: parte nascosto e lo script lo mostra.
+// Senza JS tutta la pagina resta navigabile con i link.
+import { useT, toLang, withBase, localePath } from '../i18n'
+
+const lang = toLang(Astro.currentLocale)
+const t = useT(lang)
+const dataUrl = withBase(localePath('/terminal.json', lang))
+---
+
+<section
+  class='term'
+  id='term'
+  aria-labelledby='term-h'
+  data-src={dataUrl}
+  data-error={t.term.loadError}
+  data-loading={t.term.loading}
+  hidden
+>
+  <h2 id='term-h' class='sr-only'>{t.term.title}</h2>
+  <div class='term-log' id='term-log' role='log'></div>
+  <form class='term-form' id='term-form' autocomplete='off'>
+    <span class='ps1' aria-hidden='true'
+      ><span class='u'>salvatore@dev</span>:<span class='p' data-term-pwd>~</span>$</span
+    >
+    <input
+      id='term-input'
+      name='cmd'
+      type='text'
+      aria-label={t.term.inputLabel}
+      aria-describedby='term-hint'
+      autocomplete='off'
+      autocapitalize='off'
+      autocorrect='off'
+      spellcheck='false'
+      enterkeyhint='send'
+    />
+  </form>
+  <p class='term-hint' id='term-hint'>{t.term.hint}</p>
+</section>
+
+<script>
+  import { initTerminal } from '../scripts/terminal'
+
+  initTerminal()
+</script>

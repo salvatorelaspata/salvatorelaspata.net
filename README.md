@@ -3,11 +3,13 @@
 Source code for my personal websites, as an npm workspaces monorepo:
 
 - [`apps/net`](apps/net) — [salvatorelaspata.net](https://salvatorelaspata.net), the portfolio.
+- [`apps/dev`](apps/dev) — [salvatorelaspata.dev](https://salvatorelaspata.dev), the same content as a terminal.
 - [`packages/content`](packages/content) — the content both sites share: profile, bio, projects, experiences, technologies and blog posts.
 
 ```bash
 npm install
 npm run dev        # salvatorelaspata.net on localhost:4321
+npm run dev:dev    # salvatorelaspata.dev on localhost:4322
 npm run build      # every site
 ```
 

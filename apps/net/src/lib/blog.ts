@@ -1,4 +1,5 @@
 import { getCollection, type CollectionEntry } from 'astro:content'
+import { readingMinutes, tagSlug } from '@salvatorelaspata/content/blog'
 import { href, type Lang } from '../i18n'
 
 export type Post = CollectionEntry<'blog'>
@@ -9,25 +10,12 @@ export const getPosts = async (lang: Lang) =>
     (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
   )
 
-/** Minuti di lettura a ~200 parole al minuto (blocchi di codice inclusi). */
-export const readingTime = (post: Post) => {
-  const words = (post.body ?? '')
-    .replace(/^---[\s\S]*?---/, '')
-    .replace(/[#>*_`[\]()|-]/g, ' ')
-    .split(/\s+/)
-    .filter(Boolean).length
-  return Math.max(1, Math.round(words / 200))
-}
+/** Minuti di lettura dell'articolo (calcolo in packages/content). */
+export const readingTime = (post: Post) => readingMinutes(post.body)
 
 export const postHref = (post: Post) => href(`/blog/${post.data.urlSlug}`, post.data.lang)
 
-/** Slug per i filtri: "SAP BTP" → "sap-btp", "Accessibilità" → "accessibilita". */
-export const tagSlug = (tag: string) =>
-  tag
-    .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
-    .toLowerCase()
-    .replace(/\s+/g, '-')
+export { tagSlug }
 
 /** Traduzione dell'articolo nell'altra lingua, se pubblicata. */
 export const getTranslation = async (post: Post) => {

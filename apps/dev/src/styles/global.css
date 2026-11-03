@@ -1,0 +1,937 @@
+/* salvatorelaspata.dev — un terminale.
+   Tre temi scuri (data-theme su <html>): green (predefinito), amber, mono.
+   I contrasti delle coppie di token si verificano con `npm run check:contrast`. */
+
+:root {
+  --bg: #0b0f0c;
+  --bg-2: #121a14;
+  --line: #2b3d31;
+  --fg: #d2ead8;
+  --dim: #8aa995;
+  --accent: #5ff28e;
+  --path: #7cc4ff;
+  --warn: #f2d36b;
+  --err: #ff8080;
+  --focus: #ffe066;
+
+  --font:
+    'JetBrains Mono Variable', ui-monospace, 'SF Mono', Menlo, Consolas, 'Liberation Mono',
+    monospace;
+  --measure: 92ch;
+  --gutter: 16px;
+  --bar: 44px;
+  color-scheme: dark;
+}
+
+[data-theme='amber'] {
+  --bg: #0f0b05;
+  --bg-2: #19120a;
+  --line: #45351f;
+  --fg: #ffe2b3;
+  --dim: #c49c64;
+  --accent: #ffb43a;
+  --path: #ffd27a;
+  --warn: #fff0a0;
+  --err: #ff8f70;
+  --focus: #fff3c4;
+}
+
+[data-theme='mono'] {
+  --bg: #0c0c0c;
+  --bg-2: #171717;
+  --line: #3a3a3a;
+  --fg: #e8e8e8;
+  --dim: #a6a6a6;
+  --accent: #ffffff;
+  --path: #cfcfcf;
+  --warn: #f0f0f0;
+  --err: #ff9b9b;
+  --focus: #ffffff;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--bar) + 1rem);
+  scroll-padding-bottom: calc(var(--bar) + 1rem);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.6;
+  font-variant-ligatures: none;
+  overflow-wrap: break-word;
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-size: inherit;
+  font-weight: 700;
+  line-height: inherit;
+  margin: 0;
+}
+
+p,
+ul,
+ol,
+dl,
+pre,
+figure {
+  margin: 0;
+}
+
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+  padding: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--gutter);
+  top: -100px;
+  z-index: 50;
+  padding: 0.5rem 1rem;
+  background: var(--accent);
+  color: var(--bg);
+  font-weight: 700;
+}
+
+.skip-link:focus {
+  top: 0.5rem;
+}
+
+/* ---------- Finestra ---------- */
+
+.titlebar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: var(--bar);
+  padding: 0 var(--gutter);
+  background: var(--bg-2);
+  border-bottom: 1px solid var(--line);
+  color: var(--dim);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.titlebar .dots {
+  display: flex;
+  gap: 6px;
+  flex: none;
+}
+
+.titlebar .dots span {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--line);
+}
+
+.titlebar .dots span:first-child {
+  background: var(--err);
+}
+
+.titlebar .dots span:nth-child(2) {
+  background: var(--warn);
+}
+
+.titlebar .dots span:last-child {
+  background: var(--accent);
+}
+
+.titlebar .where {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+.screen {
+  width: 100%;
+  max-width: calc(var(--measure) + 2 * var(--gutter));
+  margin: 0 auto;
+  padding: 1.25rem var(--gutter) calc(var(--bar) + 2rem);
+}
+
+.screen > * + * {
+  margin-top: 2rem;
+}
+
+main:focus {
+  outline: none;
+}
+
+main > * + * {
+  margin-top: 2.5rem;
+}
+
+/* ---------- Prompt e output ---------- */
+
+.ps1 {
+  color: var(--dim);
+}
+
+.ps1 .u {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.ps1 .p {
+  color: var(--path);
+  font-weight: 700;
+}
+
+.cmd {
+  color: var(--fg);
+  font-weight: 700;
+}
+
+.cmdline {
+  font-weight: 400;
+}
+
+.out {
+  margin-top: 0.5rem;
+}
+
+.out > * + * {
+  margin-top: 1rem;
+}
+
+.dim {
+  color: var(--dim);
+}
+
+.accent {
+  color: var(--accent);
+}
+
+.path {
+  color: var(--path);
+}
+
+.warn {
+  color: var(--warn);
+}
+
+.err {
+  color: var(--err);
+}
+
+.comment {
+  color: var(--dim);
+}
+
+.comment::before {
+  content: '# ' / '';
+}
+
+.title-md {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.title-md::before {
+  content: '# ' / '';
+  color: var(--dim);
+}
+
+/* ---------- neofetch ---------- */
+
+.neofetch {
+  display: flex;
+  gap: 2.5rem;
+  align-items: flex-start;
+}
+
+.neofetch .logo {
+  flex: none;
+  margin-top: 0.4rem;
+  color: var(--accent);
+}
+
+.neofetch h1 {
+  color: var(--accent);
+}
+
+.neofetch .rule {
+  color: var(--dim);
+}
+
+.kv {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: 1ch;
+}
+
+.kv dt {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.kv dt::after {
+  content: ':';
+}
+
+.kv dd {
+  margin: 0;
+}
+
+.swatches {
+  display: flex;
+  margin-top: 0.75rem;
+}
+
+.swatches span {
+  width: 3ch;
+  height: 1.2em;
+}
+
+@media (max-width: 639px) {
+  .neofetch .logo {
+    display: none;
+  }
+}
+
+/* ---------- Tabelle in stile ls ---------- */
+
+.ls-l {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.ls-l li {
+  display: grid;
+  grid-template-columns: 11ch 11ch minmax(0, 1fr);
+  column-gap: 2ch;
+  padding: 0.1rem 0;
+}
+
+.ls-l .meta-2 {
+  color: var(--dim);
+}
+
+.ls-l .desc {
+  grid-column: 3;
+  color: var(--dim);
+}
+
+.ls-l a {
+  font-weight: 700;
+}
+
+@media (max-width: 639px) {
+  .ls-l li {
+    grid-template-columns: 11ch minmax(0, 1fr);
+  }
+
+  .ls-l .perm {
+    display: none;
+  }
+
+  .ls-l .desc {
+    grid-column: 2;
+  }
+}
+
+.cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(24ch, 1fr));
+  column-gap: 2ch;
+}
+
+.cols .learning {
+  color: var(--dim);
+}
+
+/* ---------- Stack a strati ---------- */
+
+.layers li {
+  display: grid;
+  grid-template-columns: 4ch 18ch minmax(0, 1fr);
+  column-gap: 2ch;
+  padding: 0.1rem 0;
+}
+
+@media (max-width: 639px) {
+  .layers li {
+    grid-template-columns: 4ch minmax(0, 1fr);
+  }
+
+  .layers li > :last-child {
+    grid-column: 2;
+  }
+}
+
+.bookings > li + li {
+  margin-top: 1rem;
+}
+
+/* ---------- tree ---------- */
+
+.tree,
+.tree ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tree ul {
+  padding-left: 4ch;
+}
+
+.tree li {
+  position: relative;
+}
+
+.tree ul > li::before {
+  content: '├── ' / '';
+  position: absolute;
+  left: -4ch;
+  color: var(--dim);
+}
+
+.tree ul > li:last-child::before {
+  content: '└── ' / '';
+}
+
+.tree ul > li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: calc(-4ch + 0.5ch);
+  top: 1.6em;
+  bottom: 0;
+  border-left: 1px solid var(--dim);
+}
+
+.tree .dir {
+  color: var(--path);
+  font-weight: 700;
+}
+
+.skill {
+  display: grid;
+  grid-template-columns: 22ch minmax(0, 1fr);
+  column-gap: 2ch;
+}
+
+@media (max-width: 639px) {
+  .skill {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- git log ---------- */
+
+.gitlog {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.gitlog > li {
+  position: relative;
+  padding-left: 3ch;
+  padding-bottom: 0.6rem;
+}
+
+.gitlog > li::before {
+  content: '*' / '';
+  position: absolute;
+  left: 0;
+  color: var(--warn);
+  font-weight: 700;
+}
+
+.gitlog > li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 0.5ch;
+  top: 1.6em;
+  bottom: 0;
+  border-left: 1px solid var(--warn);
+}
+
+.gitlog summary {
+  cursor: pointer;
+  list-style: none;
+  min-height: 44px;
+  padding: 0.6rem 0;
+  margin: -0.6rem 0 0;
+}
+
+.gitlog summary::-webkit-details-marker {
+  display: none;
+}
+
+.gitlog summary .hash {
+  color: var(--warn);
+}
+
+.gitlog summary .ref {
+  color: var(--path);
+}
+
+.gitlog summary .toggle {
+  color: var(--dim);
+}
+
+.gitlog details[open] .toggle .closed,
+.gitlog details:not([open]) .toggle .opened {
+  display: none;
+}
+
+.gitlog .body {
+  padding: 0.25rem 0 0.75rem 4ch;
+}
+
+.gitlog .body > * + * {
+  margin-top: 0.5rem;
+}
+
+.dash-list {
+  list-style: none;
+  padding: 0;
+}
+
+.dash-list > li {
+  position: relative;
+  padding-left: 2ch;
+}
+
+.dash-list > li::before {
+  content: '- ' / '';
+  position: absolute;
+  left: 0;
+  color: var(--dim);
+}
+
+/* ---------- Pulsanti/link "comando" ---------- */
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 700;
+}
+
+.cta::before {
+  content: '→ ' / '';
+  color: var(--dim);
+  font-weight: 400;
+  white-space: pre;
+}
+
+/* ---------- Blocchi e Markdown ---------- */
+
+.box {
+  border: 1px solid var(--line);
+  background: var(--bg-2);
+  padding: 0.75rem 1rem;
+}
+
+.frontmatter {
+  color: var(--dim);
+}
+
+.out.frontmatter > * + * {
+  margin-top: 0;
+}
+
+.end {
+  margin-top: 2.5rem;
+}
+
+.frontmatter .k {
+  color: var(--path);
+}
+
+.md {
+  max-width: 80ch;
+}
+
+.md > * + * {
+  margin-top: 1rem;
+}
+
+.md h2,
+.md h3,
+.md h4 {
+  color: var(--accent);
+  margin-top: 2rem;
+}
+
+.md h2::before {
+  content: '## ' / '';
+  color: var(--dim);
+}
+
+.md h3::before {
+  content: '### ' / '';
+  color: var(--dim);
+}
+
+.md h4::before {
+  content: '#### ' / '';
+  color: var(--dim);
+}
+
+.md ul,
+.md ol {
+  padding-left: 3ch;
+}
+
+.md ul {
+  list-style: '- ';
+}
+
+.md li + li {
+  margin-top: 0.25rem;
+}
+
+.md li::marker {
+  color: var(--dim);
+}
+
+.md strong {
+  color: var(--accent);
+}
+
+.md code {
+  color: var(--warn);
+}
+
+.md :not(pre) > code::before,
+.md :not(pre) > code::after {
+  content: '`' / '';
+  color: var(--dim);
+}
+
+.md pre {
+  padding: 1rem;
+  border: 1px solid var(--line);
+  background: var(--bg-2) !important;
+  overflow-x: auto;
+  font-size: 0.9em;
+  line-height: 1.5;
+}
+
+.md pre code {
+  color: inherit;
+}
+
+.md blockquote {
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 2ch;
+  border-left: 2px solid var(--path);
+  color: var(--fg);
+}
+
+.md blockquote > * + * {
+  margin-top: 0.5rem;
+}
+
+.md table {
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.9em;
+}
+
+.md th,
+.md td {
+  border: 1px solid var(--line);
+  padding: 0.35rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.md th {
+  color: var(--accent);
+}
+
+.md img {
+  max-width: 100%;
+  height: auto;
+}
+
+.md hr {
+  border: 0;
+  border-top: 1px dashed var(--line);
+}
+
+/* ---------- Terminale interattivo ---------- */
+
+.term {
+  border-top: 1px dashed var(--line);
+  padding-top: 1.5rem;
+}
+
+.term-log {
+  white-space: pre-wrap;
+}
+
+.term-log > * + * {
+  margin-top: 0.25rem;
+}
+
+.term-log .entry + .entry {
+  margin-top: 0.75rem;
+}
+
+.term-form {
+  display: flex;
+  align-items: center;
+  gap: 1ch;
+  margin-top: 0.75rem;
+}
+
+.term-form input {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--fg);
+  font: inherit;
+  font-size: max(16px, 1em);
+  caret-color: var(--accent);
+  caret-shape: block;
+}
+
+.term-form input:focus {
+  outline: none;
+}
+
+.term-form:focus-within {
+  outline: 2px solid var(--focus);
+  outline-offset: 6px;
+}
+
+.term-hint {
+  margin-top: 0.5rem;
+  color: var(--dim);
+}
+
+.cursor {
+  display: inline-block;
+  width: 1ch;
+  height: 1.15em;
+  vertical-align: text-bottom;
+  background: var(--accent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cursor {
+    animation: blink 1.1s steps(1) infinite;
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ---------- Barra di stato (tmux) ---------- */
+
+.statusbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  display: flex;
+  align-items: stretch;
+  height: var(--bar);
+  background: var(--accent);
+  color: var(--bg);
+  white-space: nowrap;
+  padding-bottom: env(safe-area-inset-bottom);
+  box-sizing: content-box;
+}
+
+.statusbar a {
+  color: var(--bg);
+  text-decoration: none;
+}
+
+.statusbar a:hover {
+  text-decoration: underline;
+}
+
+.statusbar :focus-visible {
+  outline: 2px solid var(--bg);
+  outline-offset: -4px;
+}
+
+.statusbar .session {
+  display: flex;
+  align-items: center;
+  padding: 0 1ch 0 var(--gutter);
+  font-weight: 700;
+}
+
+.statusbar .windows {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.statusbar .windows a,
+.statusbar .right a,
+.statusbar .right span {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 1ch;
+}
+
+.statusbar .windows a[aria-current='page'] {
+  background: var(--bg);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.statusbar .right {
+  display: flex;
+  align-items: stretch;
+  padding-right: calc(var(--gutter) - 1ch);
+}
+
+.statusbar .right [aria-current='true'] {
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+@media (max-width: 479px) {
+  .statusbar {
+    font-size: 14px;
+  }
+
+  .statusbar .session,
+  .statusbar .num {
+    display: none;
+  }
+
+  .statusbar .windows a,
+  .statusbar .right a {
+    padding: 0 0.7ch;
+  }
+
+  .statusbar .windows {
+    padding-left: calc(var(--gutter) - 0.7ch);
+  }
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  color: var(--dim);
+}
+
+.site-footer ul {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 2ch;
+}
+
+.site-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* ---------- Metadati in stile package.json ---------- */
+
+.json div {
+  padding-left: 2ch;
+}
+
+.json dt,
+.json dd {
+  display: inline;
+  margin: 0;
+}
+
+.json dt {
+  color: var(--path);
+}
+
+.json dt::before {
+  content: '"' / '';
+}
+
+.json dt::after {
+  content: '": ' / '';
+}
+
+.json div:not(:last-child) dd::after {
+  content: ',' / '';
+  color: var(--dim);
+}

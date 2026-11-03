@@ -21,3 +21,17 @@ export const blogSchema = z.object({
   relatedProject: z.string().optional(),
   draft: z.boolean().default(false),
 })
+
+/** Minuti di lettura a ~200 parole al minuto (blocchi di codice inclusi). */
+export const readingMinutes = (body = '') => {
+  const words = body
+    .replace(/^---[\s\S]*?---/, '')
+    .replace(/[#>*_`[\]()|-]/g, ' ')
+    .split(/\s+/)
+    .filter(Boolean).length
+  return Math.max(1, Math.round(words / 200))
+}
+
+/** Slug per i filtri: "SAP BTP" → "sap-btp", "Accessibilità" → "accessibilita". */
+export const tagSlug = (tag: string) =>
+  tag.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/\s+/g, '-')
