@@ -1,5 +1,6 @@
 # Header per gli asset statici su Cloudflare Workers. Nessuno script di terze parti:
 # lo script inline è solo l'anti-FOUC del tema, le prenotazioni Cal.com sono link diretti.
+# Allineati a apps/net/public/_headers e a nginx/nginx.conf (immagini Docker).
 /*
   X-Frame-Options: SAMEORIGIN
   X-Content-Type-Options: nosniff

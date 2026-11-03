@@ -1,17 +1,24 @@
+# Un'immagine per sito: APP=net (salvatorelaspata.net, predefinito) o APP=dev (salvatorelaspata.dev).
+# Contesto di build: la root del monorepo, per esempio
+#   docker build --build-arg APP=dev -t salvatorela/salvatorelaspata.dev .
+ARG APP=net
+
 # Lo stage di build gira sempre sull'architettura nativa del builder ($BUILDPLATFORM):
 # dist/ è statico e identico per ogni piattaforma, e il compilatore WASM di Astro
 # va in crash sotto emulazione QEMU (build linux/arm64 su runner amd64).
-# Contesto di build: la root del monorepo (docker build -f apps/net/Dockerfile .).
 FROM --platform=$BUILDPLATFORM node:lts-alpine AS build
+ARG APP
 WORKDIR /app
 COPY package*.json ./
 COPY apps/net/package.json apps/net/
+COPY apps/dev/package.json apps/dev/
 COPY packages/content/package.json packages/content/
-RUN npm ci --omit=dev -w @salvatorelaspata/net -w @salvatorelaspata/content
+RUN npm ci --omit=dev -w @salvatorelaspata/${APP} -w @salvatorelaspata/content
 COPY . .
-RUN npm run build -w @salvatorelaspata/net
+RUN npm run build -w @salvatorelaspata/${APP}
 
 FROM nginx:stable-alpine-slim AS runtime
+ARG APP
 
 # Update Alpine packages to get security patches
 RUN apk update && apk upgrade --no-cache
@@ -21,8 +28,8 @@ RUN addgroup -g 101 -S nginx 2>/dev/null || true && \
     adduser -S -D -H -u 101 -h /var/cache/nginx -s /sbin/nologin -G nginx -g nginx nginx 2>/dev/null || true
 
 # Copy configuration and built files
-COPY ./apps/net/nginx/nginx.conf /etc/nginx/nginx.conf
-COPY --from=build --chown=nginx:nginx /app/apps/net/dist /usr/share/nginx/html
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+COPY --from=build --chown=nginx:nginx /app/apps/${APP}/dist /usr/share/nginx/html
 
 # Set proper permissions.
 # NB: nginx:*-alpine-slim non contiene /etc/nginx/conf.d (e nginx.conf non lo
@@ -38,6 +45,7 @@ USER nginx
 
 EXPOSE 4321
 
-# Health check
+# Health check. 127.0.0.1 e non localhost: nell'immagine localhost risolve prima in ::1
+# e nginx ascolta solo su IPv4, quindi il controllo falliva sempre.
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:4321/ || exit 1
+  CMD wget --no-verbose --tries=1 --spider http://127.0.0.1:4321/ || exit 1

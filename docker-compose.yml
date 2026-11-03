@@ -6,3 +6,9 @@ services:
     restart: always
     container_name: salvatorelaspata.net
     image: salvatorela/salvatorelaspata.net
+  salvatorelaspata.dev:
+    ports:
+      - "4322:4321"
+    restart: always
+    container_name: salvatorelaspata.dev
+    image: salvatorela/salvatorelaspata.dev
